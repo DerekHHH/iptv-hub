@@ -36,8 +36,10 @@ export interface UpstreamSource {
 }
 
 /**
- * 默认 5 个公开上游（设计 §6-1），全部走 raw + jsDelivr 双通道。
+ * 默认 8 个公开上游（设计 §6-1），全部走 raw + jsDelivr 双通道。
  * 增删改只动这里，其它文件不感知。
+ *
+ * 顺序 = 抓取顺序（并发），也是 `stats.upstream[]` 的展示顺序。
  */
 export const UPSTREAMS: readonly UpstreamSource[] = [
   {
@@ -87,6 +89,34 @@ export const UPSTREAMS: readonly UpstreamSource[] = [
     jsdelivrUrl: 'https://cdn.jsdelivr.net/gh/Free-TV/IPTV@master/playlists/playlist_china.m3u8',
     format: 'm3u',
     fixture: 'upstream-free-tv-china.m3u',
+  },
+  {
+    name: 'iptv-org-mo',
+    label: 'iptv-org 澳门',
+    // 实测 10 个澳门频道；raw 偶发 TLS 抖动，jsDelivr 稳定，故双通道都要配
+    rawUrl: 'https://raw.githubusercontent.com/iptv-org/iptv/master/streams/mo.m3u',
+    jsdelivrUrl: 'https://cdn.jsdelivr.net/gh/iptv-org/iptv@master/streams/mo.m3u',
+    format: 'm3u',
+    fixture: 'upstream-iptv-org-mo.m3u',
+  },
+  {
+    name: 'guovin-iptv-api',
+    label: 'guovin/iptv-api 聚合',
+    // ⚠️ 产物在 **gd 分支**（不是默认分支 master），这是实测可用的地址，别改成 master
+    // 实测 1619 条，自带测速与分组（group-title 形如 `☘️广东频道`），价值最高
+    rawUrl: 'https://raw.githubusercontent.com/guovin/iptv-api/gd/output/result.m3u',
+    jsdelivrUrl: 'https://cdn.jsdelivr.net/gh/guovin/iptv-api@gd/output/result.m3u',
+    format: 'm3u',
+    fixture: 'upstream-guovin-iptv-api.m3u',
+  },
+  {
+    name: 'akira-curated',
+    label: 'akiralereal/iptv 精选',
+    // 实测 34 条，人工精选 + 可用性复核，含翡翠台 / 公视 / 民视 / 台视 / TVBS / 凤凰
+    rawUrl: 'https://raw.githubusercontent.com/akiralereal/iptv/main/IPTV.m3u',
+    jsdelivrUrl: 'https://cdn.jsdelivr.net/gh/akiralereal/iptv@main/IPTV.m3u',
+    format: 'm3u',
+    fixture: 'upstream-akira-curated.m3u',
   },
 ];
 
@@ -163,8 +193,18 @@ export const SELECT = {
   maxPerChannel: 3,
   /** 判活所需的至少 1 个存活源（0 存活则该频道剔除） */
   minAlivePerChannel: 1,
-  /** 候选源上限，超出按分组权重 + userAdded 截断 */
-  maxCandidates: 3000,
+  /**
+   * 候选源上限，超出按分组权重 + userAdded 截断。
+   *
+   * 从 3000 提到 5000 的原因：新增 `guovin/iptv-api`（实测 1619 条）后候选量到 2500~3000+，
+   * 3000 会在「其他」组尾部被截断，白白丢掉可用源。
+   *
+   * 时间预算（`PROBE.deadlineMs` 保持 17 分钟不变）：
+   *   5000 条 / 64 并发 = 78 批，最坏情况每条都吃满 `PROBE.timeoutMs` = 8 秒
+   *   → 78 × 8s ≈ 625s ≈ 10.4 分钟 < 17 分钟 deadline，
+   *   再叠加抓取（数秒）与 EPG（≤12s/源）仍在 25 分钟 workflow 预算内。
+   */
+  maxCandidates: 5000,
 } as const;
 
 /** 黑名单参数。 */

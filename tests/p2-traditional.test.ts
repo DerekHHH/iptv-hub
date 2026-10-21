@@ -32,7 +32,8 @@ describe('繁体 → 简体归一', () => {
 
   it('澳視澳門 与 澳视澳门 → 同一个 slug', () => {
     expect(slugOf('澳視澳門')).toBe(slugOf('澳视澳门'));
-    expect(slugOf('澳視澳門')).toBe('tcl-macau');
+    // 增量改造：slug 由 tcl-macau 统一为 tdm-oumun（与上游 TDM 命名对齐），语义断言不变
+    expect(slugOf('澳視澳門')).toBe('tdm-oumun');
   });
 
   it('無綫新聞台 / 互動新聞台 → tvb-news', () => {
@@ -47,7 +48,8 @@ describe('繁体 → 简体归一', () => {
 
   it('HOY TV 与 澳視葡文 有独立 slug，不落到哈希兜底', () => {
     expect(slugOf('HOY TV')).toBe('hoy-tv');
-    expect(slugOf('澳視葡文')).toBe('tdm-portuguese');
+    // 增量改造：slug 由 tdm-portuguese 统一为 tdm-pm（与 TDM 命名对齐），语义断言不变
+    expect(slugOf('澳視葡文')).toBe('tdm-pm');
     expect(slugOf('澳視葡文')).not.toBe(slugOf('澳視澳門'));
   });
 

@@ -1,0 +1,33 @@
+#EXTM3U
+# akiralereal/iptv 精选源快照（精简，用于 MOCK 模式离线跑通；真实上游约 34 条）
+# 特征：人工精选 + 可用性复核，频道名多为「中文名 + 英文名」混排，常带画质括号
+#EXTINF:-1 group-title="港澳台",翡翠台 (1080p)
+https://example.com/akira/tvb-jade.m3u8
+#EXTINF:-1 group-title="港澳台",明珠台 (1080p)
+https://example.com/akira/tvb-pearl.m3u8
+#EXTINF:-1 group-title="港澳台",无线新闻台 (1080p)
+https://example.com/akira/tvb-news.m3u8
+#EXTINF:-1 group-title="港澳台",J2 (1080p)
+https://example.com/akira/j2.m3u8
+#EXTINF:-1 group-title="港澳台",ViuTV (1080p)
+https://example.com/akira/viutv.m3u8
+#EXTINF:-1 group-title="港澳台",HOY TV (1080p)
+https://example.com/akira/hoy-tv.m3u8
+#EXTINF:-1 group-title="港澳台",凤凰卫视中文台 (1080p)
+https://example.com/akira/phoenix-chinese.m3u8
+#EXTINF:-1 group-title="港澳台",澳视澳门 (720p)
+https://example.com/akira/tdm-oumun.m3u8
+#EXTINF:-1 group-title="港澳台",公视 (1080p)
+https://example.com/akira/pts.m3u8
+#EXTINF:-1 group-title="港澳台",民视新闻台 (1080p)
+https://example.com/akira/ftv-news.m3u8
+#EXTINF:-1 group-title="港澳台",台视 (1080p)
+https://example.com/akira/ttv.m3u8
+#EXTINF:-1 group-title="港澳台",TVBS 新闻台 (1080p)
+https://example.com/akira/tvbs-news.m3u8
+#EXTINF:-1 group-title="广东",大湾区卫视 (1080p)
+https://example.com/akira/gd-bayarea.m3u8
+#EXTINF:-1 group-title="央视",CCTV-1 综合 (1080p)
+https://example.com/akira/cctv1.m3u8
+#EXTINF:-1 group-title="央视",CCTV-5+ 体育赛事 (1080p)
+https://example.com/akira/cctv5plus.m3u8

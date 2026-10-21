@@ -181,7 +181,34 @@ MOCK_MODE=1 npm run validate:local   # 完全离线跑一遍完整流水线，�
 npm run build          # 真实联网跑一次（约 10 分钟）
 npm run web:build      # 构建网页到 site/
 npm run pages:assemble # 把 site/ + dist/ 装配成可发布的 pages-out/
+npm run check:upstreams # 只查上游：逐个抓一遍，看谁挂了、能解析出多少条
 ```
+
+### 上游自检：`npm run check:upstreams`
+
+`npm run build` 会先抓源、再花十几分钟测活，**"源挂了"和"源里的地址都死了"在日志里很容易混**。
+这个脚本只回答一个问题：上游本身还活着吗、还能解析出多少条目？
+
+```bash
+npm run check:upstreams
+```
+
+输出示例（每个上游先试 GitHub Raw，失败自动切 jsDelivr）：
+
+```
+name                | 通道      | HTTP    | 字节数    | 解析条目数  | 耗时ms
+----------------------------------------------------------------------------
+iptv-org-cn         | raw       | 200     | 1234567  | 512        | 820
+iptv-org-mo         | jsdelivr  | 200     | 34567    | 10         | 640
+guovin-iptv-api     | raw       | 200     | 2345678  | 1619       | 1500
+...
+成功率：9/9（100%），总条目数 2480
+```
+
+- 退出码 `0`：至少一个上游可用（部分失败会在末尾列出名字，构建仍能继续）。
+- 退出码 `1`：**所有**上游 raw 与 jsDelivr 双通道全失败 —— 此时 `npm run build` 必然进入
+  `stale` 降级（保留上一版产物），先修网络/上游地址再来。
+- 上游清单只在 `src/config.ts` 的 `UPSTREAMS` 里维护，脚本自动读取，不用改脚本。
 
 目录结构：
 

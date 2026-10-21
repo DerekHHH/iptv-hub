@@ -29,6 +29,13 @@ export interface Stream {
   origin: string;
   /** 来自 custom/sources.txt 的用户自填源，优先级最高 */
   userAdded?: boolean;
+  /**
+   * 上游自带的分组名（M3U 的 `group-title="☘️广东频道"` / TXT 的 `分组名,#genre#`）。
+   *
+   * 只作为**分类提示**使用：规则表命中时忽略它，规则表未命中时优先于名称关键词推断
+   * （见 `normalize/group.ts` 的判定优先级）。缺失表示该行没有分组信息。
+   */
+  upstreamGroup?: string;
 }
 
 /** 归一后的频道，是产物生成的基本单位。 */

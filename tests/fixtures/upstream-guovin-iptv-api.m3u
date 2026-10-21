@@ -1,0 +1,33 @@
+#EXTM3U
+# guovin/iptv-api（gd 分支）产物快照（精简，用于 MOCK 模式离线跑通；真实上游约 1619 条）
+# 特征：自带测速与分组，group-title 带 emoji 前缀，一个频道行可挂多个地址（# 分隔）
+#EXTINF:-1 group-title="☘️央视频道",CCTV-1 综合
+https://example.com/guovin/cctv1-1.m3u8#https://example.com/guovin/cctv1-2.m3u8
+#EXTINF:-1 group-title="☘️央视频道",CCTV-5 体育
+https://example.com/guovin/cctv5-1.m3u8
+#EXTINF:-1 group-title="☘️央视频道",CCTV-5+ 体育赛事
+https://example.com/guovin/cctv5plus-1.m3u8
+#EXTINF:-1 group-title="☘️广东频道",广东珠江
+https://example.com/guovin/gd-zhujiang-1.m3u8
+#EXTINF:-1 group-title="☘️广东频道",大湾区卫视
+https://example.com/guovin/gd-bayarea-1.m3u8
+#EXTINF:-1 group-title="☘️广东频道",广东经济科教
+https://example.com/guovin/gd-tvs1-1.m3u8
+#EXTINF:-1 group-title="☘️广东频道",佛山综合
+https://example.com/guovin/fs-foshan-1.m3u8
+#EXTINF:-1 group-title="☘️广东频道",广州综合
+https://example.com/guovin/gz-general-1.m3u8
+#EXTINF:-1 group-title="☘️港澳台频道",翡翠台
+https://example.com/guovin/tvb-jade-1.m3u8
+#EXTINF:-1 group-title="☘️港澳台频道",明珠台
+https://example.com/guovin/tvb-pearl-1.m3u8
+#EXTINF:-1 group-title="☘️港澳台频道",澳视澳门
+https://example.com/guovin/tdm-oumun-1.m3u8
+#EXTINF:-1 group-title="☘️港澳台频道",凤凰卫视中文台
+https://example.com/guovin/phoenix-chinese-1.m3u8
+#EXTINF:-1 group-title="☘️浙江频道",浙江卫视
+https://example.com/guovin/zhejiang-1.m3u8
+#EXTINF:-1 group-title="☘️湖南频道",湖南卫视
+https://example.com/guovin/hunan-1.m3u8
+#EXTINF:-1 group-title="☘️衛視頻道",东方卫视
+https://example.com/guovin/dragon-1.m3u8

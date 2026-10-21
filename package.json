@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "web:dev": "vite --config web/vite.config.ts",
     "web:build": "vite build --config web/vite.config.ts",
-    "pages:assemble": "node scripts/assemble-pages.mjs"
+    "pages:assemble": "node scripts/assemble-pages.mjs",
+    "check:upstreams": "node scripts/check-upstreams.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",

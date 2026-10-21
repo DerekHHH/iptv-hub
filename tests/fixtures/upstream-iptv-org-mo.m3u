@@ -1,0 +1,22 @@
+#EXTM3U x-tvg-url="https://iptv-org.github.io/epg/guides/mo.xml"
+# 澳门源快照（精简，用于 MOCK 模式离线跑通；真实上游约 10 条）
+#EXTINF:-1 tvg-id="TDMoumun.mo" tvg-name="TDM Ou Mun" tvg-logo="https://example.com/logo/tdm-oumun.png" group-title="Macau",TDM Ou Mun (澳視澳門) (1080p)
+https://example.com/mo/tdm-oumun/index.m3u8
+#EXTINF:-1 tvg-id="TDMCanalMacau.mo" tvg-name="TDM Canal Macau" group-title="Macau",TDM Canal Macau (澳視葡文) (720p)
+https://example.com/mo/tdm-canal-macau/index.m3u8
+#EXTINF:-1 tvg-id="TDMSports.mo" tvg-name="TDM Sports" group-title="Macau",TDM Sports (澳視體育) (1080p)
+https://example.com/mo/tdm-sports/index.m3u8
+#EXTINF:-1 tvg-id="LotusMacau.mo" tvg-name="Lotus Macau" group-title="Macau",Lotus Macau (澳門蓮花衛視) (576i)
+https://example.com/mo/lotus-macau/index.m3u8
+#EXTINF:-1 tvg-id="MSTV.mo" tvg-name="MSTV" group-title="Macau",MSTV (澳門衛視) (720p)
+https://example.com/mo/mstv/index.m3u8
+#EXTINF:-1 tvg-id="MacauAsia.mo" tvg-name="Macau Asia" group-title="Macau",Macau Asia Satellite TV (澳亞衛視) (576i)
+https://example.com/mo/macau-asia/index.m3u8
+#EXTINF:-1 tvg-id="CCTV4.mo" tvg-name="CCTV-4 中文国际" group-title="Macau",CCTV-4 中文国际 (1080p) [Not 24/7]
+https://example.com/mo/cctv4/index.m3u8
+#EXTINF:-1 tvg-id="RTHK31.mo" tvg-name="RTHK TV 31" group-title="Macau",RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]
+https://example.com/mo/rthk31/index.m3u8
+#EXTINF:-1 tvg-id="TVBJade.mo" tvg-name="Jade" group-title="Macau",Jade (1080p)
+https://example.com/mo/jade/index.m3u8
+#EXTINF:-1 tvg-id="TDMInfo.mo" tvg-name="TDM Informação" group-title="Macau",TDM Informação (澳視資訊) (576i)
+https://example.com/mo/tdm-info/index.m3u8

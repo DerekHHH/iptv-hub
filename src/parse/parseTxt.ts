@@ -18,8 +18,9 @@ export const GENRE_MARKER = '#genre#';
 /**
  * 解析 TXT 文本。
  *
- * 分组头本身不产出 Stream —— 分组由频道名归一规则判定（保证与 M3U 口径一致），
- * 上游自己写的分组名只当注释忽略。
+ * 分组头本身不产出 Stream —— 它只会作为 `Stream.upstreamGroup` 透传给下方频道行，
+ * 供归一阶段当**分类提示**使用（规则表命中时以规则表为准，见 `normalize/group.ts`）。
+ * 也就是说分组头的最终话语权仍小于规则表，不会出现「上游乱分组把 CCTV 塞进港澳台」。
  *
  * @param text 原始文本
  * @param origin 来源标识
@@ -28,9 +29,14 @@ export const GENRE_MARKER = '#genre#';
 export function parseTxt(text: string, origin: string): Stream[] {
   const lines = toCleanLines(text);
   const streams: Stream[] = [];
+  /** 当前分组头的名字（`分组名,#genre#` 里逗号前的部分）。 */
+  let currentGroup = '';
 
   for (const line of lines) {
-    if (line.includes(GENRE_MARKER)) {
+    const genreIndex = line.indexOf(GENRE_MARKER);
+    if (genreIndex >= 0) {
+      // `分组名,#genre#` 或 `#genre#`（无组名）：前者记录分组名，后者清空
+      currentGroup = line.slice(0, genreIndex).replace(/,\s*$/, '').trim();
       continue;
     }
     if (line.startsWith('#')) {
@@ -42,7 +48,7 @@ export function parseTxt(text: string, origin: string): Stream[] {
       if (looksLikeUrl(line)) {
         for (const url of splitUrlField(line)) {
           // 纯 URL 无频道名 → rawName 为空，归一阶段直接丢弃（约定 §8-4）
-          streams.push(makeStream(url, '', origin));
+          streams.push(makeStream(url, '', origin, { upstreamGroup: currentGroup }));
         }
       }
       continue;
@@ -56,7 +62,7 @@ export function parseTxt(text: string, origin: string): Stream[] {
 
     const candidates = splitUrlField(urlField).filter((url) => looksLikeUrl(url));
     for (const url of candidates) {
-      streams.push(makeStream(url, rawName, origin));
+      streams.push(makeStream(url, rawName, origin, { upstreamGroup: currentGroup }));
     }
   }
 

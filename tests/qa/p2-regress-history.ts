@@ -159,8 +159,12 @@ async function main(): Promise<void> {
   {
     const dir = await prepare('h1-fetch-fail', 200);
     process.chdir(dir);
+    // 9 个上游里挂掉 6 个 → 失败率 66% ≥ 50%（UPSTREAMS 数量变化时需同步）
     const stats = await run({
-      fetchImpl: makeFetch({ doc: buildTxt(NAMES), failPattern: /streams\/(cn|hk|tw)\.m3u/ }),
+      fetchImpl: makeFetch({
+        doc: buildTxt(NAMES),
+        failPattern: /streams\/(cn|hk|tw|mo)\.m3u|guovin-iptv-api|akiralereal/,
+      }),
     });
     const history = await readHistory(dir);
     const last = history?.items.at(-1);
@@ -196,7 +200,11 @@ async function main(): Promise<void> {
   {
     const dir = await prepare('h3-double-stale', 200);
     process.chdir(dir);
-    const failing = () => makeFetch({ doc: buildTxt(NAMES), failPattern: /streams\/(cn|hk|tw)\.m3u/ });
+    const failing = () =>
+      makeFetch({
+        doc: buildTxt(NAMES),
+        failPattern: /streams\/(cn|hk|tw|mo)\.m3u|guovin-iptv-api|akiralereal/,
+      });
     await run({ fetchImpl: failing() });
     const afterFirst = await readHistory(dir);
     await run({ fetchImpl: failing() });

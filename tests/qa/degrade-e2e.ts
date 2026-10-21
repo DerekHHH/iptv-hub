@@ -238,11 +238,12 @@ async function main() {
     const dir = await prepareSandbox('s1-fetch-fail', 200);
     process.chdir(dir);
 
-    // 6 个上游里挂掉 3 个（iptv-org 的 cn / hk / tw）→ 失败率正好 50%
+    // 让 9 个上游里挂掉 6 个（iptv-org 的 cn/hk/tw/mo + guovin + akira）→ 失败率 66% ≥ 50%
+    // 注：UPSTREAMS 数量变化时这里要同步（需保持"多数上游失败"才落在失败率分支）
     const stats = await run({
       fetchImpl: makeFetch({
         upstreamDoc: buildTxt(CHANNEL_NAMES),
-        failPattern: /streams\/(cn|hk|tw)\.m3u/,
+        failPattern: /streams\/(cn|hk|tw|mo)\.m3u|guovin-iptv-api|akiralereal/,
       }),
     });
     const untouched = await productsUntouched(dir);

@@ -68,6 +68,8 @@ export function parseM3U(text: string, origin: string): Stream[] {
   const streams: Stream[] = [];
   let pendingName = '';
   let pendingLogo = '';
+  /** 待透传给下一条地址的上游分组名（来自 group-title）。 */
+  let pendingGroup = '';
 
   for (const line of lines) {
     if (line.startsWith(EXTINF_PREFIX)) {
@@ -78,6 +80,7 @@ export function parseM3U(text: string, origin: string): Stream[] {
         pendingName = meta.tvgId;
       }
       pendingLogo = meta.logo;
+      pendingGroup = meta.groupTitle;
       continue;
     }
 
@@ -91,10 +94,14 @@ export function parseM3U(text: string, origin: string): Stream[] {
     }
 
     for (const url of splitUrlField(line)) {
-      streams.push(makeStream(url, pendingName, origin, { logo: pendingLogo }));
+      // group-title 透传：上游自带的分组是很强的分类信号（见 normalize/group.ts 优先级）
+      streams.push(
+        makeStream(url, pendingName, origin, { logo: pendingLogo, upstreamGroup: pendingGroup }),
+      );
     }
     pendingName = '';
     pendingLogo = '';
+    pendingGroup = '';
   }
 
   return streams;

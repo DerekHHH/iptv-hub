@@ -33,6 +33,7 @@ export const HMT_KEYWORDS: readonly string[] = [
   '香港', '澳门', '台湾', '翡翠', '明珠', 'TVB', '无线', '凤凰', 'VIUTV', 'NOW',
   '中天', '东森', '三立', '民视', '台视', '中视', '华视', '公视', 'TVBS', '澳视',
   '莲花', 'MACAU', 'HONGKONG', 'TAIWAN', 'STAR', 'TVBS', '八大', '非凡', '寰宇',
+  '緯來', '纬来', 'RTHK', '港台', 'HOY', 'TDM', 'VIDEOLAND',
 ];
 
 /** 广东地市关键词 → 分组判定用（含 21 个地级市）。 */
@@ -106,51 +107,284 @@ const CCTV_SPECIAL_RULES: ChannelRule[] = [
   },
 ];
 
-/** 港澳台频道规则（优先命中，放在前面）。 */
+/**
+ * 港澳台频道规则（优先命中，放在前面）。
+ *
+ * 说明：公开源里港澳台频道**大量使用英文名**（`Jade` / `Pearl` / `TVB News` /
+ * `ViuTV` / `TDM Ou Mun`），只写中文名会全部落到哈希兜底 slug，导致同一台被拆成多条。
+ * 因此每条规则都必须同时带英文名与繁体名的别名。
+ */
 const HMT_RULES: ChannelRule[] = [
-  { id: 'tvb-jade', name: '翡翠台', group: '港澳台', epgId: 'TVBJade', aliases: ['翡翠台', 'TVBJADE', '无线翡翠台', 'TVB翡翠台', 'TVB翡翠', '翡翠', '無綫翡翠台', '無線翡翠台'] },
-  { id: 'tvb-pearl', name: '明珠台', group: '港澳台', epgId: 'TVBPearl', aliases: ['明珠台', 'TVBPEARL', '无线明珠台', 'TVB明珠台', '明珠'] },
-  { id: 'tvb-news', name: '无线新闻台', group: '港澳台', epgId: 'TVBNews', aliases: ['无线新闻台', 'TVB新闻台', 'TVBN', '无线新闻', 'TVB新闻', '無綫新聞台', '無線新聞台', '互動新聞台', '互动新闻台'] },
-  { id: 'tvb-finance', name: '无线财经资讯台', group: '港澳台', epgId: 'TVBFinance', aliases: ['无线财经', 'TVB财经', '无线财经资讯台', 'TVBFINANCE'] },
-  { id: 'tvb-j2', name: 'TVB Plus', group: '港澳台', epgId: 'TVBPlus', aliases: ['TVBJ2', 'J2', 'TVBPLUS', '无线J2'] },
-  { id: 'tvb-hd-jade', name: '无线高清翡翠台', group: '港澳台', epgId: 'TVBHdJade', aliases: ['高清翡翠台', 'TVBHDJADE', '无线高清'] },
-  { id: 'hk-open-tv', name: '香港开电视', group: '港澳台', epgId: 'HKOpenTV', aliases: ['香港开电视', '开电视', 'HKOPENTV', '奇妙电视'] },
-  { id: 'viutv', name: 'ViuTV', group: '港澳台', epgId: 'ViuTV', aliases: ['VIUTV', 'VIU TV', '香港VIUTV'] },
-  { id: 'viutv-six', name: 'ViuTVsix', group: '港澳台', epgId: 'ViuTVsix', aliases: ['VIUTVSIX', 'VIU6', 'VIUTV6'] },
-  { id: 'rthk-31', name: '港台电视31', group: '港澳台', epgId: 'RTHK31', aliases: ['港台31', 'RTHK31', '香港电台31', '港台电视31'] },
-  { id: 'rthk-32', name: '港台电视32', group: '港澳台', epgId: 'RTHK32', aliases: ['港台32', 'RTHK32', '香港电台32', '港台电视32'] },
-  { id: 'rthk-33', name: '港台电视33', group: '港澳台', epgId: 'RTHK33', aliases: ['港台33', 'RTHK33', '香港电台33', '港台电视33'] },
-  { id: 'phoenix-chinese', name: '凤凰卫视中文台', group: '港澳台', epgId: 'PhoenixChinese', aliases: ['凤凰卫视', '凤凰中文台', '凤凰卫视中文台', 'PHOENIXCHINESE', '凤凰'] },
-  { id: 'phoenix-info', name: '凤凰卫视资讯台', group: '港澳台', epgId: 'PhoenixInfo', aliases: ['凤凰资讯台', '凤凰卫视资讯台', 'PHOENIXINFO', '凤凰资讯'] },
-  { id: 'phoenix-hk', name: '凤凰卫视香港台', group: '港澳台', epgId: 'PhoenixHK', aliases: ['凤凰香港台', '凤凰卫视香港台', 'PHOENIXHK'] },
-  { id: 'now-news', name: 'now 新闻台', group: '港澳台', epgId: 'NowNews', aliases: ['NOW新闻台', 'NOWTV新闻', 'NOW新闻'] },
-  { id: 'now-finance', name: 'now 财经台', group: '港澳台', epgId: 'NowFinance', aliases: ['NOW财经台', 'NOWTV财经', 'NOW财经'] },
-  { id: 'tcl-macau', name: '澳视澳门', group: '港澳台', epgId: 'TDMChn', aliases: ['澳视澳门', '澳门澳视', 'TDM澳门', '澳门卫视', '澳视', '澳視澳門', '澳門澳視'] },
-  { id: 'tdm-portuguese', name: '澳视葡文', group: '港澳台', epgId: 'TDMCanalMacau', aliases: ['澳视葡文', '澳視葡文', '澳门葡文台', 'TDMCanalMacau'] },
-  { id: 'hoy-tv', name: 'HOY TV', group: '港澳台', epgId: 'HOYTV', aliases: ['HOYTV', 'HOY TV', 'HOY77', 'HOY 77', 'HOY77台', '奇妙77台', '奇妙電視77台'] },
-  { id: 'macau-lotus', name: '莲花卫视', group: '港澳台', epgId: 'LotusTV', aliases: ['莲花卫视', '澳门莲花'] },
-  { id: 'ttv', name: '台视', group: '港澳台', epgId: 'TTV', aliases: ['台视', 'TTV', '台湾电视'] },
-  { id: 'ctv-tw', name: '中视', group: '港澳台', epgId: 'CTV', aliases: ['中视', 'CTV', '中国电视'] },
-  { id: 'cts', name: '华视', group: '港澳台', epgId: 'CTS', aliases: ['华视', 'CTS'] },
-  { id: 'ptt', name: '公视', group: '港澳台', epgId: 'PTS', aliases: ['公视', 'PTS', '公共电视'] },
-  { id: 'tvbs-news', name: 'TVBS 新闻台', group: '港澳台', epgId: 'TVBSNews', aliases: ['TVBS新闻', 'TVBSNEWS', 'TVBS新闻台'] },
-  { id: 'cti-news', name: '中天新闻台', group: '港澳台', epgId: 'CTINews', aliases: ['中天新闻', '中天新闻台', 'CTINEWS'] },
-  { id: 'ettv-news', name: '东森新闻台', group: '港澳台', epgId: 'ETTVNews', aliases: ['东森新闻', '东森新闻台', 'ETTVNEWS', '东森'] },
-  { id: 'set-news', name: '三立新闻台', group: '港澳台', epgId: 'SETNews', aliases: ['三立新闻', '三立新闻台', 'SETNEWS', '三立'] },
-  { id: 'ftv-news', name: '民视新闻台', group: '港澳台', epgId: 'FTVNews', aliases: ['民视新闻', '民视新闻台', 'FTVNEWS', '民视'] },
+  // ---------------------------------------------------------------- 香港 · TVB
+  {
+    id: 'tvb-jade',
+    name: '翡翠台',
+    group: '港澳台',
+    epgId: 'TVBJade',
+    aliases: ['Jade', 'TVB Jade', 'TVBJade', '無綫翡翠台', '无线翡翠台', '無線翡翠台', '翡翠台', 'TVB翡翠台', 'TVB翡翠', 'TVBJADE', '翡翠'],
+  },
+  {
+    id: 'tvb-pearl',
+    name: '明珠台',
+    group: '港澳台',
+    epgId: 'TVBPearl',
+    aliases: ['Pearl', 'TVB Pearl', 'TVBPearl', '無綫明珠台', '无线明珠台', '明珠台', 'TVB明珠台', 'TVBPEARL', '明珠'],
+  },
+  {
+    id: 'tvb-news',
+    name: '无线新闻台',
+    group: '港澳台',
+    epgId: 'TVBNews',
+    aliases: ['TVB News', '無綫新聞台', '無線新聞台', '无线新闻', '无线新闻台', 'TVBN', 'TVB新闻台', 'TVB新闻', '互動新聞台', '互动新闻台', 'TVBNEWS'],
+  },
+  {
+    id: 'j2',
+    name: 'J2',
+    group: '港澳台',
+    epgId: 'TVBPlus',
+    aliases: ['J2', 'TVB J2', '無綫J2', '无线J2', 'TVBJ2', 'TVB Plus', 'TVBPLUS'],
+  },
+  {
+    id: 'tvb-finance',
+    name: '无线财经资讯台',
+    group: '港澳台',
+    epgId: 'TVBFinance',
+    aliases: ['无线财经', 'TVB财经', '无线财经资讯台', 'TVBFINANCE', 'TVB Finance', '無綫財經台'],
+  },
+  {
+    id: 'tvb-hd-jade',
+    name: '无线高清翡翠台',
+    group: '港澳台',
+    epgId: 'TVBHdJade',
+    aliases: ['高清翡翠台', 'TVBHDJADE', '无线高清', 'TVB HD Jade'],
+  },
+  // ---------------------------------------------------------------- 香港 · ViuTV / HOY
+  {
+    id: 'viutv',
+    name: 'ViuTV',
+    group: '港澳台',
+    epgId: 'ViuTV',
+    aliases: ['ViuTV', 'Viu TV', 'VIUTV', 'VIUTV99', 'ViuTV99', '99台', '香港VIUTV'],
+  },
+  {
+    id: 'viutv-six',
+    name: 'ViuTVsix',
+    group: '港澳台',
+    epgId: 'ViuTVsix',
+    aliases: ['ViuTVsix', 'ViuTV six', 'VIUTVSIX', 'VIU6', 'VIUTV6', '96台'],
+  },
+  {
+    id: 'hoy-tv',
+    name: 'HOY TV',
+    group: '港澳台',
+    epgId: 'HOYTV',
+    aliases: ['HOY TV', 'HOYTV', 'HOY', 'HOY77', 'HOY 77', 'HOY77台', '奇妙77台', '奇妙電視77台', '香港开电视', '開電視', '开电视', 'HKOPENTV', '奇妙电视'],
+  },
+  // ---------------------------------------------------------------- 香港 · RTHK 31~36
+  // iptv-org 香港源的真实写法：`RTHK TV 31 (港台電視31) (1080p) [Geo-blocked]`
+  // —— 去掉 `(1080p)` 与 `[Geo-blocked]` 后仍带 `(港台電視31)`，故两种写法都要收进别名。
+  {
+    id: 'rthk-31',
+    name: '港台电视31',
+    group: '港澳台',
+    epgId: 'RTHK31',
+    aliases: ['RTHK TV 31', 'RTHK 31', 'RTHKTV31', '港台電視31', '港台电视31', '港台31', 'RTHK31', '香港电台31', 'RTHK TV 31 (港台電視31)', 'RTHK 31 (港台電視31)'],
+  },
+  {
+    id: 'rthk-32',
+    name: '港台电视32',
+    group: '港澳台',
+    epgId: 'RTHK32',
+    aliases: ['RTHK TV 32', 'RTHK 32', 'RTHKTV32', '港台電視32', '港台电视32', '港台32', 'RTHK32', '香港电台32', 'RTHK TV 32 (港台電視32)', 'RTHK 32 (港台電視32)'],
+  },
+  {
+    id: 'rthk-33',
+    name: '港台电视33',
+    group: '港澳台',
+    epgId: 'RTHK33',
+    aliases: ['RTHK TV 33', 'RTHK 33', 'RTHKTV33', '港台電視33', '港台电视33', '港台33', 'RTHK33', '香港电台33', 'RTHK TV 33 (港台電視33)', 'RTHK 33 (港台電視33)'],
+  },
+  {
+    id: 'rthk-34',
+    name: '港台电视34',
+    group: '港澳台',
+    epgId: 'RTHK34',
+    aliases: ['RTHK TV 34', 'RTHK 34', 'RTHKTV34', '港台電視34', '港台电视34', '港台34', 'RTHK34', '香港电台34', 'RTHK TV 34 (港台電視34)', 'RTHK 34 (港台電視34)'],
+  },
+  {
+    id: 'rthk-35',
+    name: '港台电视35',
+    group: '港澳台',
+    epgId: 'RTHK35',
+    aliases: ['RTHK TV 35', 'RTHK 35', 'RTHKTV35', '港台電視35', '港台电视35', '港台35', 'RTHK35', '香港电台35', 'RTHK TV 35 (港台電視35)', 'RTHK 35 (港台電視35)'],
+  },
+  {
+    id: 'rthk-36',
+    name: '港台电视36',
+    group: '港澳台',
+    epgId: 'RTHK36',
+    aliases: ['RTHK TV 36', 'RTHK 36', 'RTHKTV36', '港台電視36', '港台电视36', '港台36', 'RTHK36', '香港电台36', 'RTHK TV 36 (港台電視36)', 'RTHK 36 (港台電視36)'],
+  },
+  // ---------------------------------------------------------------- 香港 · 凤凰 / 香港卫视 / now
+  {
+    id: 'phoenix-chinese',
+    name: '凤凰卫视中文台',
+    group: '港澳台',
+    epgId: 'PhoenixChinese',
+    aliases: ['凤凰中文', '凤凰卫视', '鳳凰衛視', 'Phoenix Chinese', '凤凰中文台', '凤凰卫视中文台', 'PHOENIXCHINESE', '凤凰'],
+  },
+  {
+    id: 'phoenix-info',
+    name: '凤凰卫视资讯台',
+    group: '港澳台',
+    epgId: 'PhoenixInfo',
+    aliases: ['凤凰资讯', '鳳凰資訊', 'Phoenix InfoNews', 'Phoenix Info', '凤凰资讯台', '凤凰卫视资讯台', 'PHOENIXINFO'],
+  },
+  {
+    id: 'phoenix-hk',
+    name: '凤凰卫视香港台',
+    group: '港澳台',
+    epgId: 'PhoenixHK',
+    aliases: ['凤凰香港', '鳳凰香港', 'Phoenix HK', '凤凰香港台', '凤凰卫视香港台', 'PHOENIXHK'],
+  },
+  {
+    id: 'hkstv',
+    name: '香港卫视',
+    group: '港澳台',
+    epgId: 'HKSTV',
+    aliases: ['香港卫视', '香港衛視', 'Hong Kong Satellite TV', 'HKSTV'],
+  },
+  {
+    id: 'now-news',
+    name: 'now 新闻台',
+    group: '港澳台',
+    epgId: 'NowNews',
+    aliases: ['NOW新闻台', 'NOWTV新闻', 'NOW新闻', 'now News'],
+  },
+  {
+    id: 'now-finance',
+    name: 'now 财经台',
+    group: '港澳台',
+    epgId: 'NowFinance',
+    aliases: ['NOW财经台', 'NOWTV财经', 'NOW财经', 'now Finance'],
+  },
+  // ---------------------------------------------------------------- 澳门（TDM / 莲花）
+  {
+    id: 'tdm-oumun',
+    name: '澳视澳门',
+    group: '港澳台',
+    epgId: 'TDMChn',
+    aliases: ['澳视澳门', '澳視澳門', 'TDM Ou Mun', 'TDM澳門', 'TDM澳门', '澳门澳视', '澳門澳視', 'TDM OUMUN', '澳视', '澳门卫视'],
+  },
+  {
+    id: 'tdm-pm',
+    name: '澳视葡文',
+    group: '港澳台',
+    epgId: 'TDMCanalMacau',
+    aliases: ['澳视葡文', '澳視葡文', 'TDM Canal Macau', 'TDMCANALMACAU', 'TDM葡文', '澳门葡文台'],
+  },
+  {
+    id: 'lotus-macau',
+    name: '澳门莲花卫视',
+    group: '港澳台',
+    epgId: 'LotusTV',
+    aliases: ['澳门莲花卫视', '澳門蓮花衛視', 'Lotus Macau', 'LOTUSMACAU', '莲花卫视', '澳门莲花', '澳門蓮花'],
+  },
+  // ---------------------------------------------------------------- 台湾
+  {
+    id: 'ttv',
+    name: '台视',
+    group: '港澳台',
+    epgId: 'TTV',
+    aliases: ['台视', '台視', 'TTV', '台湾电视', 'TTV HD'],
+  },
+  {
+    id: 'ctv-tw',
+    name: '中视',
+    group: '港澳台',
+    epgId: 'CTV',
+    aliases: ['中视', '中視', 'CTV', 'CTV TW', '中国电视'],
+  },
+  {
+    id: 'cts',
+    name: '华视',
+    group: '港澳台',
+    epgId: 'CTS',
+    aliases: ['华视', '華視', 'CTS'],
+  },
+  {
+    id: 'ptt',
+    name: '公视',
+    group: '港澳台',
+    epgId: 'PTS',
+    aliases: ['公视', '公視', 'PTS', '公共电视', '公共電視'],
+  },
+  {
+    id: 'tvbs-news',
+    name: 'TVBS 新闻台',
+    group: '港澳台',
+    epgId: 'TVBSNews',
+    aliases: ['TVBS', 'TVBS Asia', 'TVBS 新闻台', 'TVBS新闻', 'TVBS新闻台', 'TVBSNEWS', 'TVBS新聞'],
+  },
+  {
+    id: 'cti-news',
+    name: '中天新闻台',
+    group: '港澳台',
+    epgId: 'CTINews',
+    aliases: ['中天新闻', '中天新聞', '中天新闻台', '中天新聞台', 'CTINEWS'],
+  },
+  {
+    id: 'ettv-news',
+    name: '东森新闻台',
+    group: '港澳台',
+    epgId: 'ETTVNews',
+    aliases: ['东森', '東森', '东森新闻', '東森新聞', '东森新闻台', 'ETTVNEWS'],
+  },
+  {
+    id: 'set-news',
+    name: '三立新闻台',
+    group: '港澳台',
+    epgId: 'SETNews',
+    aliases: ['三立', '三立新闻', '三立新聞', '三立新闻台', 'SETNEWS'],
+  },
+  {
+    id: 'ftv-news',
+    name: '民视新闻台',
+    group: '港澳台',
+    epgId: 'FTVNews',
+    aliases: ['民视', '民視', '民视新闻', '民視新聞', '民视新闻台', 'FTVNEWS', 'FTV'],
+  },
+  {
+    id: 'videoland',
+    name: '纬来',
+    group: '港澳台',
+    epgId: 'Videoland',
+    aliases: ['纬来', '緯來', 'Videoland', 'VIDEOLAND', '纬来综合', '緯來綜合'],
+  },
 ];
 
-/** 广东本地频道规则。 */
+/**
+ * 广东本地频道规则。
+ *
+ * ⚠️ 背景（别改回去）：
+ * - `南方卫视` 已于 2022-07-29 经广电总局批准更名为 `大湾区卫视`，公开源里**不存在**"南方卫视"，
+ *   所以必须靠别名把它映射到 `gd-bayarea`（大湾区卫视）。
+ * - 广东广播电视台的 TVS 系列编号：TVS-1 经济科教、TVS-2 南方/大湾区、TVS-3 综艺（**2018 年已停播，不要加**）、
+ *   TVS-4 影视、TVS-5 少儿。
+ */
 const GD_RULES: ChannelRule[] = [
   { id: 'gd-zhujiang', name: '广东珠江', group: '广东', epgId: 'GDZhuJiang', aliases: ['广东珠江', '珠江频道', '珠江台', 'GDTV珠江', '珠江'] },
   { id: 'gd-sports', name: '广东体育', group: '广东', epgId: 'GDSports', aliases: ['广东体育', '广东体育频道', 'GDTV体育', '广东体育台'] },
   { id: 'gd-news', name: '广东新闻', group: '广东', epgId: 'GDNews', aliases: ['广东新闻', '广东新闻频道', 'GDTV新闻'] },
   { id: 'gd-public', name: '广东公共', group: '广东', epgId: 'GDPublic', aliases: ['广东公共', '广东公共频道', 'GDTV公共'] },
-  { id: 'gd-economy', name: '广东经济科教', group: '广东', epgId: 'GDEconomy', aliases: ['广东经济科教', '广东科教', '广东经济', 'GDTV经济科教'] },
-  { id: 'gd-movie', name: '广东影视', group: '广东', epgId: 'GDMovie', aliases: ['广东影视', '广东影视娱乐', 'GDTV影视'] },
-  { id: 'gd-kids', name: '广东少儿', group: '广东', epgId: 'GDKids', aliases: ['广东少儿', '广东少儿频道', 'GDTV少儿'] },
-  { id: 'gd-bayarea', name: '广东大湾区', group: '广东', epgId: 'GDBayArea', aliases: ['大湾区卫视', '广东大湾区', '大湾区频道', 'GDBayArea'] },
-  { id: 'gd-southern', name: '南方卫视', group: '广东', epgId: 'SouthernTV', aliases: ['南方卫视', '南方电视台', 'SOUTHERNTV'] },
+  // 大湾区卫视（原南方卫视，TVS-2）
+  { id: 'gd-bayarea', name: '大湾区卫视', group: '广东', epgId: 'GDBayArea', aliases: ['大湾区卫视', '大灣區衛視', '南方卫视', '南方衛視', 'TVS-2', 'TVS2', '广东大湾区', '大湾区频道', 'GDBayArea'] },
+  // 广东经济科教（TVS-1）
+  { id: 'gd-tvs1', name: '广东经济科教', group: '广东', epgId: 'GDEconomy', aliases: ['广东经济科教', '南方经济科教', 'TVS-1', 'TVS1', '广东经视', '广东科教', '广东经济', 'GDTV经济科教'] },
+  // 广东影视（TVS-4）
+  { id: 'gd-tvs4', name: '广东影视', group: '广东', epgId: 'GDMovie', aliases: ['广东影视', '南方影视', 'TVS-4', 'TVS4', '广东影视娱乐', 'GDTV影视'] },
+  // 广东少儿（TVS-5）
+  { id: 'gd-tvs5', name: '广东少儿', group: '广东', epgId: 'GDKids', aliases: ['广东少儿', '南方少儿', 'TVS-5', 'TVS5', '广东少儿频道', 'GDTV少儿'] },
   { id: 'gz-general', name: '广州综合', group: '广东', epgId: 'GZGeneral', aliases: ['广州综合', '广州电视台综合', '广州台', 'GZTV综合'] },
   { id: 'gz-news', name: '广州新闻', group: '广东', epgId: 'GZNews', aliases: ['广州新闻', '广州新闻频道', 'GZTV新闻'] },
   { id: 'sz-city', name: '深圳都市', group: '广东', epgId: 'SZCity', aliases: ['深圳都市', '深圳都市频道', 'SZTV都市'] },
@@ -256,7 +490,75 @@ export const EPG_NAME_ALIASES: Readonly<Record<string, string>> = {
   '明珠台': 'tvb-pearl',
   '凤凰中文': 'phoenix-chinese',
   '凤凰卫视': 'phoenix-chinese',
+  'TDM Ou Mun': 'tdm-oumun',
+  '澳視澳門': 'tdm-oumun',
+  '澳视澳门': 'tdm-oumun',
+  'Lotus Macau': 'lotus-macau',
+  'GDBayArea': 'gd-bayarea',
+  '大湾区卫视': 'gd-bayarea',
 };
 
+/**
+ * 上游 `group-title` / `#genre#` 分组名 → 分组的提示规则。
+ *
+ * 为什么需要它：`guovin/iptv-api` 这类聚合源自带分组（`group-title="☘️广东频道"`），
+ * 这是比"猜频道名"强得多的分类信号 —— 例如 `佛山综合` 靠名字也能猜，但
+ * `CCTV-1 综合` 在不同上下文里可能是港澳台转发源，此时上游分组才是真相。
+ *
+ * 注意：它只是**提示**，优先级低于规则表的显式 group（见 `normalize/group.ts`）。
+ * 顺序即匹配优先级。
+ */
+export interface GroupHintRule {
+  /** 匹配分组名（已去掉 emoji / 符号）的正则 */
+  pattern: RegExp;
+  /** 命中的分组 */
+  group: GroupKey;
+}
+
+export const GROUP_HINT_RULES: readonly GroupHintRule[] = [
+  { pattern: /港澳|香港|澳门|澳門|台湾|台灣|港台|TVB/i, group: '港澳台' },
+  {
+    pattern: /广东|廣東|广州|廣州|深圳|佛山|东莞|珠海|中山|惠州|汕头|江门|珠江|大湾区|粤/,
+    group: '广东',
+  },
+  { pattern: /央视|央視|CCTV|中央/i, group: '央视' },
+  { pattern: /卫视|衛視/, group: '卫视' },
+];
+
+/**
+ * 去掉分组名里的 emoji / 装饰符号（上游常见 `☘️广东频道`、`📺央视`）。
+ *
+ * 只保留字母、数字、汉字（`\p{L}` 已含汉字），其余（emoji、变体选择符、空格、
+ * 横线、括号）全部丢弃，避免装饰符把正则隔断。
+ *
+ * @param raw 上游分组名
+ * @return 纯文字分组名
+ */
+export function stripGroupDecorations(raw: string): string {
+  return raw.replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+/**
+ * 把上游分组名映射成本仓库的分组（识别不出时返回 `undefined`）。
+ *
+ * @param raw 上游分组名（可能带 emoji，可能为空）
+ * @return 分组或 undefined
+ */
+export function hintGroupFromTitle(raw: string | undefined): GroupKey | undefined {
+  if (raw === undefined) {
+    return undefined;
+  }
+  const cleaned = stripGroupDecorations(raw);
+  if (cleaned.length === 0) {
+    return undefined;
+  }
+  for (const rule of GROUP_HINT_RULES) {
+    if (rule.pattern.test(cleaned)) {
+      return rule.group;
+    }
+  }
+  return undefined;
+}
+
 /** 规则总量自检用的期望下限（测试里断言，防止有人删规则）。 */
-export const MIN_RULE_COUNT = 60;
+export const MIN_RULE_COUNT = 80;

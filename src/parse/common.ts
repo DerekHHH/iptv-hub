@@ -65,14 +65,14 @@ export function splitUrlField(raw: string): string[] {
  * @param url 播放地址
  * @param rawName 上游原始频道名，纯 URL 行为空串
  * @param origin 来源标识
- * @param options 可选：台标、是否用户自填
+ * @param options 可选：台标、是否用户自填、上游分组名
  * @return Stream
  */
 export function makeStream(
   url: string,
   rawName: string,
   origin: string,
-  options: { logo?: string; userAdded?: boolean } = {},
+  options: { logo?: string; userAdded?: boolean; upstreamGroup?: string } = {},
 ): Stream {
   const stream: Stream = {
     url: url.trim(),
@@ -87,6 +87,13 @@ export function makeStream(
   }
   if (options.userAdded === true) {
     stream.userAdded = true;
+  }
+  // 上游分组名只透传非空值：空串与"没有分组信息"语义一致，避免下游判断出现三态
+  if (options.upstreamGroup !== undefined) {
+    const upstreamGroup = options.upstreamGroup.trim();
+    if (upstreamGroup.length > 0) {
+      stream.upstreamGroup = upstreamGroup;
+    }
   }
   return stream;
 }
