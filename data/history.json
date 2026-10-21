@@ -1,4 +1,11 @@
 {
   "version": 1,
-  "items": []
+  "items": [
+    {
+      "updated_at": "2026-10-21T16:40:18+08:00",
+      "channel_count": 96,
+      "source_count": 102,
+      "stale": false
+    }
+  ]
 }

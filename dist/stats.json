@@ -1,67 +1,68 @@
 {
   "version": 1,
-  "updated_at": "2026-10-21T16:19:27+08:00",
-  "channel_count": 27,
-  "source_count": 29,
+  "updated_at": "2026-10-21T16:40:18+08:00",
+  "channel_count": 96,
+  "source_count": 102,
   "groups": {
-    "港澳台": 5,
-    "广东": 9,
-    "央视": 4,
-    "卫视": 9,
-    "其他": 0
+    "港澳台": 3,
+    "广东": 3,
+    "央视": 11,
+    "卫视": 15,
+    "其他": 64
   },
   "upstream": [
     {
       "name": "iptv-org-cn",
       "ok": true,
-      "items": 18,
+      "items": 511,
       "channel": "raw"
     },
     {
       "name": "iptv-org-hk",
       "ok": true,
-      "items": 12,
+      "items": 25,
       "channel": "raw"
     },
     {
       "name": "iptv-org-tw",
       "ok": true,
-      "items": 5,
+      "items": 56,
       "channel": "raw"
     },
     {
       "name": "fanmingming-live",
-      "ok": true,
-      "items": 20,
-      "channel": "raw"
+      "ok": false,
+      "items": 0,
+      "channel": "jsdelivr",
+      "error": "raw HTTP 404 / jsdelivr HTTP 404"
     },
     {
       "name": "vbskycn-iptv",
       "ok": true,
-      "items": 27,
+      "items": 518,
       "channel": "raw"
     },
     {
       "name": "free-tv-china",
       "ok": true,
-      "items": 6,
+      "items": 21,
       "channel": "raw"
     }
   ],
-  "fetch_fail_rate": 0,
+  "fetch_fail_rate": 0.1667,
   "probe": {
-    "total": 82,
-    "alive": 29,
-    "dead": 42,
-    "timeout": 11,
-    "skipped": 0,
-    "duration_ms": 39
+    "total": 1082,
+    "alive": 95,
+    "dead": 80,
+    "timeout": 906,
+    "skipped": 1,
+    "duration_ms": 124627
   },
   "epg": {
     "ok": false,
     "programmes": 0,
-    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml mock timeout；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml 无可用节目"
+    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml HTTP 404"
   },
-  "build_duration_ms": 59,
+  "build_duration_ms": 139417,
   "stale": false
 }
