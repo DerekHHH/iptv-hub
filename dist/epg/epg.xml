@@ -1,29 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tv generator-info-name="iptv_source_hub" generator-info-url="https://github.com">
-  <channel id="ch-1lb24t5">
-    <display-name>TVBS Asia (1080p)</display-name>
+  <channel id="ch-1of5uq3">
+    <display-name>Discovery Asia Taiwan</display-name>
   </channel>
-  <channel id="ch-j946fq">
-    <display-name>Discovery Asia Taiwan (1080p)</display-name>
+  <channel id="ch-22tqiw">
+    <display-name>东森超视</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/东森超视.png" />
+  </channel>
+  <channel id="ch-31bt11">
+    <display-name>福建漳州醉美沙滩翡翠湾</display-name>
+    <icon src="https://tb.zbds.top/logo/福建漳州醉美沙滩翡翠湾.png" />
+  </channel>
+  <channel id="ch-ck7zu3">
+    <display-name>纬来体育</display-name>
+    <icon src="https://tb.zbds.top/logo/纬来体育.png" />
+  </channel>
+  <channel id="ch-fok7vn">
+    <display-name>TV BRICS Chinese</display-name>
+    <icon src="https://i.imgur.com/896132Z.png" />
+  </channel>
+  <channel id="ch-o2pn4">
+    <display-name>TVBS亚洲</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/TVBS亚洲.png" />
+  </channel>
+  <channel id="ch-pmlty2">
+    <display-name>无线星河</display-name>
+    <icon src="https://gitee.com/suxuang/logo/raw/master/mylogo/TVB星河.png" />
   </channel>
   <channel id="ch-vc4yz4">
     <display-name>广西玉林大容山莲花山顶</display-name>
     <icon src="https://tb.zbds.top/logo/广西玉林大容山莲花山顶.png" />
   </channel>
-  <channel id="ch-13v6wfb">
-    <display-name>广东 I 韶关综合台 (720p) [Not 24/7]</display-name>
+  <channel id="ch-x7onvt">
+    <display-name>耀才财经</display-name>
+  </channel>
+  <channel id="ftv-news">
+    <display-name>民视新闻台</display-name>
+  </channel>
+  <channel id="phoenix-chinese">
+    <display-name>凤凰卫视中文台</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/凤凰中文.png" />
+  </channel>
+  <channel id="phoenix-hk">
+    <display-name>凤凰卫视香港台</display-name>
+    <icon src="https://gitee.com/suxuang/logo/raw/master/mylogo/凤凰香港台.png" />
+  </channel>
+  <channel id="phoenix-info">
+    <display-name>凤凰卫视资讯台</display-name>
+    <icon src="https://live.fanmingming.cn/tv/凤凰卫视资讯台.png" />
+  </channel>
+  <channel id="ptt">
+    <display-name>公视</display-name>
+  </channel>
+  <channel id="set-news">
+    <display-name>三立新闻台</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/三立新闻.png" />
+  </channel>
+  <channel id="ttv">
+    <display-name>台视</display-name>
+  </channel>
+  <channel id="tvb-jade">
+    <display-name>翡翠台</display-name>
+    <icon src="https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png" />
+  </channel>
+  <channel id="tvb-news">
+    <display-name>无线新闻台</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/无线新闻.png" />
+  </channel>
+  <channel id="tvbs-news">
+    <display-name>TVBS 新闻台</display-name>
+  </channel>
+  <channel id="viutv">
+    <display-name>ViuTV</display-name>
+    <icon src="https://gitee.com/suxuang/logo/raw/master/mylogo/ViuTV.png" />
+  </channel>
+  <channel id="ch-79vhli">
+    <display-name>广东 I 韶关综合台</display-name>
+  </channel>
+  <channel id="ch-7mf97y">
+    <display-name>广东民生</display-name>
+    <icon src="https://tb.zbds.top/logo/广东民生.png" />
+  </channel>
+  <channel id="ch-i75a7a">
+    <display-name>东莞新闻综合</display-name>
+    <icon src="https://tb.zbds.top/logo/东莞新闻综合.png" />
   </channel>
   <channel id="gd-bayarea">
-    <display-name>广东大湾区</display-name>
+    <display-name>大湾区卫视</display-name>
     <icon src="https://tb.zbds.top/logo/大湾区卫视.png" />
+  </channel>
+  <channel id="gd-sports">
+    <display-name>广东体育</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/广东体育.png" />
+  </channel>
+  <channel id="gd-zhujiang">
+    <display-name>广东珠江</display-name>
+    <icon src="https://www.xn--rgv465a.top/tvlogo/广东珠江.png" />
+  </channel>
+  <channel id="gz-general">
+    <display-name>广州综合</display-name>
+    <icon src="https://tb.zbds.top/logo/广州综合.png" />
+  </channel>
+  <channel id="gz-news">
+    <display-name>广州新闻</display-name>
+    <icon src="https://tb.zbds.top/logo/广州新闻.png" />
   </channel>
   <channel id="hy-heyuan">
     <display-name>河源综合</display-name>
     <icon src="https://tb.zbds.top/logo/河源综合.png" />
-  </channel>
-  <channel id="cctv1">
-    <display-name>CCTV-1 综合</display-name>
-    <icon src="https://tb.zbds.top/logo/CCTV1.png" />
   </channel>
   <channel id="cctv12">
     <display-name>CCTV-12 社会与法</display-name>
@@ -33,63 +117,25 @@
     <display-name>CCTV-3 综艺</display-name>
     <icon src="https://tb.zbds.top/logo/CCTV3.png" />
   </channel>
-  <channel id="cctv4">
-    <display-name>CCTV-4 中文国际</display-name>
-    <icon src="https://tb.zbds.top/logo/CCTV4.png" />
+  <channel id="ch-1lib631">
+    <display-name>风云剧场</display-name>
+    <icon src="https://tb.zbds.top/logo/风云剧场.png" />
   </channel>
-  <channel id="cctv9">
-    <display-name>CCTV-9 纪录</display-name>
-    <icon src="https://tb.zbds.top/logo/CCTV9.png" />
+  <channel id="satellite-anhui">
+    <display-name>安徽卫视</display-name>
+    <icon src="https://tb.zbds.top/logo/安徽卫视.png" />
   </channel>
-  <channel id="ch-1cok0ix">
-    <display-name>CCTV-9 (576i)</display-name>
-  </channel>
-  <channel id="ch-1pnovtf">
-    <display-name>CCTV-12 (720p)</display-name>
-  </channel>
-  <channel id="ch-c1io91">
-    <display-name>CCTV-1 (720p)</display-name>
-  </channel>
-  <channel id="ch-k8kl9d">
-    <display-name>中央电视塔东</display-name>
-    <icon src="https://tb.zbds.top/logo/中央电视塔东.png" />
-  </channel>
-  <channel id="ch-lb5h83">
-    <display-name>CCTV-3 (720p)</display-name>
-  </channel>
-  <channel id="ch-ngkh01">
-    <display-name>CCTV-10 (576i)</display-name>
-  </channel>
-  <channel id="ch-107gajm">
-    <display-name>人间卫视</display-name>
-    <icon src="https://tb.zbds.top/logo/人间卫视.png" />
-  </channel>
-  <channel id="ch-1j3hsb4">
-    <display-name>BRTV 北京卫视 (1080p)</display-name>
-  </channel>
-  <channel id="ch-7q0nzu">
-    <display-name>东方卫视4K</display-name>
-    <icon src="https://tb.zbds.top/logo/东方卫视4K.png" />
-  </channel>
-  <channel id="satellite-dragon">
-    <display-name>东方卫视</display-name>
-    <icon src="https://tb.zbds.top/logo/东方卫视.png" />
-  </channel>
-  <channel id="satellite-gd">
-    <display-name>广东卫视</display-name>
-    <icon src="https://tb.zbds.top/logo/广东卫视.png" />
-  </channel>
-  <channel id="satellite-guizhou">
-    <display-name>贵州卫视</display-name>
-    <icon src="https://tb.zbds.top/logo/贵州卫视.png" />
-  </channel>
-  <channel id="satellite-henan">
-    <display-name>河南卫视</display-name>
-    <icon src="https://tb.zbds.top/logo/河南卫视.png" />
+  <channel id="satellite-hebei">
+    <display-name>河北卫视</display-name>
+    <icon src="https://tb.zbds.top/logo/河北卫视.png" />
   </channel>
   <channel id="satellite-hunan">
     <display-name>湖南卫视</display-name>
     <icon src="https://tb.zbds.top/logo/湖南卫视.png" />
+  </channel>
+  <channel id="satellite-jiangxi">
+    <display-name>江西卫视</display-name>
+    <icon src="https://tb.zbds.top/logo/江西卫视.png" />
   </channel>
   <channel id="satellite-neimenggu">
     <display-name>内蒙古卫视</display-name>
@@ -107,6 +153,14 @@
     <display-name>山西卫视</display-name>
     <icon src="https://tb.zbds.top/logo/山西卫视.png" />
   </channel>
+  <channel id="satellite-sichuan">
+    <display-name>四川卫视</display-name>
+    <icon src="https://tb.zbds.top/logo/四川卫视.png" />
+  </channel>
+  <channel id="satellite-southeast">
+    <display-name>东南卫视</display-name>
+    <icon src="https://tb.zbds.top/logo/东南卫视.png" />
+  </channel>
   <channel id="satellite-xinjiang">
     <display-name>新疆卫视</display-name>
     <icon src="https://tb.zbds.top/logo/新疆卫视.png" />
@@ -119,6 +173,10 @@
     <display-name>延边卫视</display-name>
     <icon src="https://tb.zbds.top/logo/延边卫视.png" />
   </channel>
+  <channel id="ch-100hd2t">
+    <display-name>余杭未来E</display-name>
+    <icon src="https://tb.zbds.top/logo/余杭未来E.png" />
+  </channel>
   <channel id="ch-109e7n9">
     <display-name>CHC电影</display-name>
     <icon src="https://tb.zbds.top/logo/CHC电影.png" />
@@ -130,46 +188,34 @@
   <channel id="ch-10wj2fp">
     <display-name>Kangba TV</display-name>
   </channel>
-  <channel id="ch-12f9t63">
-    <display-name>新昌生活</display-name>
-    <icon src="https://tb.zbds.top/logo/新昌生活.png" />
+  <channel id="ch-11jdf1e">
+    <display-name>松阳综合</display-name>
+    <icon src="https://tb.zbds.top/logo/松阳综合.png" />
   </channel>
-  <channel id="ch-1530hpt">
-    <display-name>平湖新闻综合</display-name>
-    <icon src="https://tb.zbds.top/logo/平湖新闻综合.png" />
+  <channel id="ch-11tsl0">
+    <display-name>泰山玉皇顶</display-name>
+    <icon src="https://tb.zbds.top/logo/泰山玉皇顶.png" />
   </channel>
-  <channel id="ch-15yj22f">
-    <display-name>四川峨眉山普贤菩萨铜像</display-name>
-    <icon src="https://tb.zbds.top/logo/四川峨眉山普贤菩萨铜像.png" />
+  <channel id="ch-12ip64">
+    <display-name>江津新闻综合</display-name>
   </channel>
-  <channel id="ch-16qaylh">
-    <display-name>Golden Jade (1080p)</display-name>
+  <channel id="ch-12t7wzl">
+    <display-name>泰山碧霞祠</display-name>
+    <icon src="https://tb.zbds.top/logo/泰山碧霞祠.png" />
   </channel>
-  <channel id="ch-16tnkn5">
-    <display-name>乐山大佛全景</display-name>
-    <icon src="https://tb.zbds.top/logo/乐山大佛全景.png" />
+  <channel id="ch-12wx07v">
+    <display-name>丽江古城万古楼遥望玉龙雪山</display-name>
+    <icon src="https://tb.zbds.top/logo/丽江古城万古楼遥望玉龙雪山.png" />
   </channel>
-  <channel id="ch-176xkv">
-    <display-name>PTS 3</display-name>
+  <channel id="ch-145p2fa">
+    <display-name>四川四姑娘山隆珠措</display-name>
+    <icon src="https://tb.zbds.top/logo/四川四姑娘山隆珠措.png" />
   </channel>
-  <channel id="ch-1777zn1">
-    <display-name>浙江钱江</display-name>
-    <icon src="https://tb.zbds.top/logo/浙江钱江.png" />
+  <channel id="ch-14ay5tq">
+    <display-name>Golden Jade</display-name>
   </channel>
-  <channel id="ch-17pvqe6">
-    <display-name>上虞新商都</display-name>
-    <icon src="https://tb.zbds.top/logo/上虞新商都.png" />
-  </channel>
-  <channel id="ch-180pot">
-    <display-name>雪乡大石碑</display-name>
-    <icon src="https://tb.zbds.top/logo/雪乡大石碑.png" />
-  </channel>
-  <channel id="ch-18c7roa">
-    <display-name>江津经济生活 (480p)</display-name>
-  </channel>
-  <channel id="ch-194ufh">
-    <display-name>江苏徐州云龙湖风景区云龙山观景台西</display-name>
-    <icon src="https://tb.zbds.top/logo/江苏徐州云龙湖风景区云龙山观景台西.png" />
+  <channel id="ch-15i6gag">
+    <display-name>Mei Ah Movie Channel</display-name>
   </channel>
   <channel id="ch-1a4fymk">
     <display-name>奎屯汉语</display-name>
@@ -178,113 +224,30 @@
   <channel id="ch-1ag84a5">
     <display-name>Guangxi Variety &amp; Travel Channel</display-name>
   </channel>
-  <channel id="ch-1ann6mj">
-    <display-name>浙江舟山东极岛</display-name>
-    <icon src="https://tb.zbds.top/logo/浙江舟山东极岛.png" />
-  </channel>
   <channel id="ch-1at19nj">
     <display-name>四川科教</display-name>
     <icon src="https://tb.zbds.top/logo/四川科教.png" />
   </channel>
-  <channel id="ch-1boly5o">
-    <display-name>黄山飞来石</display-name>
-    <icon src="https://tb.zbds.top/logo/黄山飞来石.png" />
-  </channel>
-  <channel id="ch-1c1kvp3">
-    <display-name>余杭综合</display-name>
-    <icon src="https://tb.zbds.top/logo/余杭综合.png" />
-  </channel>
-  <channel id="ch-1c29by3">
-    <display-name>丽江古城大研花巷观景</display-name>
-    <icon src="https://tb.zbds.top/logo/丽江古城大研花巷观景.png" />
-  </channel>
-  <channel id="ch-1cktysz">
-    <display-name>洞头综合</display-name>
-    <icon src="https://tb.zbds.top/logo/洞头综合.png" />
-  </channel>
-  <channel id="ch-1dctnxz">
-    <display-name>都江堰鱼嘴</display-name>
-    <icon src="https://tb.zbds.top/logo/都江堰鱼嘴.png" />
-  </channel>
-  <channel id="ch-1epm48h">
-    <display-name>乌镇全景</display-name>
-    <icon src="https://tb.zbds.top/logo/乌镇全景.png" />
-  </channel>
-  <channel id="ch-1eui07u">
-    <display-name>庆元综合</display-name>
-    <icon src="https://tb.zbds.top/logo/庆元综合.png" />
-  </channel>
-  <channel id="ch-1foay56">
-    <display-name>雪乡梦幻家园</display-name>
-    <icon src="https://tb.zbds.top/logo/雪乡梦幻家园.png" />
-  </channel>
-  <channel id="ch-1gjm8zg">
-    <display-name>陕西洋县国宝朱鹮02</display-name>
-    <icon src="https://tb.zbds.top/logo/陕西洋县国宝朱鹮02.png" />
-  </channel>
-  <channel id="ch-1gv9ga">
-    <display-name>安徽黟县西递牌坊</display-name>
-    <icon src="https://tb.zbds.top/logo/安徽黟县西递牌坊.png" />
+  <channel id="ch-1dj82t7">
+    <display-name>Guangzhou TV</display-name>
   </channel>
   <channel id="ch-1i126ao">
     <display-name>音乐欣赏</display-name>
     <icon src="https://tb.zbds.top/logo/音乐欣赏.png" />
   </channel>
-  <channel id="ch-1i2k0op">
-    <display-name>乌镇蓝印花布</display-name>
-    <icon src="https://tb.zbds.top/logo/乌镇蓝印花布.png" />
+  <channel id="ch-1kjvd60">
+    <display-name>Nei Monggol TV</display-name>
   </channel>
-  <channel id="ch-1jtqo5i">
-    <display-name>黄山</display-name>
-    <icon src="https://tb.zbds.top/logo/黄山.png" />
-  </channel>
-  <channel id="ch-1kmlib">
-    <display-name>厦门鼓浪屿</display-name>
-    <icon src="https://tb.zbds.top/logo/厦门鼓浪屿.png" />
-  </channel>
-  <channel id="ch-1kw6o46">
-    <display-name>SJTV</display-name>
-  </channel>
-  <channel id="ch-1manun4">
-    <display-name>鸣沙山</display-name>
-    <icon src="https://tb.zbds.top/logo/鸣沙山.png" />
-  </channel>
-  <channel id="ch-1nu5cza">
-    <display-name>泰山南天门</display-name>
-    <icon src="https://tb.zbds.top/logo/泰山南天门.png" />
-  </channel>
-  <channel id="ch-1nz8fy5">
-    <display-name>青岛崂山八水河</display-name>
-    <icon src="https://tb.zbds.top/logo/青岛崂山八水河.png" />
-  </channel>
-  <channel id="ch-1on4jzg">
-    <display-name>CGTN French (1080p)</display-name>
-  </channel>
-  <channel id="ch-1p3r1op">
-    <display-name>云南大理崇圣寺三塔中景</display-name>
-    <icon src="https://tb.zbds.top/logo/云南大理崇圣寺三塔中景.png" />
-  </channel>
-  <channel id="ch-1plh82r">
-    <display-name>狮子山鸟瞰丽江古城</display-name>
-    <icon src="https://tb.zbds.top/logo/狮子山鸟瞰丽江古城.png" />
-  </channel>
-  <channel id="ch-1rl4yyh">
-    <display-name>云南丽江蓝月谷</display-name>
-    <icon src="https://tb.zbds.top/logo/云南丽江蓝月谷.png" />
+  <channel id="ch-1re2v2r">
+    <display-name>CGTN Spanish</display-name>
   </channel>
   <channel id="ch-1tknsg3">
     <display-name>万荣综合</display-name>
     <icon src="https://tb.zbds.top/logo/万荣综合.png" />
   </channel>
-  <channel id="ch-1utl76g">
-    <display-name>Nei Monggol TV (1080i) [Not 24/7]</display-name>
-  </channel>
   <channel id="ch-1vu2o7m">
     <display-name>江夏新闻综合</display-name>
     <icon src="https://tb.zbds.top/logo/江夏新闻综合.png" />
-  </channel>
-  <channel id="ch-1x4isr4">
-    <display-name>江津新闻综合 (480p)</display-name>
   </channel>
   <channel id="ch-1xih1co">
     <display-name>江津新闻</display-name>
@@ -304,6 +267,9 @@
     <display-name>乐至综合</display-name>
     <icon src="https://tb.zbds.top/logo/乐至综合.png" />
   </channel>
+  <channel id="ch-5l7k2u">
+    <display-name>江津经济生活</display-name>
+  </channel>
   <channel id="ch-5oadkd">
     <display-name>伊犁哈萨克</display-name>
     <icon src="https://tb.zbds.top/logo/伊犁哈萨克.png" />
@@ -318,6 +284,15 @@
     <display-name>玛纳斯</display-name>
     <icon src="https://tb.zbds.top/logo/玛纳斯.png" />
   </channel>
+  <channel id="ch-9jb99a">
+    <display-name>Asian Drama</display-name>
+  </channel>
+  <channel id="ch-adi9se">
+    <display-name>荣昌综合</display-name>
+  </channel>
+  <channel id="ch-av7koz">
+    <display-name>福州广播电视台都市生活频道 (FZTV-3)</display-name>
+  </channel>
   <channel id="ch-dl71u0">
     <display-name>玛纳斯综合</display-name>
     <icon src="https://tb.zbds.top/logo/玛纳斯综合.png" />
@@ -325,14 +300,12 @@
   <channel id="ch-e8ov3b">
     <display-name>EBC Foreign Movie</display-name>
   </channel>
-  <channel id="ch-ghtx77">
-    <display-name>Mei Ah Movie Channel (1080p)</display-name>
+  <channel id="ch-ewoeay">
+    <display-name>Dongguan Comprehensive News Channel</display-name>
   </channel>
-  <channel id="ch-itft7l">
-    <display-name>CGTN Spanish (576p)</display-name>
-  </channel>
-  <channel id="ch-ki6ww5">
-    <display-name>Asian Drama (1080p)</display-name>
+  <channel id="ch-jpr9u8">
+    <display-name>FZTV-3 Lifestyle Channel 生活频道</display-name>
+    <icon src="https://i.imgur.com/jt7CWDT.png" />
   </channel>
   <channel id="ch-l4al02">
     <display-name>金川新闻综合</display-name>
@@ -341,12 +314,15 @@
   <channel id="ch-lcdcd1">
     <display-name>Tonghua TV</display-name>
   </channel>
-  <channel id="ch-sdx8um">
-    <display-name>Hunan TV (2160p)</display-name>
+  <channel id="ch-nko69m">
+    <display-name>铜梁综合</display-name>
+    <icon src="https://tb.zbds.top/logo/铜梁综合.png" />
   </channel>
-  <channel id="ch-utw96h">
-    <display-name>璧山综合</display-name>
-    <icon src="https://tb.zbds.top/logo/璧山综合.png" />
+  <channel id="ch-qjp9x9">
+    <display-name>CGTN French</display-name>
+  </channel>
+  <channel id="ch-vv3i2d">
+    <display-name>Hunan TV</display-name>
   </channel>
   <channel id="ch-wc9qf0">
     <display-name>Chaozhou Public Channel</display-name>
@@ -354,5 +330,9 @@
   <channel id="ch-z891pm">
     <display-name>伊犁经济法制</display-name>
     <icon src="https://tb.zbds.top/logo/伊犁经济法制.png" />
+  </channel>
+  <channel id="ch-zounvm">
+    <display-name>福州生活</display-name>
+    <icon src="https://tb.zbds.top/logo/福州生活.png" />
   </channel>
 </tv>

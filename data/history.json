@@ -13,6 +13,12 @@
       "source_count": 102,
       "stale": true,
       "stale_reason": "输出频道 40 个，低于上次 96 个的 60%"
+    },
+    {
+      "updated_at": "2026-10-21T18:10:26+08:00",
+      "channel_count": 91,
+      "source_count": 137,
+      "stale": false
     }
   ]
 }
