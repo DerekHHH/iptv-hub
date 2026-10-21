@@ -1,0 +1,60 @@
+name: 部署电视源到 Pages
+
+# 手机本地构建并推送 dist/ 后，只做网页构建 + 部署，不再测活。
+# 这样既能让 Pages 立即更新，又不会用海外机房的测活结果覆盖手机产物。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dist/**'
+      - 'data/history.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  deploy:
+    name: 网页构建 · 装配 · 部署
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建网页
+        run: npm run web:build
+
+      - name: 装配 Pages 站点
+        run: npm run pages:assemble
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-out
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

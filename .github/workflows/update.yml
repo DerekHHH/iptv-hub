@@ -1,11 +1,9 @@
 name: 更新电视源
 
-# 每 2 小时自动跑一次（北京时间 0/2/4/…/22 点），也可以在 Actions 页面手动点按钮
-# 频率从 6 小时提到 2 小时：单个源失效后最长 6 小时才换掉，对常看台太慢；
-# 公开仓库的 Actions 额度免费且不限量，代价只是每天多几条 chore(data) 提交。
+# 默认改为“手机本地构建后推送”模式（见 scripts/termux-update.sh）：
+# 定时任务已关闭，避免 GitHub 海外机房的测活结果覆盖手机在国内网络下的测活结果。
+# 仍保留 workflow_dispatch，作为没有手机可用时的应急全量重建入口。
 on:
-  schedule:
-    - cron: '0 */2 * * *'
   workflow_dispatch:
     inputs:
       reason:
