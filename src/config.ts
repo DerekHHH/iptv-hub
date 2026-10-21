@@ -189,8 +189,16 @@ export const PROBE = {
 
 /** 优选层参数。 */
 export const SELECT = {
-  /** 每频道最多保留的源数 */
-  maxPerChannel: 3,
+  /** 每频道最多保留的源数（普通频道） */
+  maxPerChannel: 5,
+  /**
+   * 重点频道最多保留的源数。
+   *
+   * 动机：用户点名的常看频道（广东本地 + 港澳台主力）一旦首选源当天失效，
+   * 只留 3 个备用的容错偏窄。给这些频道翻倍冗余，播放器可以一路往下试。
+   * 代价只是列表多几十行，不影响加载速度。
+   */
+  priorityMaxPerChannel: 10,
   /** 判活所需的至少 1 个存活源（0 存活则该频道剔除） */
   minAlivePerChannel: 1,
   /**
@@ -206,6 +214,24 @@ export const SELECT = {
    */
   maxCandidates: 5000,
 } as const;
+
+/**
+ * 重点频道 ID 白名单：命中则用 `priorityMaxPerChannel` 而不是 `maxPerChannel`。
+ *
+ * 选取标准 = 用户每天真会看的台：广东本地全系 + 港澳台主力 + 央视体育。
+ * 新增台只需往这里加 slug（slug 见 `src/data/channel-rules.ts` 各规则的 id 字段）。
+ */
+export const PRIORITY_CHANNEL_IDS: readonly string[] = [
+  // 广东本地
+  'gd-sports', 'gd-zhujiang', 'gd-news', 'gd-public', 'gd-bayarea',
+  'gd-tvs1', 'gd-tvs4', 'gd-tvs5',
+  // 香港
+  'tvb-jade', 'tvb-pearl', 'tvb-news', 'viutv', 'hoy-tv',
+  // 澳门 / 凤凰
+  'tdm-oumun', 'phoenix-chinese',
+  // 央视体育
+  'cctv5', 'cctv5plus',
+];
 
 /** 黑名单参数。 */
 export const BLACKLIST = {

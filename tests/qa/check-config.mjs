@@ -93,7 +93,7 @@ if (workflow !== null) {
   // YAML 会把裸 on 解析成 true（YAML 1.1 语义），两种键名都接受
   const on = workflow.on ?? workflow[true] ?? {};
   const crons = (on.schedule ?? []).map((item) => item.cron);
-  check('cron 为 0 */6 * * *', crons.length === 1 && crons[0] === '0 */6 * * *', JSON.stringify(crons));
+  check('cron 为 0 */2 * * *（每 2 小时，失效自愈更快）', crons.length === 1 && crons[0] === '0 */2 * * *', JSON.stringify(crons));
   check('含 workflow_dispatch（可手动 Run）', on.workflow_dispatch !== undefined, on.workflow_dispatch === undefined ? '缺失' : '存在');
 
   const job = (workflow.jobs ?? {}).build;
@@ -162,7 +162,8 @@ check('src/ 内除 util/time.ts 注释外无 toLocaleString/toISOString 调用',
 const configText = readFileSync(join(ROOT, 'src', 'config.ts'), 'utf8');
 check('PROBE.concurrency = 64', /concurrency:\s*64/.test(configText), /concurrency:\s*64/.test(configText) ? '64' : '不符');
 check('PROBE.deadlineMs = 17 分钟', /deadlineMs:\s*17\s*\*\s*60\s*\*\s*1000/.test(configText), /deadlineMs:\s*17\s*\*\s*60\s*\*\s*1000/.test(configText) ? '17min' : '不符');
-check('SELECT.maxPerChannel = 3', /maxPerChannel:\s*3/.test(configText), /maxPerChannel:\s*3/.test(configText) ? '3' : '不符');
+check('SELECT.maxPerChannel = 5', /maxPerChannel:\s*5/.test(configText), /maxPerChannel:\s*5/.test(configText) ? '5' : '不符');
+check('SELECT.priorityMaxPerChannel = 10', /priorityMaxPerChannel:\s*10/.test(configText), /priorityMaxPerChannel:\s*10/.test(configText) ? '10' : '不符');
 
 const mainText = readFileSync(join(ROOT, 'src', 'main.ts'), 'utf8');
 check('main.ts 显式设置 exitCode 0', /process\.exitCode = 0/.test(mainText), /process\.exitCode = 0/.test(mainText) ? '存在' : '缺失');

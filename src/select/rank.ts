@@ -1,12 +1,28 @@
 /**
- * @file 优选排序（P0-4）：分辨率降序 → 延迟升序，每频道最多 3 个源。
+ * @file 优选排序（P0-4）：分辨率降序 → 延迟升序。
  *
- * 硬规则：**不以死链凑数** —— 存活源不足 3 个就保留实际数量；0 个的频道整条消失。
+ * 每频道保留数量：普通频道 `SELECT.maxPerChannel`，重点频道（`PRIORITY_CHANNEL_IDS`）
+ * 放宽到 `SELECT.priorityMaxPerChannel`，让常看台有更多备用源扛住单源失效。
+ *
+ * 硬规则：**不以死链凑数** —— 存活源不足上限就保留实际数量；0 个的频道整条消失。
  */
 
-import { SELECT } from '../config';
+import { PRIORITY_CHANNEL_IDS, SELECT } from '../config';
 import { sortChannels } from '../data/groups';
 import type { Channel, ProbeResult, Stream } from '../types';
+
+/** 优先频道集合（Set 便于 O(1) 命中）。 */
+const PRIORITY_SET: ReadonlySet<string> = new Set(PRIORITY_CHANNEL_IDS);
+
+/**
+ * 判断频道是否属于"重点频道"（决定保留多少个备用源）。
+ *
+ * @param channelId 频道 slug
+ * @return true 表示走 `priorityMaxPerChannel`
+ */
+export function isPriorityChannel(channelId: string): boolean {
+  return PRIORITY_SET.has(channelId);
+}
 
 /**
  * 源比较器：分辨率（宽高）降序 → 延迟升序 → urlKey 升序（保证稳定输出）。
@@ -79,7 +95,8 @@ export function rankChannel(channel: Channel, resultIndex: Map<string, ProbeResu
   }
 
   alive.sort((left, right) => compareProbeResult(left.result, right.result));
-  const picked = alive.slice(0, SELECT.maxPerChannel).map((item) => item.stream);
+  const cap = isPriorityChannel(channel.id) ? SELECT.priorityMaxPerChannel : SELECT.maxPerChannel;
+  const picked = alive.slice(0, cap).map((item) => item.stream);
 
   return { ...channel, streams: picked };
 }

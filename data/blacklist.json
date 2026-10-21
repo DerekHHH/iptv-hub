@@ -1941,6 +1941,218 @@
       "fail_count": 1,
       "last_checked": "2026-10-21T16:40:04+08:00"
     },
+    "http://mock.local/live/cctv1/bak.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv1/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv12/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv13/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv14/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv15/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv16/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv17/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv2/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv3/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv4/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv6/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv7/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv8/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/cctv9/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/chongqing/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/ctv-tw/bak.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/ctv-tw/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/dg-dongguan/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/dragon/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/ettv-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/fs-foshan/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/ftv-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/gd-economy/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/gd-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/gd-public/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/gd-sports/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/gd-zhujiang/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/guangxi/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/guizhou/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/heilongjiang/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/henan/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/hubei/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/jilin/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/liaoning/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/neimenggu/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/phoenix-chinese/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/pts/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/rthk-31/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/set-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/shandong/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/sichuan/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/southeast/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/sz-city/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/sz-finance/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/szstar/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/tdm-macau/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/tianjin/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/tvb-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/tvbs-news/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/xinjiang/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/yunnan/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "http://mock.local/live/zhejiang/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
     "http://newcntv.qcloudcdn.com/asp/hls/1200/0303000a/3/default/1425e1d505654cb48ba82b807b221193/1200.m3u8": {
       "fail_count": 1,
       "last_checked": "2026-10-21T16:40:04+08:00"
@@ -2656,6 +2868,90 @@
     "https://event.pull.hebtv.com/live/live101.m3u8": {
       "fail_count": 1,
       "last_checked": "2026-10-21T16:40:04+08:00"
+    },
+    "https://example.com/akira/cctv5plus.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/ftv-news.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/gd-bayarea.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/hoy-tv.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/tdm-oumun.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/ttv.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/tvb-jade.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/tvb-pearl.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/tvbs-news.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/akira/viutv.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/guovin/cctv5-1.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/guovin/dragon-1.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/guovin/hunan-1.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/guovin/tvb-jade-1.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/guovin/tvb-pearl-1.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/cctv4/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/jade/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/lotus-macau/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/mstv/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/tdm-info/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
+    },
+    "https://example.com/mo/tdm-oumun/index.m3u8": {
+      "fail_count": 1,
+      "last_checked": "2026-10-21T17:27:26+08:00"
     },
     "https://fastlive.cctvplus.com/out/v1/2b3d8a0c805d437f9dc85b764c2ac599/index.m3u8": {
       "fail_count": 1,

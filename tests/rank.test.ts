@@ -22,7 +22,7 @@ describe('compareProbeResult', () => {
 });
 
 describe('rankChannel', () => {
-  it('每频道最多 3 个源，且按分辨率降序 → 延迟升序', () => {
+  it('每频道最多保留 SELECT.maxPerChannel 个源，且按分辨率降序 → 延迟升序', () => {
     const channel = makeChannel('cctv1', 'CCTV-1 综合', '央视', [
       'http://a/1.m3u8',
       'http://a/2.m3u8',
@@ -37,10 +37,12 @@ describe('rankChannel', () => {
     ];
     const ranked = rankChannel(channel, indexResults(results));
     expect(ranked).not.toBeNull();
+    // 上限已从 3 提到 5，4 个存活源全部保留，且顺序仍严格正确
     expect(ranked?.streams.map((item) => item.url)).toEqual([
       'http://a/2.m3u8',
       'http://a/4.m3u8',
       'http://a/3.m3u8',
+      'http://a/1.m3u8',
     ]);
   });
 

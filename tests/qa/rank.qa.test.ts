@@ -49,7 +49,7 @@ function channel(urls: readonly string[], name = 'CCTV-1 综合', group: Channel
 }
 
 describe('rankChannels：分辨率降序 → 延迟升序', () => {
-  it('5 个源（1080/720/720/480/未知）取前 3 的顺序严格正确', () => {
+  it('5 个源（1080/720/720/480/未知）排序严格正确', () => {
     const urls = ['u-1080', 'u-720-fast', 'u-720-slow', 'u-480', 'u-unknown'].map((name) => `http://a.com/${name}.m3u8`);
     const results = [
       // 1080 的延迟最差，但分辨率最高，必须排第一
@@ -63,7 +63,8 @@ describe('rankChannels：分辨率降序 → 延迟升序', () => {
     const ranked = rankChannels([channel(urls)], results);
 
     expect(ranked).toHaveLength(1);
-    expect(ranked[0]?.streams.map((item) => item.url)).toEqual([urls[0], urls[1], urls[2]]);
+    // 上限提到 5 后 5 个全保留；前 3 的顺序仍必须是 1080 → 720(快) → 720(慢)
+    expect(ranked[0]?.streams.map((item) => item.url).slice(0, 3)).toEqual([urls[0], urls[1], urls[2]]);
   });
 
   it('同分辨率时延迟低者优先（延迟 50 < 200 < 800）', () => {
@@ -118,15 +119,26 @@ describe('rankChannels：存活数与数量上限', () => {
     expect(ranked[0]?.streams[0]?.url).toBe(urls[0]);
   });
 
-  it('存活 5 个时最多输出 3 个（SELECT.maxPerChannel）', () => {
-    const urls = Array.from({ length: 5 }, (_unused, index) => `http://a.com/${index}.m3u8`);
+  it('存活 5 个时最多输出 5 个（SELECT.maxPerChannel）', () => {
+    const urls = Array.from({ length: 8 }, (_unused, index) => `http://a.com/${index}.m3u8`);
     const ranked = rankChannels(
       [channel(urls)],
       urls.map((url, index) => probe(url, { width: 1280, height: 720, latencyMs: index * 10 })),
     );
 
-    expect(ranked[0]?.streams).toHaveLength(3);
-    expect(SELECT.maxPerChannel).toBe(3);
+    expect(ranked[0]?.streams).toHaveLength(SELECT.maxPerChannel);
+    expect(SELECT.maxPerChannel).toBe(5);
+  });
+
+  it('重点频道放宽到 priorityMaxPerChannel（广东体育保留更多备用源）', () => {
+    const urls = Array.from({ length: 12 }, (_unused, index) => `http://a.com/${index}.m3u8`);
+    const ranked = rankChannels(
+      [{ ...channel(urls), id: 'gd-sports' }],
+      urls.map((url, index) => probe(url, { width: 1280, height: 720, latencyMs: index * 10 })),
+    );
+
+    expect(SELECT.priorityMaxPerChannel).toBe(10);
+    expect(ranked[0]?.streams).toHaveLength(10);
   });
 
   it('没有探测结果（未测到）的源不算存活，不参与排序', () => {

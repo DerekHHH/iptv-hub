@@ -14,55 +14,72 @@
     {
       "name": "iptv-org-cn",
       "ok": true,
-      "items": 511,
+      "items": 18,
       "channel": "raw"
     },
     {
       "name": "iptv-org-hk",
       "ok": true,
-      "items": 25,
+      "items": 12,
       "channel": "raw"
     },
     {
       "name": "iptv-org-tw",
       "ok": true,
-      "items": 56,
+      "items": 5,
       "channel": "raw"
     },
     {
       "name": "fanmingming-live",
-      "ok": false,
-      "items": 0,
-      "channel": "jsdelivr",
-      "error": "raw HTTP 404 / jsdelivr HTTP 404"
+      "ok": true,
+      "items": 20,
+      "channel": "raw"
     },
     {
       "name": "vbskycn-iptv",
       "ok": true,
-      "items": 518,
+      "items": 27,
       "channel": "raw"
     },
     {
       "name": "free-tv-china",
       "ok": true,
-      "items": 21,
+      "items": 6,
+      "channel": "raw"
+    },
+    {
+      "name": "iptv-org-mo",
+      "ok": true,
+      "items": 10,
+      "channel": "raw"
+    },
+    {
+      "name": "guovin-iptv-api",
+      "ok": true,
+      "items": 16,
+      "channel": "raw"
+    },
+    {
+      "name": "akira-curated",
+      "ok": true,
+      "items": 15,
       "channel": "raw"
     }
   ],
-  "fetch_fail_rate": 0.1667,
+  "fetch_fail_rate": 0,
   "probe": {
-    "total": 1082,
-    "alive": 95,
-    "dead": 80,
-    "timeout": 906,
-    "skipped": 1,
-    "duration_ms": 124627
+    "total": 123,
+    "alive": 49,
+    "dead": 59,
+    "timeout": 15,
+    "skipped": 0,
+    "duration_ms": 41
   },
   "epg": {
     "ok": false,
-    "programmes": 0,
-    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml HTTP 404"
+    "programmes": 0
   },
-  "build_duration_ms": 139417,
-  "stale": false
+  "build_duration_ms": 75,
+  "stale": true,
+  "stale_reason": "输出频道 40 个，低于上次 96 个的 60%"
 }
