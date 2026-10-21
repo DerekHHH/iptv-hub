@@ -23,3 +23,6 @@ Thumbs.db
 .idea/
 
 # 注意：dist/ 与 data/ 必须入库（数据产物 + 状态记忆），不要在此忽略
+
+# 内部工作记录（不发布）
+.workbuddy/
