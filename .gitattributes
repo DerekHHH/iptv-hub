@@ -1,0 +1,27 @@
+# 统一换行符：仓库内与检出后一律 LF
+# 本项目的产物（txt/m3u/xml）对 LF 有硬要求，Windows 上 core.autocrlf=true
+# 会把检出结果转成 CRLF，导致电视端解析异常，因此在这里强制锁定。
+* text=auto eol=lf
+
+# 数据产物尤其要锁死（首次构建会被覆盖，但检出时也不能是 CRLF）
+dist/** text eol=lf
+custom/** text eol=lf
+data/** text eol=lf
+src/** text eol=lf
+web/** text eol=lf
+tests/** text eol=lf
+docs/** text eol=lf
+scripts/** text eol=lf
+
+# 二进制文件不做任何转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.zip binary
+*.gz binary
