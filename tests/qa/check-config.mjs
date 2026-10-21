@@ -93,7 +93,7 @@ if (workflow !== null) {
   // YAML 会把裸 on 解析成 true（YAML 1.1 语义），两种键名都接受
   const on = workflow.on ?? workflow[true] ?? {};
   const crons = (on.schedule ?? []).map((item) => item.cron);
-  check('cron 为 0 */2 * * *（每 2 小时，失效自愈更快）', crons.length === 1 && crons[0] === '0 */2 * * *', JSON.stringify(crons));
+  check('定时任务已关闭（改为手机本地测活后推送）', crons.length === 0, JSON.stringify(crons));
   check('含 workflow_dispatch（可手动 Run）', on.workflow_dispatch !== undefined, on.workflow_dispatch === undefined ? '缺失' : '存在');
 
   const job = (workflow.jobs ?? {}).build;
