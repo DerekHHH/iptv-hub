@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "updated_at": "2026-10-21T18:37:45+08:00",
-  "channel_count": 72,
-  "source_count": 109,
+  "updated_at": "2026-10-21T19:19:03+08:00",
+  "channel_count": 194,
+  "source_count": 242,
   "groups": {
-    "港澳台": 18,
-    "广东": 6,
-    "央视": 5,
-    "卫视": 10,
-    "其他": 33
+    "港澳台": 17,
+    "广东": 11,
+    "央视": 29,
+    "卫视": 36,
+    "其他": 101
   },
   "upstream": [
     {
@@ -76,17 +76,17 @@
   "fetch_fail_rate": 0.1,
   "probe": {
     "total": 2444,
-    "alive": 106,
-    "dead": 450,
-    "timeout": 1881,
+    "alive": 223,
+    "dead": 445,
+    "timeout": 1769,
     "skipped": 7,
-    "duration_ms": 260175
+    "duration_ms": 242862
   },
   "epg": {
     "ok": false,
     "programmes": 0,
     "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml fetch failed"
   },
-  "build_duration_ms": 282529,
+  "build_duration_ms": 273136,
   "stale": false
 }
