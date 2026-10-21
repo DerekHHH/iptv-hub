@@ -1,0 +1,6 @@
+﻿央视,#genre#
+CCTV1,http://example.com/live/cctv1/bom.m3u8
+CCTV-2 财经,http://example.com/live/cctv2/bom.m3u8
+
+港澳台,#genre#
+明珠台,http://example.com/live/tvb-pearl/bom.m3u8

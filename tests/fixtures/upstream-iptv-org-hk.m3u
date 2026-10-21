@@ -1,0 +1,25 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="TVBJade.hk" tvg-name="翡翠台" tvg-logo="https://mock.local/logo/tvb-jade.png" group-title="港澳台",TVB翡翠台
+http://mock.local/live/tvb-jade/index.m3u8
+#EXTINF:-1 tvg-id="TVBPearl.hk" tvg-name="明珠台" group-title="港澳台",明珠台
+http://mock.local/live/tvb-pearl/index.m3u8
+#EXTINF:-1 tvg-id="TVBNews.hk" tvg-name="无线新闻台" group-title="港澳台",无线新闻台
+http://mock.local/live/tvb-news/index.m3u8
+#EXTINF:-1 tvg-id="PhoenixChinese.hk" tvg-name="凤凰卫视中文台" group-title="港澳台",凤凰卫视
+http://mock.local/live/phoenix-chinese/index.m3u8
+#EXTINF:-1 tvg-id="ViuTV.hk" tvg-name="ViuTV" group-title="港澳台",ViuTV
+http://mock.local/live/viutv/index.m3u8
+#EXTINF:-1 tvg-id="RTHK31.hk" tvg-name="港台电视31" group-title="港澳台",港台31
+http://mock.local/live/rthk-31/index.m3u8
+#EXTINF:-1 tvg-id="TDMChn.mo" tvg-name="澳视澳门" group-title="港澳台",澳视澳门
+http://mock.local/live/tdm-macau/index.m3u8
+#EXTINF:-1 tvg-id="TTV.tw" tvg-name="台视" group-title="港澳台",台视
+http://mock.local/live/ttv/index.m3u8
+#EXTINF:-1 tvg-id="CTV.tw" tvg-name="中视" group-title="港澳台",中视
+http://mock.local/live/ctv-tw/index.m3u8
+#EXTINF:-1 tvg-id="TVBSNews.tw" tvg-name="TVBS新闻台" group-title="港澳台",TVBS新闻
+http://mock.local/live/tvbs-news/index.m3u8
+#EXTINF:-1 tvg-id="ETTVNews.tw" tvg-name="东森新闻台" group-title="港澳台",东森新闻
+http://mock.local/live/ettv-news/index.m3u8
+#EXTINF:-1 tvg-id="SETNews.tw" tvg-name="三立新闻台" group-title="港澳台",三立新闻
+http://mock.local/live/set-news/index.m3u8

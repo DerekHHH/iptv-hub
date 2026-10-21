@@ -1,0 +1,66 @@
+sequenceDiagram
+  autonumber
+  participant M as main.ts
+  participant F as sources/fetch
+  participant P as parse/*
+  participant N as normalize+group
+  participant B as blacklist
+  participant R as probe/probe
+  participant K as select/rank
+  participant E as emit/*
+  participant G as git commit + deploy-pages
+
+  M->>M: 读上次 dist/stats.json 与 data/blacklist.json（缺失则用默认值）
+  M->>F: fetchAll(UPSTREAMS, custom/sources.txt)
+  loop 每个上游（独立 try/catch）
+    F->>F: raw 通道请求
+    alt raw 失败/超时
+      F->>F: jsDelivr 通道兜底重试
+    end
+  end
+  F-->>M: RawDoc[] {origin, text, ok, error, items}
+  M->>M: fetchFailRate = 失败上游数 / 总上游数
+
+  alt fetchFailRate ≥ 0.5
+    M->>E: emitStats(stale:true, reason:上游失败率过高)
+    E-->>G: 仅提交 stats.json（txt/m3u/epg 保持旧版）
+  end
+
+  M->>P: parseAuto(doc.text, doc.origin)
+  P-->>M: Stream[]（单文档解析异常吞掉并计数）
+  M->>N: buildChannels(Stream[])
+  N-->>M: Channel[]（slug 归一去重 + group 判定）
+  alt 候选数 < MIN_CANDIDATES
+    M->>E: emitStats(stale:true, reason:候选源过少)
+  end
+  M->>M: 候选超 MAX_CANDIDATES → 按 分组权重+userAdded 截断
+
+  M->>B: partition(urlKeys)
+  B-->>M: {probeFirst[], retryLater[] 黑名单命中}
+  M->>R: probeAll(probeFirst, concurrency=64, deadline=start+17min)
+  loop 每个源（worker 池）
+    R->>R: GET Range 0-65535（8s 超时）
+    alt 命中 #EXTM3U
+      R->>R: 解析 master→variant / media→首片，再 Range 取首 2KB
+    end
+  end
+  R-->>M: ProbeResult[]（单源失败仅记 dead，不中断）
+  opt deadline 剩余 > 3min
+    M->>R: probeAll(retryLater) 黑名单复测
+    R-->>M: ProbeResult[]（成功则移出黑名单）
+  end
+  M->>B: update(results) 连续2次dead → fail_count+1
+
+  M->>K: rank(Channel[], ProbeResult[])
+  K-->>M: Channel[]（分辨率降序→延迟升序取前3；0 存活频道剔除）
+
+  M->>M: 降级判定：channel_count < 上次×0.6 或 存活源 < MIN_ALIVE
+  alt stale = true
+    M->>E: emitStats(stale:true) 不覆盖 txt/m3u/epg
+  else 正常
+    M->>E: emitTxt → emitM3u → emitEpg（各自 try/catch，EPG 失败仅告警）→ emitStats → emitHistory
+  end
+  E-->>G: 覆盖式 git add -A dist data && commit && push
+  G->>G: assemble-pages（site + dist 数据平铺）→ upload-pages-artifact → deploy-pages
+
+  Note over M,G: 任一阶段崩溃：wrapper 捕获 → 写 stats{stale:true, reason:阶段名} → exit 0（不污染产物、不让定时任务变红）

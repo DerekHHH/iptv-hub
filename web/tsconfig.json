@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true
+  },
+  // 注意：故意不包含 vite.config.ts —— 那份配置要 import node 模块，
+  // 而 src/ 下必须保持"纯浏览器"环境（types 里没有 node），这样谁误引 fs/path/process 都会直接报错。
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

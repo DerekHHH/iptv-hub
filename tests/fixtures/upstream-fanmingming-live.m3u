@@ -1,0 +1,41 @@
+#EXTM3U
+#EXTINF:-1 tvg-name="CCTV1" group-title="央视",CCTV1
+http://mock.local/live/cctv1/bak.m3u8
+#EXTINF:-1 tvg-name="CCTV3" group-title="央视",CCTV-3
+http://mock.local/live/cctv3/index.m3u8
+#EXTINF:-1 tvg-name="CCTV8" group-title="央视",CCTV-8
+http://mock.local/live/cctv8/index.m3u8
+#EXTINF:-1 tvg-name="CCTV9" group-title="央视",CCTV-9
+http://mock.local/live/cctv9/index.m3u8
+#EXTINF:-1 tvg-name="CCTV11" group-title="央视",CCTV-11
+http://mock.local/live/cctv11/index.m3u8
+#EXTINF:-1 tvg-name="CCTV12" group-title="央视",CCTV-12
+http://mock.local/live/cctv12/index.m3u8
+#EXTINF:-1 tvg-name="CCTV14" group-title="央视",CCTV-14
+http://mock.local/live/cctv14/index.m3u8
+#EXTINF:-1 tvg-name="CCTV15" group-title="央视",CCTV-15
+http://mock.local/live/cctv15/index.m3u8
+#EXTINF:-1 tvg-name="CCTV17" group-title="央视",CCTV-17
+http://mock.local/live/cctv17/index.m3u8
+#EXTINF:-1 tvg-name="北京卫视" group-title="卫视",北京卫视
+http://mock.local/live/beijing/index.m3u8
+#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
+http://mock.local/live/anhui/index.m3u8
+#EXTINF:-1 tvg-name="山东卫视" group-title="卫视",山东卫视
+http://mock.local/live/shandong/index.m3u8
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+http://mock.local/live/tianjin/index.m3u8
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+http://mock.local/live/chongqing/index.m3u8
+#EXTINF:-1 tvg-name="南方卫视" group-title="广东",南方卫视
+http://mock.local/live/southern/index.m3u8
+#EXTINF:-1 tvg-name="大湾区卫视" group-title="广东",大湾区卫视
+http://mock.local/live/gd-bayarea/index.m3u8
+#EXTINF:-1 tvg-name="广东新闻" group-title="广东",广东新闻
+http://mock.local/live/gd-news/index.m3u8
+#EXTINF:-1 tvg-name="广东公共" group-title="广东",广东公共
+http://mock.local/live/gd-public/index.m3u8
+#EXTINF:-1 tvg-name="广东影视" group-title="广东",广东影视
+http://mock.local/live/gd-movie/index.m3u8
+#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视",深圳卫视
+http://mock.local/live/szstar/index.m3u8

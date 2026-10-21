@@ -1,0 +1,55 @@
+#EXTM3U
+#EXTINF:-1,CCTV-4 中文国际
+http://mock.local/live/cctv4/index.m3u8
+#EXTINF:-1,CCTV-7 国防军事
+http://mock.local/live/cctv7/index.m3u8
+#EXTINF:-1,CCTV-10 科教
+http://mock.local/live/cctv10/index.m3u8
+#EXTINF:-1,CCTV-16 奥林匹克
+http://mock.local/live/cctv16/index.m3u8
+#EXTINF:-1,湖南卫视
+http://mock.local/live/hunan/bak.flv
+#EXTINF:-1,黑龙江卫视
+http://mock.local/live/heilongjiang/index.m3u8
+#EXTINF:-1,吉林卫视
+http://mock.local/live/jilin/index.m3u8
+#EXTINF:-1,辽宁卫视
+http://mock.local/live/liaoning/index.m3u8
+#EXTINF:-1,河北卫视
+http://mock.local/live/hebei/index.m3u8
+#EXTINF:-1,河南卫视
+http://mock.local/live/henan/index.m3u8
+#EXTINF:-1,湖北卫视
+http://mock.local/live/hubei/index.m3u8
+#EXTINF:-1,四川卫视
+http://mock.local/live/sichuan/index.m3u8
+#EXTINF:-1,云南卫视
+http://mock.local/live/yunnan/index.m3u8
+#EXTINF:-1,贵州卫视
+http://mock.local/live/guizhou/index.m3u8
+#EXTINF:-1,江西卫视
+http://mock.local/live/jiangxi/index.m3u8
+#EXTINF:-1,广西卫视
+http://mock.local/live/guangxi/index.m3u8
+#EXTINF:-1,海南卫视
+http://mock.local/live/hainan/index.m3u8
+#EXTINF:-1,新疆卫视
+http://mock.local/live/xinjiang/index.m3u8
+#EXTINF:-1,内蒙古卫视
+http://mock.local/live/neimenggu/index.m3u8
+#EXTINF:-1,西藏卫视
+http://mock.local/live/xizang/index.m3u8
+#EXTINF:-1,广东经济科教
+http://mock.local/live/gd-economy/index.m3u8
+#EXTINF:-1,深圳财经生活
+http://mock.local/live/sz-finance/index.m3u8
+#EXTINF:-1,珠海综合
+http://mock.local/live/zh-zhuhai/index.m3u8
+#EXTINF:-1,中山综合
+http://mock.local/live/zs-zhongshan/index.m3u8
+#EXTINF:-1,惠州综合
+http://mock.local/live/hz-huizhou/index.m3u8
+#EXTINF:-1,江门综合
+http://mock.local/live/jm-jiangmen/index.m3u8
+#EXTINF:-1,汕头综合
+http://mock.local/live/st-shantou/index.m3u8

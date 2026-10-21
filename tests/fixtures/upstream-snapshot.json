@@ -1,0 +1,31 @@
+{
+  "generator": "iptv_source_hub-fixture",
+  "note": "这是上游 iptv-org index.json 的裁剪快照，用于测试「非 m3u/txt 的 JSON 上游不会被当成播放列表误解析」。",
+  "fetched_at": "2025-01-01T00:00:00+08:00",
+  "channels": [
+    {
+      "id": "CCTV1.cn",
+      "name": "CCTV-1",
+      "alt_names": ["CCTV1", "中央1台"],
+      "country": "CN",
+      "categories": ["general"],
+      "logo": "https://example.com/logo/cctv1.png"
+    },
+    {
+      "id": "TVBJade.hk",
+      "name": "翡翠台",
+      "alt_names": ["TVB Jade"],
+      "country": "HK",
+      "categories": ["general"],
+      "logo": "https://example.com/logo/tvb-jade.png"
+    },
+    {
+      "id": "HunanTV.cn",
+      "name": "湖南卫视",
+      "alt_names": [],
+      "country": "CN",
+      "categories": ["general"],
+      "logo": "https://example.com/logo/hunan.png"
+    }
+  ]
+}

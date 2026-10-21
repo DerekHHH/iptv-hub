@@ -1,0 +1,87 @@
+name: 更新电视源
+
+# 每 6 小时自动跑一次（0 点、6 点、12 点、18 点，北京时间），也可以在 Actions 页面手动点按钮
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: '为什么要手动更新（只写进日志，可留空）'
+        required: false
+        default: '网页手动触发'
+
+# 同一个分支不并发跑，避免两份产物互相覆盖
+concurrency:
+  group: iptv-build-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# 双保险：runner 默认 UTC，这里再设一次时区（代码里不依赖 TZ）
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    name: 抓源 · 测活 · 生成 · 发布
+    runs-on: ubuntu-latest
+    # 硬上限 25 分钟：即使超时，也已经写出了上一版产物
+    timeout-minutes: 25
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 安装依赖（运行时零依赖，只有开发依赖）
+        run: npm ci
+
+      - name: 抓源 + 测活 + 生成产物
+        run: npm run build
+
+      - name: 提交数据产物（覆盖式，只保留最新一版）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A dist data
+          if git diff --cached --quiet; then
+            echo "本次产物与上次相同，跳过提交"
+          else
+            git commit -m "chore(data): 自动更新电视源 $(date +'%Y-%m-%d %H:%M') [skip ci]"
+            git push
+          fi
+
+      - name: 构建网页
+        run: npm run web:build
+
+      - name: 装配 Pages 站点（网页 + 数据产物）
+        run: npm run pages:assemble
+
+      - name: 上传 Pages 产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages-out
+
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 输出结果地址
+        run: |
+          echo "### 电视源已更新" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- TXT：${{ steps.deployment.outputs.page_url }}txt/all.txt" >> "$GITHUB_STEP_SUMMARY"
+          echo "- M3U：${{ steps.deployment.outputs.page_url }}m3u/all.m3u" >> "$GITHUB_STEP_SUMMARY"
+          echo "- EPG：${{ steps.deployment.outputs.page_url }}epg/epg.xml" >> "$GITHUB_STEP_SUMMARY"

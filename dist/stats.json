@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "updated_at": "2026-10-21T16:19:27+08:00",
+  "channel_count": 27,
+  "source_count": 29,
+  "groups": {
+    "港澳台": 5,
+    "广东": 9,
+    "央视": 4,
+    "卫视": 9,
+    "其他": 0
+  },
+  "upstream": [
+    {
+      "name": "iptv-org-cn",
+      "ok": true,
+      "items": 18,
+      "channel": "raw"
+    },
+    {
+      "name": "iptv-org-hk",
+      "ok": true,
+      "items": 12,
+      "channel": "raw"
+    },
+    {
+      "name": "iptv-org-tw",
+      "ok": true,
+      "items": 5,
+      "channel": "raw"
+    },
+    {
+      "name": "fanmingming-live",
+      "ok": true,
+      "items": 20,
+      "channel": "raw"
+    },
+    {
+      "name": "vbskycn-iptv",
+      "ok": true,
+      "items": 27,
+      "channel": "raw"
+    },
+    {
+      "name": "free-tv-china",
+      "ok": true,
+      "items": 6,
+      "channel": "raw"
+    }
+  ],
+  "fetch_fail_rate": 0,
+  "probe": {
+    "total": 82,
+    "alive": 29,
+    "dead": 42,
+    "timeout": 11,
+    "skipped": 0,
+    "duration_ms": 39
+  },
+  "epg": {
+    "ok": false,
+    "programmes": 0,
+    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml mock timeout；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml 无可用节目"
+  },
+  "build_duration_ms": 59,
+  "stale": false
+}

@@ -1,0 +1,11 @@
+# 用户自填源（可选）
+#
+# 规则：
+#   1. 每行一条，格式为「频道名,播放地址」
+#   2. 一个频道多个源用 # 分隔：CCTV1,http://a.m3u8#http://b.m3u8
+#   3. 以 # 开头的行是注释，会被忽略
+#   4. 这里的源优先级最高，会自动排到对应频道的最前面
+#
+# 示例（把前面的 # 去掉即可生效）：
+# 翡翠台,http://example.com/tvb-jade/index.m3u8
+# 广东珠江,http://example.com/gd-zhujiang/index.m3u8#http://example.com/gd-zhujiang/bak.m3u8

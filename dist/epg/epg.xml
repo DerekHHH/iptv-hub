@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv generator-info-name="iptv_source_hub" generator-info-url="https://github.com">
+  <channel id="cti-news">
+    <display-name>中天新闻台</display-name>
+  </channel>
+  <channel id="ttv">
+    <display-name>台视</display-name>
+  </channel>
+  <channel id="tvb-jade">
+    <display-name>翡翠台</display-name>
+    <icon src="https://mock.local/logo/tvb-jade.png" />
+  </channel>
+  <channel id="tvb-pearl">
+    <display-name>明珠台</display-name>
+  </channel>
+  <channel id="viutv">
+    <display-name>ViuTV</display-name>
+  </channel>
+  <channel id="gd-bayarea">
+    <display-name>广东大湾区</display-name>
+  </channel>
+  <channel id="gd-movie">
+    <display-name>广东影视</display-name>
+  </channel>
+  <channel id="gd-southern">
+    <display-name>南方卫视</display-name>
+  </channel>
+  <channel id="gz-general">
+    <display-name>广州综合</display-name>
+  </channel>
+  <channel id="hz-huizhou">
+    <display-name>惠州综合</display-name>
+  </channel>
+  <channel id="jm-jiangmen">
+    <display-name>江门综合</display-name>
+  </channel>
+  <channel id="st-shantou">
+    <display-name>汕头综合</display-name>
+  </channel>
+  <channel id="zh-zhuhai">
+    <display-name>珠海综合</display-name>
+  </channel>
+  <channel id="zs-zhongshan">
+    <display-name>中山综合</display-name>
+  </channel>
+  <channel id="cctv10">
+    <display-name>CCTV-10 科教</display-name>
+  </channel>
+  <channel id="cctv11">
+    <display-name>CCTV-11 戏曲</display-name>
+  </channel>
+  <channel id="cctv5">
+    <display-name>CCTV-5 体育</display-name>
+  </channel>
+  <channel id="cctv5plus">
+    <display-name>CCTV-5+ 体育赛事</display-name>
+  </channel>
+  <channel id="satellite-anhui">
+    <display-name>安徽卫视</display-name>
+  </channel>
+  <channel id="satellite-beijing">
+    <display-name>北京卫视</display-name>
+  </channel>
+  <channel id="satellite-gd">
+    <display-name>广东卫视</display-name>
+  </channel>
+  <channel id="satellite-hainan">
+    <display-name>海南卫视</display-name>
+  </channel>
+  <channel id="satellite-hebei">
+    <display-name>河北卫视</display-name>
+  </channel>
+  <channel id="satellite-hunan">
+    <display-name>湖南卫视</display-name>
+    <icon src="https://mock.local/logo/hunan.png" />
+  </channel>
+  <channel id="satellite-jiangsu">
+    <display-name>江苏卫视</display-name>
+  </channel>
+  <channel id="satellite-jiangxi">
+    <display-name>江西卫视</display-name>
+  </channel>
+  <channel id="satellite-xizang">
+    <display-name>西藏卫视</display-name>
+  </channel>
+</tv>

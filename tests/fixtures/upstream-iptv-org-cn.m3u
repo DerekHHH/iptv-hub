@@ -1,0 +1,37 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="CCTV1.cn" tvg-name="CCTV-1" tvg-logo="https://mock.local/logo/cctv1.png" group-title="央视",CCTV-1 综合
+http://mock.local/live/cctv1/index.m3u8
+#EXTINF:-1 tvg-id="CCTV2.cn" tvg-name="CCTV-2" tvg-logo="https://mock.local/logo/cctv2.png" group-title="央视",CCTV-2 财经
+http://mock.local/live/cctv2/index.m3u8
+#EXTINF:-1 tvg-id="CCTV5.cn" tvg-name="CCTV-5" group-title="央视",CCTV-5 体育
+http://mock.local/live/cctv5/index.m3u8
+#EXTINF:-1 tvg-id="CCTV5P.cn" tvg-name="CCTV-5+" group-title="央视",CCTV-5+ 体育赛事
+http://mock.local/live/cctv5plus/index.m3u8
+#EXTINF:-1 tvg-id="CCTV6.cn" tvg-name="CCTV-6" group-title="央视",CCTV-6 电影
+http://mock.local/live/cctv6/index.m3u8
+#EXTINF:-1 tvg-id="CCTV13.cn" tvg-name="CCTV-13" group-title="央视",CCTV-13 新闻
+http://mock.local/live/cctv13/index.m3u8
+#EXTINF:-1 tvg-id="HunanTV.cn" tvg-name="湖南卫视" tvg-logo="https://mock.local/logo/hunan.png" group-title="卫视",湖南卫视
+http://mock.local/live/hunan/index.m3u8
+#EXTINF:-1 tvg-id="ZhejiangTV.cn" tvg-name="浙江卫视" group-title="卫视",浙江卫视
+http://mock.local/live/zhejiang/index.m3u8
+#EXTINF:-1 tvg-id="JiangsuTV.cn" tvg-name="江苏卫视" group-title="卫视",江苏卫视
+http://mock.local/live/jiangsu/index.m3u8
+#EXTINF:-1 tvg-id="DragonTV.cn" tvg-name="东方卫视" group-title="卫视",东方卫视
+http://mock.local/live/dragon/index.m3u8
+#EXTINF:-1 tvg-id="GDStar.cn" tvg-name="广东卫视" group-title="卫视",广东卫视
+http://mock.local/live/gdstar/index.m3u8
+#EXTINF:-1 tvg-id="SoutheastTV.cn" tvg-name="东南卫视" group-title="卫视",福建东南卫视
+http://mock.local/live/southeast/index.m3u8
+#EXTINF:-1 tvg-id="GDZhuJiang.cn" tvg-name="广东珠江" group-title="广东",珠江频道
+http://mock.local/live/gd-zhujiang/index.m3u8
+#EXTINF:-1 tvg-id="GDSports.cn" tvg-name="广东体育" group-title="广东",广东体育
+http://mock.local/live/gd-sports/index.m3u8
+#EXTINF:-1 tvg-id="GZGeneral.cn" tvg-name="广州综合" group-title="广东",广州综合
+http://mock.local/live/gz-general/index.m3u8
+#EXTINF:-1 tvg-id="SZCity.cn" tvg-name="深圳都市" group-title="广东",深圳都市
+http://mock.local/live/sz-city/index.m3u8
+#EXTINF:-1 tvg-id="FSFoshan.cn" tvg-name="佛山综合" group-title="广东",佛山综合
+http://mock.local/live/fs-foshan/index.m3u8
+#EXTINF:-1 tvg-id="DGDongguan.cn" tvg-name="东莞综合" group-title="广东",东莞综合
+http://mock.local/live/dg-dongguan/index.m3u8

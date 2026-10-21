@@ -1,0 +1,59 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="cti-news" tvg-name="中天新闻台" tvg-logo="" group-title="港澳台",中天新闻台
+http://mock.local/live/cti-news/index.m3u8
+#EXTINF:-1 tvg-id="ttv" tvg-name="台视" tvg-logo="" group-title="港澳台",台视
+http://mock.local/live/ttv/index.m3u8
+#EXTINF:-1 tvg-id="ttv" tvg-name="台视" tvg-logo="" group-title="港澳台",台视
+http://mock.local/live/ttv/bak.flv
+#EXTINF:-1 tvg-id="tvb-jade" tvg-name="翡翠台" tvg-logo="https://mock.local/logo/tvb-jade.png" group-title="港澳台",翡翠台
+http://mock.local/live/tvb-jade/index.m3u8
+#EXTINF:-1 tvg-id="tvb-pearl" tvg-name="明珠台" tvg-logo="" group-title="港澳台",明珠台
+http://mock.local/live/tvb-pearl/index.m3u8
+#EXTINF:-1 tvg-id="viutv" tvg-name="ViuTV" tvg-logo="" group-title="港澳台",ViuTV
+http://mock.local/live/viutv/index.m3u8
+#EXTINF:-1 tvg-id="gd-bayarea" tvg-name="广东大湾区" tvg-logo="" group-title="广东",广东大湾区
+http://mock.local/live/gd-bayarea/index.m3u8
+#EXTINF:-1 tvg-id="gd-movie" tvg-name="广东影视" tvg-logo="" group-title="广东",广东影视
+http://mock.local/live/gd-movie/index.m3u8
+#EXTINF:-1 tvg-id="gd-southern" tvg-name="南方卫视" tvg-logo="" group-title="广东",南方卫视
+http://mock.local/live/southern/index.m3u8
+#EXTINF:-1 tvg-id="gz-general" tvg-name="广州综合" tvg-logo="" group-title="广东",广州综合
+http://mock.local/live/gz-general/index.m3u8
+#EXTINF:-1 tvg-id="hz-huizhou" tvg-name="惠州综合" tvg-logo="" group-title="广东",惠州综合
+http://mock.local/live/hz-huizhou/index.m3u8
+#EXTINF:-1 tvg-id="jm-jiangmen" tvg-name="江门综合" tvg-logo="" group-title="广东",江门综合
+http://mock.local/live/jm-jiangmen/index.m3u8
+#EXTINF:-1 tvg-id="st-shantou" tvg-name="汕头综合" tvg-logo="" group-title="广东",汕头综合
+http://mock.local/live/st-shantou/index.m3u8
+#EXTINF:-1 tvg-id="zh-zhuhai" tvg-name="珠海综合" tvg-logo="" group-title="广东",珠海综合
+http://mock.local/live/zh-zhuhai/index.m3u8
+#EXTINF:-1 tvg-id="zs-zhongshan" tvg-name="中山综合" tvg-logo="" group-title="广东",中山综合
+http://mock.local/live/zs-zhongshan/index.m3u8
+#EXTINF:-1 tvg-id="cctv10" tvg-name="CCTV-10 科教" tvg-logo="" group-title="央视",CCTV-10 科教
+http://mock.local/live/cctv10/index.m3u8
+#EXTINF:-1 tvg-id="cctv11" tvg-name="CCTV-11 戏曲" tvg-logo="" group-title="央视",CCTV-11 戏曲
+http://mock.local/live/cctv11/index.m3u8
+#EXTINF:-1 tvg-id="cctv5" tvg-name="CCTV-5 体育" tvg-logo="" group-title="央视",CCTV-5 体育
+http://mock.local/live/cctv5/index.m3u8
+#EXTINF:-1 tvg-id="cctv5plus" tvg-name="CCTV-5+ 体育赛事" tvg-logo="" group-title="央视",CCTV-5+ 体育赛事
+http://mock.local/live/cctv5plus/index.m3u8
+#EXTINF:-1 tvg-id="satellite-anhui" tvg-name="安徽卫视" tvg-logo="" group-title="卫视",安徽卫视
+http://mock.local/live/anhui/index.m3u8
+#EXTINF:-1 tvg-id="satellite-beijing" tvg-name="北京卫视" tvg-logo="" group-title="卫视",北京卫视
+http://mock.local/live/beijing/index.m3u8
+#EXTINF:-1 tvg-id="satellite-gd" tvg-name="广东卫视" tvg-logo="" group-title="卫视",广东卫视
+http://mock.local/live/gdstar/index.m3u8
+#EXTINF:-1 tvg-id="satellite-hainan" tvg-name="海南卫视" tvg-logo="" group-title="卫视",海南卫视
+http://mock.local/live/hainan/index.m3u8
+#EXTINF:-1 tvg-id="satellite-hebei" tvg-name="河北卫视" tvg-logo="" group-title="卫视",河北卫视
+http://mock.local/live/hebei/index.m3u8
+#EXTINF:-1 tvg-id="satellite-hunan" tvg-name="湖南卫视" tvg-logo="https://mock.local/logo/hunan.png" group-title="卫视",湖南卫视
+http://mock.local/live/hunan/index.m3u8
+#EXTINF:-1 tvg-id="satellite-hunan" tvg-name="湖南卫视" tvg-logo="https://mock.local/logo/hunan.png" group-title="卫视",湖南卫视
+http://mock.local/live/hunan/bak.flv
+#EXTINF:-1 tvg-id="satellite-jiangsu" tvg-name="江苏卫视" tvg-logo="" group-title="卫视",江苏卫视
+http://mock.local/live/jiangsu/index.m3u8
+#EXTINF:-1 tvg-id="satellite-jiangxi" tvg-name="江西卫视" tvg-logo="" group-title="卫视",江西卫视
+http://mock.local/live/jiangxi/index.m3u8
+#EXTINF:-1 tvg-id="satellite-xizang" tvg-name="西藏卫视" tvg-logo="" group-title="卫视",西藏卫视
+http://mock.local/live/xizang/index.m3u8

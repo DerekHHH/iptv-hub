@@ -1,0 +1,25 @@
+# 依赖
+node_modules/
+
+# 网页构建输出（不入库，由 CI 生成）
+site/
+pages-out/
+
+# 日志与临时文件
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# 本地临时目录（测试沙盒 / TMPDIR 指向这里）
+.tmp/
+
+# 浏览器自动化调试产物（playwright-cli 快照）
+.playwright-cli/
+/page-*.yml
+
+# 编辑器
+.vscode/
+.idea/
+
+# 注意：dist/ 与 data/ 必须入库（数据产物 + 状态记忆），不要在此忽略

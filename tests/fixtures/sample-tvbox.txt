@@ -1,0 +1,14 @@
+央视,#genre#
+CCTV1,http://example.com/live/cctv1/a.m3u8#http://example.com/live/cctv1/b.m3u8
+CCTV-5 体育,http://example.com/live/cctv5/a.m3u8
+
+港澳台,#genre#
+翡翠台,http://example.com/live/tvb-jade/a.m3u8#http://example.com/live/tvb-jade/b.m3u8#http://example.com/live/tvb-jade/c.m3u8
+TVB翡翠,http://example.com/live/tvb-jade/dup.m3u8
+
+广东,#genre#
+广东珠江,http://example.com/live/gd-zhujiang/a.m3u8
+珠江频道,http://example.com/live/gd-zhujiang/b.m3u8
+
+其他,#genre#
+某未知频道,http://example.com/live/unknown/a.m3u8

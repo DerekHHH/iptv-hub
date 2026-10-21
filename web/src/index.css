@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 浅色主题基础样式：面向非技术用户 + 电视端 WebView */
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    'Noto Sans SC',
+    'PingFang SC',
+    'Microsoft YaHei',
+    'Hiragino Sans GB',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: #f7f8fa;
+  color: #1f2329;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 长链接不撑破 360px 窄屏布局 */
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+/* 表格横向滚动容器 */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

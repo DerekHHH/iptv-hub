@@ -1,0 +1,175 @@
+classDiagram
+  direction LR
+
+  class GroupKey {
+    <<enumeration>>
+    港澳台
+    广东
+    央视
+    卫视
+    其他
+  }
+
+  class Stream {
+    +string url
+    +string urlKey
+    +string rawName
+    +string channelId
+    +GroupKey group
+    +string logo
+    +string origin
+    +boolean userAdded
+    +toUrlKey(url) string
+  }
+
+  class Channel {
+    +string id
+    +string name
+    +string[] aliases
+    +GroupKey group
+    +string logo
+    +string epgId
+    +Stream[] streams
+    +addStream(s Stream) void
+    +aliveStreams(results Map) Stream[]
+  }
+
+  class ProbeResult {
+    +string urlKey
+    +ProbeStatus status
+    +boolean alive
+    +number httpStatus
+    +number latencyMs
+    +string contentType
+    +StreamKind kind
+    +number width
+    +number height
+    +string resolution
+    +number bandwidth
+    +string error
+    +string checkedAt
+    +score() number
+  }
+
+  class BuildStats {
+    +number version
+    +string updated_at
+    +number channel_count
+    +number source_count
+    +Record groups
+    +UpstreamStat[] upstream
+    +number fetch_fail_rate
+    +object probe
+    +object epg
+    +number build_duration_ms
+    +boolean stale
+    +string stale_reason
+  }
+
+  class BlacklistEntry {
+    +number fail_count
+    +string last_checked
+  }
+
+  class BlacklistFile {
+    +number version
+    +Map entries
+  }
+
+  class UpstreamSource {
+    +string name
+    +string rawUrl
+    +string jsdelivrUrl
+    +string format
+  }
+
+  class SourcesFetcher {
+    -UpstreamSource[] upstreams
+    -number timeoutMs
+    +fetchAll(customText string) Promise~RawDoc[]~
+    -fetchOne(u UpstreamSource) Promise~RawDoc~
+  }
+
+  class Parser {
+    +parseM3U(text string, origin string) Stream[]
+    +parseTxt(text string, origin string) Stream[]
+    +parseAuto(text string, origin string) Stream[]
+  }
+
+  class Normalizer {
+    -ChannelRule[] rules
+    +normalize(rawName string) ChannelIdentity
+    +group(channelId string, rawName string) GroupKey
+    +buildChannels(streams Stream[]) Channel[]
+  }
+
+  class Blacklist {
+    -BlacklistFile file
+    +partition(urlKeys string[]) PartitionResult
+    +update(results ProbeResult[], now string) void
+    +save(path string) Promise~void~
+  }
+
+  class Prober {
+    -number concurrency
+    -number timeoutMs
+    -number deadline
+    +probeOne(url string, opts, deps ProbeDeps) Promise~ProbeResult~
+    +probeAll(targets Target[], opts, deps ProbeDeps) Promise~ProbeResult[]~
+    -probeHls(url string) Promise~ProbeResult~
+  }
+
+  class Ranker {
+    +rank(channels Channel[], results ProbeResult[]) Channel[]
+    -compare(a ProbeResult, b ProbeResult) number
+  }
+
+  class Emitters {
+    +emitTxt(channels Channel[], path string) Promise~void~
+    +emitM3u(channels Channel[], path string) Promise~void~
+    +emitEpg(channels Channel[], stats BuildStats) Promise~void~
+    +emitStats(stats BuildStats, path string) Promise~void~
+    +emitHistory(stats BuildStats) Promise~void~
+  }
+
+  class Orchestrator {
+    +run() Promise~void~
+    +computeFetchFailRate(docs RawDoc[]) number
+    +shouldGoStale(stats BuildStats, prev BuildStats) StaleDecision
+  }
+
+  class BrowserProbeClient {
+    +probeOneBrowser(url string, opts) Promise~BrowserProbeResult~
+    +probeAll(urls string[], opts) Promise~BrowserProbeResult[]~
+    -tierCors(url string) Promise~BrowserProbeResult~
+    -tierNoCors(url string) Promise~BrowserProbeResult~
+  }
+
+  class GithubApi {
+    +resolveRepo() RepoRef
+    +verifyToken(token string, repo RepoRef) Promise~TokenCheck~
+    +dispatchWorkflow(token string, repo RepoRef) Promise~void~
+    +getLatestRun(repo RepoRef, token string) Promise~RunStatus~
+    +getRunJobs(repo RepoRef, runId number) Promise~JobStatus[]~
+  }
+
+  Orchestrator --> SourcesFetcher
+  Orchestrator --> Parser
+  Orchestrator --> Normalizer
+  Orchestrator --> Blacklist
+  Orchestrator --> Prober
+  Orchestrator --> Ranker
+  Orchestrator --> Emitters
+  Orchestrator --> BuildStats
+
+  SourcesFetcher ..> UpstreamSource
+  Normalizer ..> Channel
+  Channel "1" o-- "*" Stream
+  Prober ..> ProbeResult
+  Ranker ..> ProbeResult
+  Blacklist --> BlacklistFile
+  BlacklistFile "1" *-- "*" BlacklistEntry
+  Ranker ..> Channel
+  Emitters ..> Channel
+  BrowserProbeClient ..> ProbeResult : 前端同构字段
+  GithubApi ..> BuildStats : 读取 stats.json
