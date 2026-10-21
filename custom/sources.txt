@@ -9,3 +9,7 @@
 # 示例（把前面的 # 去掉即可生效）：
 # 翡翠台,http://example.com/tvb-jade/index.m3u8
 # 广东珠江,http://example.com/gd-zhujiang/index.m3u8#http://example.com/gd-zhujiang/bak.m3u8
+
+# 国际频道（来自 iptv-org，已实测 master + 分片可拉取）
+BBC News,https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_hd_abr_v2.m3u8
+Euronews English,https://cdn-euronews.akamaized.net/live/eds/euronews-en/25002/index.m3u8
