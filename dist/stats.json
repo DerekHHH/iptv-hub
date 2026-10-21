@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "updated_at": "2026-10-21T18:10:26+08:00",
-  "channel_count": 91,
-  "source_count": 137,
+  "updated_at": "2026-10-21T18:37:45+08:00",
+  "channel_count": 72,
+  "source_count": 109,
   "groups": {
-    "港澳台": 20,
-    "广东": 9,
-    "央视": 3,
-    "卫视": 13,
-    "其他": 46
+    "港澳台": 18,
+    "广东": 6,
+    "央视": 5,
+    "卫视": 10,
+    "其他": 33
   },
   "upstream": [
     {
@@ -39,7 +39,7 @@
     {
       "name": "vbskycn-iptv",
       "ok": true,
-      "items": 518,
+      "items": 520,
       "channel": "raw"
     },
     {
@@ -65,22 +65,28 @@
       "ok": true,
       "items": 34,
       "channel": "raw"
+    },
+    {
+      "name": "custom",
+      "ok": true,
+      "items": 2,
+      "channel": "custom"
     }
   ],
-  "fetch_fail_rate": 0.1111,
+  "fetch_fail_rate": 0.1,
   "probe": {
     "total": 2444,
-    "alive": 127,
-    "dead": 500,
-    "timeout": 1810,
+    "alive": 106,
+    "dead": 450,
+    "timeout": 1881,
     "skipped": 7,
-    "duration_ms": 249036
+    "duration_ms": 260175
   },
   "epg": {
     "ok": false,
     "programmes": 0,
     "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml fetch failed"
   },
-  "build_duration_ms": 271495,
+  "build_duration_ms": 282529,
   "stale": false
 }
