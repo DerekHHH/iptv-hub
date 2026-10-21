@@ -25,3 +25,6 @@ scripts/** text eol=lf
 *.ttf binary
 *.zip binary
 *.gz binary
+
+# 这个回归样本要求工作区文件保留 CRLF（parse.test.ts 会直接检查原始字节）
+tests/fixtures/sample-bom-crlf.txt text eol=crlf
