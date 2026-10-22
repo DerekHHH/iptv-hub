@@ -8,8 +8,6 @@ on:
     paths:
       - 'dist/**'
       - 'data/history.json'
-      # 前端改动也要重新构建部署，否则改了页面得手动点一次部署才会生效
-      - 'web/**'
   workflow_dispatch:
 
 permissions:
