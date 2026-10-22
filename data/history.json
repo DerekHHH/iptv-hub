@@ -2,45 +2,45 @@
   "version": 1,
   "items": [
     {
-      "updated_at": "2026-10-21T18:10:26+08:00",
-      "channel_count": 91,
-      "source_count": 137,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-21T18:37:45+08:00",
-      "channel_count": 72,
-      "source_count": 109,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-21T19:19:03+08:00",
-      "channel_count": 194,
-      "source_count": 242,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-21T19:57:11+08:00",
-      "channel_count": 215,
-      "source_count": 263,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-22T10:37:15+08:00",
-      "channel_count": 460,
-      "source_count": 481,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-22T10:46:11+08:00",
-      "channel_count": 440,
-      "source_count": 504,
-      "stale": false
-    },
-    {
       "updated_at": "2026-10-22T11:01:45+08:00",
       "channel_count": 385,
       "source_count": 433,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:17:33+08:00",
+      "channel_count": 400,
+      "source_count": 451,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:24:41+08:00",
+      "channel_count": 413,
+      "source_count": 485,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:30:27+08:00",
+      "channel_count": 431,
+      "source_count": 501,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:36:02+08:00",
+      "channel_count": 336,
+      "source_count": 387,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:42:03+08:00",
+      "channel_count": 416,
+      "source_count": 485,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:47:45+08:00",
+      "channel_count": 417,
+      "source_count": 483,
       "stale": false
     }
   ]

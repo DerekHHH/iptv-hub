@@ -123,27 +123,40 @@ export const UPSTREAMS: readonly UpstreamSource[] = [
 /**
  * NBA 赛程源。
  *
- * 注意 ESPN 的 `dates` 参数按**美东日期**分组：实测传 20261021 返回的 11 场比赛，
+ * 注意 ESPN 的 `dates` 参数按**美东赛程日**分组：实测传 20261021 返回的比赛，
  * 北京时间全部落在 10/22（因为北京上午 = 美东前一天晚上）。
- * 所以取 [D-1, D, D+1]（D = 北京当天）三天并发拉取，合并后按北京时间窗口过滤，
- * 这样夏令时/冬令时切换都不会漏场次。
+ * 所以按「北京时间窗口起点当天的美东日期」起算，逐日并发拉 windowDays + 1 天，
+ * 合并后按北京时间窗口过滤——这样夏令时/冬令时切换都不会漏场次。
  */
 export const NBA = {
   /** 赛程接口前缀，拼接 `?dates=YYYYMMDD` */
   scoreboardUrl: 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard',
   /** 单次请求超时（接口冷启动实测约 13 秒） */
   timeoutMs: 20000,
-  /** 单日请求失败后的重试次数（国内直连 ESPN 偶发连接超时） */
+  /**
+   * 单日请求失败后的重试次数（原地重试）。
+   *
+   * 另外 `fetchNbaEvents` 在所有天拉完之后还会对失败的天补跑一轮，
+   * 那个「暖连接后补跑」才是兜住构建期冷启动失败的主力。
+   */
   retries: 1,
-  /** 展示窗口：北京时间今天起算的天数（1 天只有今天，2 天含明天） */
-  windowDays: 2,
+  /** 展示窗口：北京时间今天起算的天数（1 天只有今天，7 天含未来一周） */
+  windowDays: 7,
   /** 单个比赛最多附带的转播源数 */
   maxSourcesPerGame: 3,
-  /** 本仓库频道名 → ESPN 转播台名（用于把比赛和可用源对上） */
+  /**
+   * 本仓库频道名 → ESPN 转播台名（用于把比赛和可用源对上）。
+   *
+   * 说明：2025-26 赛季起 NBA 全国转播方是 ESPN/ABC（迪士尼）、NBC/Peacock、Prime Video，
+   * TNT 已无转播权，所以这里不再收录 TNT。ESPN 返回的台名实测含
+   * `ESPN`、`NBA TV`、`NBCSN` 等；只有本仓库确有存活源的台才列在这里。
+   */
   channelAliases: {
     ESPN: ['ESPN'],
     ESPNU: ['ESPNU'],
     ESPN2: ['ESPN2'],
+    'NBA TV': ['NBA TV'],
+    ABC: ['ABC'],
   } as Readonly<Record<string, readonly string[]>>,
 } as const;
 

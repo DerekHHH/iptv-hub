@@ -72,6 +72,41 @@ export function formatHumanCst(ms: number): string {
   return `${p.year}-${pad2(p.month)}-${pad2(p.day)} ${pad2(p.hour)}:${pad2(p.minute)}`;
 }
 
+/** 美东时区 IANA 名称（ESPN 的赛程日按美东口径分组）。 */
+const EASTERN_TIME_ZONE = 'America/New_York';
+
+/** 美东日期格式化器：显式指定 IANA 时区，结果与运行机器时区无关。 */
+const easternDateFormatter = new Intl.DateTimeFormat('en-CA', {
+  timeZone: EASTERN_TIME_ZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+/**
+ * 取某时刻对应的**美东日期**（`YYYY-MM-DD`）。
+ *
+ * 这里刻意用 Intl 而不是手算偏移：美东有夏令时，手算要自己维护切换表容易出错；
+ * Intl 的时区数据随 Node 一起发布，**显式指定 IANA 时区后不依赖机器本地时区**，
+ * 所以不违反「产物时间必须可复现」这条约定（被禁的是依赖机器时区的 toLocaleString）。
+ *
+ * @param ms 毫秒时间戳
+ * @return 例 '2026-10-21'
+ */
+export function formatEasternDate(ms: number): string {
+  return easternDateFormatter.format(new Date(ms));
+}
+
+/**
+ * 把 `YYYY-MM-DD` 形式的日期字符串转成 `YYYYMMDD`。
+ *
+ * @param date `YYYY-MM-DD`
+ * @return 例 '20261021'
+ */
+export function toCompactDate(date: string): string {
+  return date.replace(/-/g, '');
+}
+
 /**
  * 归档用紧凑时间戳（文件名/日志用）：`YYYYMMDD-HHmmss`。
  *

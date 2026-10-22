@@ -18,3 +18,10 @@ Euronews English,https://cdn-euronews.akamaized.net/live/eds/euronews-en/25002/i
 ESPN,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
 ESPNU,http://85.237.89.160:9590/usa-s/ESPN-U-HD/index.m3u8
 ESPN2,http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8
+
+# NBA TV：来自 iptv-org NBATV.us，2026-10-22 本机实测 3 个候选 master/分片均可拉取
+NBA TV,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8
+
+# ABC：NBA 全国直播在 ABC 播出，但 iptv-org 里 ABC.us 全是地方台 FAST 直播流
+# （17/30 可拉取），地方台直播流是否包含 ABC 全国赛事尚未实测，先作为概率性备用源。
+ABC,https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8#https://aegis-cloudfront-1.tubi.video/1a352414-3a30-4f42-b14b-c091d02a5e45/playlist.m3u8#https://content.uplynk.com/channel/64ca339f04964a5e961c3207a7771bf1.m3u8
