@@ -243,7 +243,17 @@ export default function Channels(): JSX.Element {
         }}
       />
 
-      <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+      {/* 手机必须纵向排列：chip 行占满一行在上，内容区占满一行在下。
+          若沿用横向 flex，chip 行（width:100%）会和内容区抢同一行，
+          把内容区压成极窄一条，卡片网格只好挤在右侧、文字逐字换行。 */}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          alignItems: { xs: 'stretch', md: 'flex-start' },
+          gap: 2,
+        }}
+      >
         {/* 手机：横向可滚 chip 行 */}
         <Box
           sx={{
