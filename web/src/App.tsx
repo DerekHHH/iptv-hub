@@ -12,13 +12,13 @@ import Play from './pages/Play';
 import Tester from './pages/Tester';
 import Update from './pages/Update';
 
-/** 页面（Hash 路由）。 */
+/** 页面（Hash 路由）。标签要短：手机上 5 个标签必须能一屏放下，否则后面的「更新 / 后台」会被裁掉点不到。 */
 const NAV_ITEMS: ReadonlyArray<{ path: string; label: string }> = [
   { path: '/', label: '首页' },
-  { path: '/channels', label: '频道浏览' },
-  { path: '/tester', label: '测源（检测能不能用）' },
-  { path: '/update', label: '一键更新' },
-  { path: '/admin', label: '管理后台' },
+  { path: '/channels', label: '频道' },
+  { path: '/tester', label: '测源' },
+  { path: '/update', label: '更新' },
+  { path: '/admin', label: '后台' },
 ];
 
 /**
@@ -60,7 +60,15 @@ export default function App(): JSX.Element {
                 label={item.label}
                 component={RouterLink}
                 to={item.path}
-                sx={{ minHeight: 44, fontSize: { xs: '0.82rem', sm: '0.92rem' } }}
+                sx={{
+                  minHeight: 44,
+                  // MUI Tab 默认 minWidth 90px，5 个标签就是 450px，手机上必然溢出。
+                  // 改成 auto 让标签按内容宽度撑开，5 个才挤得下一行。
+                  minWidth: 'auto',
+                  whiteSpace: 'nowrap',
+                  px: { xs: 1.25, sm: 2 },
+                  fontSize: { xs: '0.82rem', sm: '0.92rem' },
+                }}
               />
             ))}
           </Tabs>
