@@ -134,6 +134,41 @@ describe('resolvePublicBase（产物发布前的公网闸门）', () => {
     expect(out.base).toBe('http://192.168.1.7:18765');
   });
 
+  it('蜂窝网卡被整体排除（10.x 看着像私网，电视其实路由不到）', () => {
+    const out = resolvePublicBase({
+      env: {},
+      interfaces: {
+        ccmni1: [{ address: '10.2.6.86', family: 'IPv4', internal: false }],
+      },
+    });
+    expect(out.base).toBe('http://127.0.0.1:18765');
+    expect(out.source).toBe('loopback');
+    expect(out.warning).toContain('蜂窝');
+  });
+
+  it('手机热点（ap0）优先于蜂窝网卡', () => {
+    const out = resolvePublicBase({
+      env: {},
+      interfaces: {
+        ccmni1: [{ address: '10.2.6.86', family: 'IPv4', internal: false }],
+        ap0: [{ address: '192.168.x.x', family: 'IPv4', internal: false }],
+      },
+    });
+    expect(out.base).toBe('http://192.168.x.x:18765');
+    expect(out.source).toBe('lan');
+  });
+
+  it('Wi-Fi 客户端地址优先于热点地址', () => {
+    const out = resolvePublicBase({
+      env: {},
+      interfaces: {
+        ap0: [{ address: '192.168.x.x', family: 'IPv4', internal: false }],
+        wlan0: [{ address: '192.168.1.7', family: 'IPv4', internal: false }],
+      },
+    });
+    expect(out.base).toBe('http://192.168.1.7:18765');
+  });
+
   it('没有可用的局域网地址时退回回环，并给出提醒', () => {
     const out = resolvePublicBase({
       env: {},

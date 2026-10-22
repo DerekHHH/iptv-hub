@@ -82,6 +82,38 @@ const LINE_WEIGHT: Readonly<Record<string, number>> = {
 };
 
 /**
+ * 蜂窝接口名前缀。
+ *
+ * 实测手机在纯流量下会出现 `ccmni1 inet 10.2.6.86/8` —— 它落在 `10/8`，看起来
+ * 像局域网地址，实际是运营商内网，同一个 Wi-Fi 里的电视**根本路由不到**。
+ * 所以这类网卡必须整体排除，不能靠 IP 段判断。
+ */
+const CELLULAR_PREFIXES: readonly string[] = ['ccmni', 'rmnet', 'pdp', 'clat', 'qmi', 'wwan', 'usb'];
+
+/**
+ * 网卡优先级：Wi-Fi 客户端 → 手机热点 → 其它；蜂窝返回 null 表示排除。
+ *
+ * 手机开热点时地址挂在 `ap0` 上（实测 `192.168.x.x`），电视连的就是这个热点，
+ * 所以它比「其它」网卡优先，但低于真正的 Wi-Fi 客户端地址。
+ *
+ * @param name 网卡名
+ * @return 权重（越小越优先），null 表示不可用
+ */
+function interfaceRank(name: string): number | null {
+  const lowered = name.toLowerCase();
+  if (CELLULAR_PREFIXES.some((prefix) => lowered.startsWith(prefix))) {
+    return null;
+  }
+  if (/^(wlan\d*|wi-?fi|无线)/.test(lowered)) {
+    return 0;
+  }
+  if (/^(ap\d*|swlan\d*|softap)/.test(lowered)) {
+    return 1;
+  }
+  return 2;
+}
+
+/**
  * 去掉基址末尾的斜杠。
  *
  * @param value 原始基址
@@ -226,26 +258,30 @@ export function resolvePublicBase(
     options.interfaces ??
     (networkInterfaces() as NodeJS.Dict<readonly { address: string; family: string | number; internal: boolean }[]>);
 
-  const candidates: Array<{ name: string; address: string }> = [];
+  const candidates: Array<{ name: string; address: string; rank: number }> = [];
   for (const [name, entries] of Object.entries(interfaces)) {
+    const rank = interfaceRank(name);
+    if (rank === null) {
+      continue;
+    }
     for (const entry of entries ?? []) {
       const isV4 = entry.family === 'IPv4' || entry.family === 4;
       if (!isV4 || entry.internal || !isPrivateIpv4(entry.address)) {
         continue;
       }
-      candidates.push({ name, address: entry.address });
+      candidates.push({ name, address: entry.address, rank });
     }
   }
 
-  // 手机上是 wlan0，PC 上是 WLAN / 以太网：优先无线网卡，其余按名称排序取第一个，
-  // 保证同一台机器多次构建结果稳定（不会因为网卡顺序变化导致产物反复跳动）。
+  // 手机上是 wlan0 / ap0，PC 上是 WLAN / 以太网：按 网卡类型 再按名称排序，
+  // 保证同一台机器多次构建结果稳定（不会因为网卡枚举顺序变化导致产物反复跳动）。
   candidates.sort((left, right) => {
-    const score = (name: string): number => (/^wlan|wi-?fi|无线/i.test(name) ? 0 : 1);
-    const diff = score(left.name) - score(right.name);
+    const diff = left.rank - right.rank;
     if (diff !== 0) {
       return diff;
     }
-    return left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
+    const nameDiff = left.name < right.name ? -1 : left.name > right.name ? 1 : 0;
+    return nameDiff !== 0 ? nameDiff : left.address < right.address ? -1 : 1;
   });
 
   const picked = candidates[0];
@@ -253,7 +289,9 @@ export function resolvePublicBase(
     return {
       base: loopback,
       source: 'loopback',
-      warning: '没探测到局域网 IPv4，产物里的地址写成了 127.0.0.1（只有本机能播）',
+      warning:
+        '没探测到可用的局域网 IPv4（手机只连了蜂窝网络、或没连 Wi-Fi / 没开热点？），' +
+        '产物里的地址退回 127.0.0.1，电视端播不了，只有手机自己能播',
     };
   }
   return { base: `http://${picked.address}:${port}`, source: 'lan' };
