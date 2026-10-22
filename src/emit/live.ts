@@ -128,6 +128,21 @@ export function renderLiveM3u(matches: readonly LiveMatch[]): string {
 }
 
 /**
+ * 判断基址是否只是回环地址（只有本机能播）。
+ *
+ * @param base 形如 `http://192.168.1.7:18765`
+ * @return true 表示回环
+ */
+function isLoopbackBase(base: string): boolean {
+  try {
+    const host = new URL(base).hostname.toLowerCase();
+    return host === '127.0.0.1' || host === 'localhost' || host === '::1' || host === '[::1]';
+  } catch {
+    return true;
+  }
+}
+
+/**
  * 生成并落盘赛事直播产物。
  *
  * @param options 路径与注入依赖
@@ -150,6 +165,16 @@ export async function emitLive(
   });
   if (!outcome.ok) {
     return { ok: false, matches: [], ...(outcome.error === undefined ? {} : { error: outcome.error }) };
+  }
+
+  // 没探到局域网地址时产物里只会是 127.0.0.1，推到线上等于把已经能用的清单弄坏。
+  // 这种情况下宁可不动，等手机连回 Wi-Fi / 开热点后重新构建。
+  if (isLoopbackBase(outcome.publicBase)) {
+    return {
+      ok: false,
+      matches: [],
+      error: '没有可用的局域网地址（手机只连了蜂窝网？），为避免覆盖线上可用清单，本次不写产物',
+    };
   }
 
   const txt = renderLiveTxt(outcome.matches);

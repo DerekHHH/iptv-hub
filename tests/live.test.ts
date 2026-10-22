@@ -7,6 +7,9 @@
  *   3. 公告条目被剔除、同场多线路被合并
  */
 
+import { existsSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -21,7 +24,7 @@ import {
   toStatus,
   type LiveMatch,
 } from '../src/sources/wudaliansai';
-import { renderLiveM3u, renderLiveTxt } from '../src/emit/live';
+import { renderLiveM3u, renderLiveTxt, emitLive } from '../src/emit/live';
 
 /** 一份贴近真实产物的样本（含公告、完场、未开赛、多线路）。 */
 const SAMPLE = `#EXTM3U
@@ -299,5 +302,36 @@ describe('fetchLiveMatches（服务不可用时静默跳过）', () => {
     expect(outcome.ok).toBe(true);
     expect(outcome.matches.length).toBeGreaterThan(0);
     expect(outcome.matches.every((match) => match.variants.every((v) => v.url.startsWith(BASE)))).toBe(true);
+  });
+});
+
+describe('emitLive（不拿回环地址覆盖线上可用清单）', () => {
+  it('只有回环地址时不写产物', async () => {
+    const ok: typeof fetch = () => Promise.resolve(new Response(SAMPLE, { status: 200 }));
+    const outcome = await emitLive({
+      fetchImpl: ok,
+      env: { WUDALIANSAI_PUBLIC_BASE: 'http://127.0.0.1:18765' },
+      txtPath: `${tmpdir()}/live-loopback.txt`,
+      m3uPath: `${tmpdir()}/live-loopback.m3u`,
+    });
+    expect(outcome.ok).toBe(false);
+    expect(outcome.error).toContain('局域网地址');
+    expect(existsSync(`${tmpdir()}/live-loopback.txt`)).toBe(false);
+  });
+
+  it('有局域网地址时正常写出', async () => {
+    const ok: typeof fetch = () => Promise.resolve(new Response(SAMPLE, { status: 200 }));
+    const txtPath = `${tmpdir()}/live-lan.txt`;
+    const outcome = await emitLive({
+      fetchImpl: ok,
+      env: { WUDALIANSAI_PUBLIC_BASE: BASE },
+      txtPath,
+      m3uPath: `${tmpdir()}/live-lan.m3u`,
+    });
+    expect(outcome.ok).toBe(true);
+    expect(existsSync(txtPath)).toBe(true);
+    expect(readFileSync(txtPath, 'utf8')).toContain(`${BASE}/play/bbb`);
+    rmSync(txtPath, { force: true });
+    rmSync(`${tmpdir()}/live-lan.m3u`, { force: true });
   });
 });

@@ -4,14 +4,14 @@
 # 只需要网络与 Node：运行时零依赖，tsx 由 npx 临时下载。
 # 两个远端互为备份：任一推送失败都不影响另一个，脚本仍会正常结束。
 #
-# ---- 赛事直播源（可选，需要 wudaliansai 服务在跑）----
+# ---- 赛事直播源（可选，脚本会自动把 wudaliansai 服务带起来）----
 # 本仓库会顺带产出 dist/live/live.txt 与 live.m3u（足球/篮球/电竞赛事聚合源）。
-# 它连不上 http://127.0.0.1:18765 就自动跳过，只打一行 info，不影响主列表。
-# 想用就先在另一个 Termux 会话里把服务起起来（手动启动，无自启）：
-#   cd /data/local/tmp && SSL_CERT_FILE=/data/local/tmp/ca-certificates.crt \
-#     WUDALIANSAI_CACHE_DIR=/data/local/tmp/wdl-cache RUST_LOG=info \
-#     nohup ./wudaliansai > /data/local/tmp/wdl.log 2>&1 &
-# 排查用：curl -sS http://127.0.0.1:18765/health
+# 服务连不上就自动跳过，只打一行 info，不影响主列表。
+#
+# 为什么不在 /data/local/tmp 里直接跑：那是 adb（shell 用户）推二进制的地方，
+# Termux 属于 untrusted_app，Android 的 SELinux 一般不允许从那里执行程序。
+# 所以首次运行会把二进制复制到 $HOME/.local/（Termux 自己的目录）再启动。
+# 前提（只需做一次）：先用 adb 把二进制和证书推到 /data/local/tmp，见 wudaliansai 集成指南。
 #
 # 产物里的播放地址默认写成**手机当前的局域网 IP**（电视/盒子靠它直连手机），
 # 可用环境变量覆盖：
@@ -24,11 +24,61 @@ set -euo pipefail
 DIR="$HOME/iptv-hub"
 cd "$DIR"
 
+# 赛事服务的本地落点（放 Termux 家目录才能被执行）
+WDL_PORT=18765
+WDL_HOME="$HOME/.local/wudaliansai"
+WDL_BIN="$WDL_HOME/wudaliansai"
+WDL_CERT="$WDL_HOME/ca-certificates.crt"
+WDL_CACHE="$WDL_HOME/cache"
+WDL_LOG="$WDL_HOME/wdl.log"
+
 termux-wake-lock
 trap 'termux-wake-unlock' EXIT
 
 # 弱网下 HTTP/2 会出现 "Error in the HTTP2 framing layer"，固定用 HTTP/1.1
 git config http.version HTTP/1.1
+
+# 健康探针：用 node 内置 fetch，避免多装一个 curl 依赖
+wdl_health() {
+  node -e "fetch('http://127.0.0.1:$WDL_PORT/health',{signal:AbortSignal.timeout(3000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))" 2>/dev/null
+}
+
+echo "==> 0/4 检查赛事服务"
+if wdl_health; then
+  echo "    服务已在运行，直接复用"
+else
+  # 首次运行：从 adb 推送的位置搬一份到 Termux 家目录
+  if [ ! -x "$WDL_BIN" ] && [ -f /data/local/tmp/wudaliansai ]; then
+    mkdir -p "$WDL_HOME"
+    cp /data/local/tmp/wudaliansai "$WDL_BIN"
+    cp /data/local/tmp/ca-certificates.crt "$WDL_CERT" 2>/dev/null || true
+    chmod 755 "$WDL_BIN"
+    echo "    已复制服务到 $WDL_BIN"
+  fi
+  if [ -x "$WDL_BIN" ]; then
+    mkdir -p "$WDL_CACHE"
+    (
+      cd "$WDL_HOME"
+      SSL_CERT_FILE="$WDL_CERT" WUDALIANSAI_CACHE_DIR="$WDL_CACHE" RUST_LOG=info \
+        nohup ./wudaliansai > "$WDL_LOG" 2>&1 &
+    )
+    ok=no
+    for _ in $(seq 1 30); do
+      sleep 2
+      if wdl_health; then
+        ok=yes
+        break
+      fi
+    done
+    if [ "$ok" = yes ]; then
+      echo "    服务已启动（预热完成）"
+    else
+      echo "    服务启动超时，本次赛事直播源会被跳过；日志：$WDL_LOG"
+    fi
+  else
+    echo "    未找到 wudaliansai 二进制，本次跳过赛事直播源"
+  fi
+fi
 
 echo "==> 1/4 拉取最新代码"
 git pull --rebase --autostash || echo "！GitHub 拉取失败，继续用本地现有代码构建"
