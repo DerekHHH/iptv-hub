@@ -15,23 +15,23 @@ NBA 待播,#genre#
 10-24 10:00 开拓者 @ 国王（美东 10-23｜NBA League Pass/KUNP 16/BlazerVision，本仓库暂无对应源）
 10-25 06:00 热火 @ 黄蜂（美东 10-24｜NBA League Pass，本仓库暂无对应源）
 10-25 07:30 篮网 @ 骑士（美东 10-24）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-10-25 07:30 雄鹿 @ 76人（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
+10-25 07:30 雄鹿 @ 76人（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
 10-25 08:00 奇才 @ 公牛（美东 10-24｜MNMT/NBA League Pass，本仓库暂无对应源）
 10-25 08:00 马刺 @ 独行侠（美东 10-24｜NBA League Pass/DAZN SAS/KFAA-TV/MavsTV，本仓库暂无对应源）
 10-25 08:30 火箭 @ 老鹰（美东 10-24｜NBA League Pass，本仓库暂无对应源）
 10-25 09:00 鹈鹕 @ 掘金（美东 10-24｜NBA League Pass/GCSEN/Pelicans.com，本仓库暂无对应源）
-10-25 10:00 勇士 @ 太阳（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
+10-25 10:00 勇士 @ 太阳（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
 10-26 05:00 湖人 @ 爵士（美东 10-25｜NBA League Pass/Spectrum Sports Net/Spectrum Sports Net +/KJZZ-TV/Jazz+，本仓库暂无对应源）
 10-26 06:00 步行者 @ 篮网（美东 10-25）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
 10-26 07:00 魔术 @ 尼克斯（美东 10-25｜NBA League Pass，本仓库暂无对应源）
-10-26 07:00 猛龙 @ 森林狼（美东 10-25）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
+10-26 07:00 猛龙 @ 森林狼（美东 10-25）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
 10-26 07:00 快船 @ 雷霆（美东 10-25｜NBA League Pass/ClipperVision/KSBI/Thunder App，本仓库暂无对应源）
 10-26 07:30 活塞 @ 76人（美东 10-25｜NBA League Pass，本仓库暂无对应源）
 10-26 09:00 灰熊 @ 国王（美东 10-25｜NBA League Pass/DAZN MEM，本仓库暂无对应源）
 10-27 07:00 奇才 @ 黄蜂（美东 10-26｜MNMT/NBA League Pass，本仓库暂无对应源）
 10-27 07:00 森林狼 @ 骑士（美东 10-26｜NBA League Pass/DAZN MIN，本仓库暂无对应源）
 10-27 07:30 公牛 @ 凯尔特人（美东 10-26｜NBA League Pass，本仓库暂无对应源）
-10-27 07:30 独行侠 @ 热火（美东 10-26）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
+10-27 07:30 独行侠 @ 热火（美东 10-26）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
 10-27 08:00 步行者 @ 雄鹿（美东 10-26｜NBA League Pass/DAZN IND/MyMi/Bucks App，本仓库暂无对应源）
 10-27 08:00 太阳 @ 雷霆（美东 10-26｜NBA League Pass/Suns Live/Arizona's Family 3TV/KSBI/Thunder App，本仓库暂无对应源）
 10-27 08:30 老鹰 @ 火箭（美东 10-26｜NBA League Pass，本仓库暂无对应源）
