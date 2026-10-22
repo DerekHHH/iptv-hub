@@ -154,10 +154,10 @@ describe('resolvePublicBase（产物发布前的公网闸门）', () => {
       env: {},
       interfaces: {
         ccmni1: [{ address: '10.2.6.86', family: 'IPv4', internal: false }],
-        ap0: [{ address: '192.168.x.x', family: 'IPv4', internal: false }],
+        ap0: [{ address: '192.168.43.106', family: 'IPv4', internal: false }],
       },
     });
-    expect(out.base).toBe('http://192.168.x.x:18765');
+    expect(out.base).toBe('http://192.168.43.106:18765');
     expect(out.source).toBe('lan');
   });
 
@@ -165,7 +165,7 @@ describe('resolvePublicBase（产物发布前的公网闸门）', () => {
     const out = resolvePublicBase({
       env: {},
       interfaces: {
-        ap0: [{ address: '192.168.x.x', family: 'IPv4', internal: false }],
+        ap0: [{ address: '192.168.43.106', family: 'IPv4', internal: false }],
         wlan0: [{ address: '192.168.1.7', family: 'IPv4', internal: false }],
       },
     });
