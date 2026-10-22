@@ -8,6 +8,9 @@
  *   $env:GITHUB_TOKEN = 'github_pat_...'   # 只需 contents:write 权限
  *   node scripts/push-via-api.mjs
  *
+ * 不设环境变量也行：会自动复用 git 已保存的 github.com 凭据（git credential fill），
+ * 再退到 `~/.github-token` 文件。手机上走这条路就不用再手工配一次 token。
+ *
  * 有可用代理时再设 `GITHUB_PROXY=http://127.0.0.1:7890` 会快很多。
  *
  * 同步方式：把本地 HEAD 的文件表与**远端现有 tree** 逐项比对，只上传有差异的文件、
@@ -16,15 +19,58 @@
  */
 
 import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
 const OWNER = 'DerekHHH';
 const REPO = 'iptv-hub';
 const BRANCH = 'main';
 const API = 'https://api.github.com';
 
-const token = process.env.GITHUB_TOKEN ?? '';
+/**
+ * Windows 上 curl 的实际可执行文件叫 `curl.exe`（`curl` 会被 PowerShell 解析成
+ * Invoke-WebRequest 的别名）；Termux / Linux 上就叫 `curl`。
+ */
+const CURL = process.platform === 'win32' ? 'curl.exe' : 'curl';
+
+/**
+ * 取 token：环境变量 → git 已存的凭据 → 家目录下的 `~/.github-token`。
+ *
+ * @return token，取不到返回空串
+ */
+function resolveToken() {
+  const fromEnv = (process.env.GITHUB_TOKEN ?? '').trim();
+  if (fromEnv.length > 0) {
+    return fromEnv;
+  }
+  try {
+    const out = execFileSync('git', ['credential', 'fill'], {
+      input: 'protocol=https\nhost=github.com\n\n',
+      encoding: 'utf8',
+      timeout: 15000,
+      stdio: ['pipe', 'pipe', 'ignore'],
+    });
+    const matched = /^password=(.+)$/m.exec(out);
+    if (matched !== null && matched[1].trim().length > 0) {
+      return matched[1].trim();
+    }
+  } catch {
+    // 没有凭据助手就继续往下试
+  }
+  try {
+    const home = process.env.HOME ?? process.env.USERPROFILE ?? '';
+    const text = readFileSync(`${home}/.github-token`, 'utf8').trim();
+    if (text.length > 0) {
+      return text;
+    }
+  } catch {
+    // 文件不存在
+  }
+  return '';
+}
+
+const token = resolveToken();
 if (token.length === 0) {
-  console.error('缺少 GITHUB_TOKEN 环境变量');
+  console.error('缺少 GITHUB_TOKEN：环境变量没设，git 凭据里也没有，~/.github-token 也不存在');
   process.exit(1);
 }
 
@@ -65,7 +111,7 @@ function call(pathname, init = {}) {
   }
   args.push(`${API}${pathname}`);
 
-  const raw = execFileSync('curl.exe', args, {
+  const raw = execFileSync(CURL, args, {
     encoding: 'utf8',
     maxBuffer: 128 * 1024 * 1024,
     input: init.body ?? '',

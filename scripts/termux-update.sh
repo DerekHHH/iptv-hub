@@ -102,13 +102,19 @@ git commit -m "chore(data): 手机本地测活更新 $(date +'%Y-%m-%d %H:%M')"
 
 # 构建要跑 5~10 分钟，这段时间远端可能被网页后台 / 电脑端的 API 通道推过，
 # 那样直接 push 会被拒（non-fast-forward，报 "fetch first"）。
-# 所以推之前先同步一次；万一还是被抢先，再同步重试一轮。
+# 所以推之前先同步一次。
 git pull --rebase --autostash || echo "！同步失败，直接尝试推送"
-git push origin main || {
-  echo "！推送被拒，再同步一次后重试"
-  git pull --rebase --autostash || echo "！同步失败；若提示 rebase 冲突，先执行 git rebase --abort"
-  git push origin main || echo "！GitHub 推送失败，产物已保存在本地，稍后重试即可"
-}
+
+# github.com:443 在国内经常连不上（实测卡 200 秒后报 Failed to connect ... port 443），
+# 但 api.github.com 一般可达，所以直连失败就改走 API 通道推同一份内容。
+if ! git push origin main; then
+  echo "！直连 github.com 推送失败，改用 GitHub API 通道"
+  if ! command -v curl >/dev/null 2>&1; then
+    echo "    正在安装 curl ..."
+    pkg install -y curl >/dev/null 2>&1 || echo "    ！curl 安装失败"
+  fi
+  node scripts/push-via-api.mjs || echo "！API 通道也失败，产物已保存在本地，稍后重试即可"
+fi
 
 if git remote get-url gitee >/dev/null 2>&1; then
   git push gitee main || echo "！Gitee 推送失败（可稍后重试，GitHub 不受影响）"
