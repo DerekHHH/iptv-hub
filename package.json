@@ -16,6 +16,7 @@
     "web:build": "vite build --config web/vite.config.ts",
     "pages:assemble": "node scripts/assemble-pages.mjs",
     "push:api": "node scripts/push-via-api.mjs",
+    "find": "node scripts/find-channel.mjs",
     "check:upstreams": "node scripts/check-upstreams.mjs"
   },
   "dependencies": {
