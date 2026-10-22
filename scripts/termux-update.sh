@@ -3,6 +3,22 @@
 # 用法（在 Termux 里）：bash scripts/termux-update.sh
 # 只需要网络与 Node：运行时零依赖，tsx 由 npx 临时下载。
 # 两个远端互为备份：任一推送失败都不影响另一个，脚本仍会正常结束。
+#
+# ---- 赛事直播源（可选，需要 wudaliansai 服务在跑）----
+# 本仓库会顺带产出 dist/live/live.txt 与 live.m3u（足球/篮球/电竞赛事聚合源）。
+# 它连不上 http://127.0.0.1:18765 就自动跳过，只打一行 info，不影响主列表。
+# 想用就先在另一个 Termux 会话里把服务起起来（手动启动，无自启）：
+#   cd /data/local/tmp && SSL_CERT_FILE=/data/local/tmp/ca-certificates.crt \
+#     WUDALIANSAI_CACHE_DIR=/data/local/tmp/wdl-cache RUST_LOG=info \
+#     nohup ./wudaliansai > /data/local/tmp/wdl.log 2>&1 &
+# 排查用：curl -sS http://127.0.0.1:18765/health
+#
+# 产物里的播放地址默认写成**手机当前的局域网 IP**（电视/盒子靠它直连手机），
+# 可用环境变量覆盖：
+#   WUDALIANSAI_BASE_URL     拉列表的地址（默认 http://127.0.0.1:18765）
+#   WUDALIANSAI_PUBLIC_BASE  写进产物的地址（默认自动探测局域网 IP，探测不到退回 127.0.0.1）
+# 注意：地址会随产物推到公开仓库，所以只肯写局域网/回环地址，公网地址会被忽略。
+# 服务监听在 0.0.0.0:18765，同一 Wi-Fi 下的设备都能访问，别在公共 Wi-Fi 里开。
 set -euo pipefail
 
 DIR="$HOME/iptv-hub"

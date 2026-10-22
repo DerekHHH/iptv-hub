@@ -29,6 +29,8 @@ const DATA_ITEMS = [
   { from: join(DIST_DIR, 'm3u'), to: join(OUT_DIR, 'm3u'), label: 'm3u/' },
   { from: join(DIST_DIR, 'epg'), to: join(OUT_DIR, 'epg'), label: 'epg/' },
   { from: join(DIST_DIR, 'nba'), to: join(OUT_DIR, 'nba'), label: 'nba/' },
+  // 赛事聚合源（手机本地构建才有），不存在时自动跳过
+  { from: join(DIST_DIR, 'live'), to: join(OUT_DIR, 'live'), label: 'live/' },
   { from: join(DIST_DIR, 'stats.json'), to: join(OUT_DIR, 'stats.json'), label: 'stats.json' },
   // 网页端频道目录（频道浏览页 / 播放页读取），不存在时自动跳过
   { from: join(DIST_DIR, 'channels.json'), to: join(OUT_DIR, 'channels.json'), label: 'channels.json' },

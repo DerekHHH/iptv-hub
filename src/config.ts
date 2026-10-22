@@ -189,6 +189,40 @@ export const NBA = {
   } as Readonly<Record<string, readonly string[]>>,
 } as const;
 
+/**
+ * 赛事聚合服务 wudaliansai 的接入参数（可选上游，**只有手机本地构建时才有**）。
+ *
+ * 该服务是闭源二进制，跑在手机上监听 18765，产出 `/live.m3u`（赛事列表）与
+ * `/play/{key}`（302 跳真实 m3u8）。GitHub Actions 上必然连不上，所以**不进**
+ * `UPSTREAMS`——它不参与失败率统计，连不上就静默跳过。
+ */
+export const WUDALIANSAI = {
+  /** 拉列表的默认地址（可用 `WUDALIANSAI_BASE_URL` 覆盖） */
+  baseUrl: 'http://127.0.0.1:18765',
+  /** 环境变量：拉列表的地址（手机之外的机器上可用 adb forward 顶替） */
+  baseEnv: 'WUDALIANSAI_BASE_URL',
+  /**
+   * 环境变量：写进产物的对外地址。
+   *
+   * 不设时自动探测本机**局域网** IPv4（`192.168.x` / `10.x` / `172.16-31.x`），
+   * 探测不到就退回 `127.0.0.1`（只有本机能播）。
+   * 产物会推到公开仓库，所以**公网 IP 字面量会被拒绝**（其它情况如 DDNS 域名照常放行）。
+   */
+  publicBaseEnv: 'WUDALIANSAI_PUBLIC_BASE',
+  /** 列表接口 */
+  livePath: '/live.m3u',
+  /** 单次请求超时（服务本体预热要 50 秒，但列表接口本身很快） */
+  timeoutMs: 10000,
+  /** 「注意事项」是公告视频，不是赛事 */
+  noticeGroup: '注意事项',
+  /** 表示"这场没有可看内容"的状态后缀；其余后缀（赛场原声/高清/…）都算直播中 */
+  deadSuffixes: ['完场', '未开赛', '暂无直播'] as readonly string[],
+  /** 状态后缀 → 产物里的展示文案 */
+  statusLabels: { 完场: '已结束', 未开赛: '未开赛', 暂无直播: '暂无直播' } as Readonly<Record<string, string>>,
+  /** 分类展示顺序（其余分类按字典序排在其后） */
+  categoryOrder: ['足球', '篮球', '电竞'] as readonly string[],
+} as const;
+
 /** 公开 XMLTV 节目单源（失败不影响列表）。 */
 export const EPG_SOURCES: readonly string[] = [
   'https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml',
@@ -223,6 +257,12 @@ export const PATHS = {
   nbaM3u: 'dist/nba/today.m3u',
   /** 网页端频道目录（分组 + 频道 + 源地址），供频道浏览页 / 播放页读取 */
   channelsJson: 'dist/channels.json',
+  /** 赛事直播产物目录（wudaliansai 聚合源，手机本地构建才有） */
+  liveDir: 'dist/live',
+  /** 赛事直播清单（TXT，可直接当直播源导入） */
+  liveTxt: 'dist/live/live.txt',
+  /** 赛事直播清单（M3U） */
+  liveM3u: 'dist/live/live.m3u',
   stats: 'dist/stats.json',
   dataDir: 'data',
   blacklist: 'data/blacklist.json',

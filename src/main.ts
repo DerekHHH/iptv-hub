@@ -24,6 +24,7 @@ import { emitChannelsJson } from './emit/channelsJson';
 import { renderM3u } from './emit/m3u';
 import { renderTxt } from './emit/txt';
 import { emitEpg } from './emit/epg';
+import { emitLive } from './emit/live';
 import { emitNba } from './emit/nba';
 import { HIDDEN_CHANNEL_COUNT, buildChannels } from './normalize/channelName';
 import { parseAuto } from './parse/parseTxt';
@@ -599,6 +600,25 @@ export async function run(options: RunOptions = {}): Promise<BuildStats> {
       }
     } catch (error) {
       log.warn('nba', 'NBA 赛程生成失败，已跳过（不影响频道列表）', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  // 赛事聚合产物（wudaliansai）：只在手机本地构建设有该服务时才写得出来。
+  // GitHub Actions 上必然连不上，所以连不上用 info 而不是 warn —— 这是预期内的正常情况。
+  if (!mockMode) {
+    try {
+      const liveOutcome = await emitLive({
+        txtPath: paths.liveTxt,
+        m3uPath: paths.liveM3u,
+        ...(fetchImpl === undefined ? {} : { fetchImpl }),
+      });
+      if (!liveOutcome.ok) {
+        log.info('live', `赛事聚合源不可用，已跳过（保留上一版产物）：${liveOutcome.error ?? '未知原因'}`);
+      }
+    } catch (error) {
+      log.info('live', '赛事聚合产物生成失败，已跳过（不影响频道列表）', {
         error: error instanceof Error ? error.message : String(error),
       });
     }
