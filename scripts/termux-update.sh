@@ -21,7 +21,10 @@
 # 服务监听在 0.0.0.0:18765，同一 Wi-Fi 下的设备都能访问，别在公共 Wi-Fi 里开。
 set -euo pipefail
 
-DIR="$HOME/iptv-hub"
+# 仓库根目录从脚本自身位置推导，不写死路径。
+# 之前写死 $HOME/iptv-hub，结果克隆到别的名字（比如 ~/iptv）时直接 cd 失败。
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIR="${IPTV_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
 cd "$DIR"
 
 # 赛事服务的本地落点（放 Termux 家目录才能被执行）
