@@ -42,6 +42,20 @@ function resolveToken() {
   if (fromEnv.length > 0) {
     return fromEnv;
   }
+  // 不少环境把 token 直接写在远端地址里：https://user:token@github.com/...
+  // 这种情况凭据助手查不到，所以先从 remote.origin.url 里取。
+  try {
+    const url = execFileSync('git', ['config', '--get', 'remote.origin.url'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    const matched = /^https:\/\/[^/@:]+:([^/@]+)@/.exec(url);
+    if (matched !== null) {
+      return decodeURIComponent(matched[1]);
+    }
+  } catch {
+    // 没有 origin 就继续往下试
+  }
   try {
     const out = execFileSync('git', ['credential', 'fill'], {
       input: 'protocol=https\nhost=github.com\n\n',
