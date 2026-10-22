@@ -13,3 +13,8 @@
 # 国际频道（来自 iptv-org，已实测 master + 分片可拉取）
 BBC News,https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_hd_abr_v2.m3u8
 Euronews English,https://cdn-euronews.akamaized.net/live/eds/euronews-en/25002/index.m3u8
+
+# NBA 转播频道（取自 iptv-org us.m3u，PC 实测 HTTP 200，待国内网络测活确认）
+ESPN,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+ESPNU,http://85.237.89.160:9590/usa-s/ESPN-U-HD/index.m3u8
+ESPN2,http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8

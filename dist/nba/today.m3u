@@ -1,0 +1,9 @@
+#EXTM3U
+#EXTINF:-1 group-title="NBA",10-22 07:30 森林狼 @ 热火 (ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 group-title="NBA",10-22 10:00 勇士 @ 湖人 (ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 group-title="NBA",10-23 07:00 骑士 @ 76人 (ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 group-title="NBA",10-23 09:30 掘金 @ 雷霆 (ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8

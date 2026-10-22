@@ -120,6 +120,33 @@ export const UPSTREAMS: readonly UpstreamSource[] = [
   },
 ];
 
+/**
+ * NBA 赛程源。
+ *
+ * 注意 ESPN 的 `dates` 参数按**美东日期**分组：实测传 20261021 返回的 11 场比赛，
+ * 北京时间全部落在 10/22（因为北京上午 = 美东前一天晚上）。
+ * 所以取 [D-1, D, D+1]（D = 北京当天）三天并发拉取，合并后按北京时间窗口过滤，
+ * 这样夏令时/冬令时切换都不会漏场次。
+ */
+export const NBA = {
+  /** 赛程接口前缀，拼接 `?dates=YYYYMMDD` */
+  scoreboardUrl: 'https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard',
+  /** 单次请求超时（接口冷启动实测约 13 秒） */
+  timeoutMs: 20000,
+  /** 单日请求失败后的重试次数（国内直连 ESPN 偶发连接超时） */
+  retries: 1,
+  /** 展示窗口：北京时间今天起算的天数（1 天只有今天，2 天含明天） */
+  windowDays: 2,
+  /** 单个比赛最多附带的转播源数 */
+  maxSourcesPerGame: 3,
+  /** 本仓库频道名 → ESPN 转播台名（用于把比赛和可用源对上） */
+  channelAliases: {
+    ESPN: ['ESPN'],
+    ESPNU: ['ESPNU'],
+    ESPN2: ['ESPN2'],
+  } as Readonly<Record<string, readonly string[]>>,
+} as const;
+
 /** 公开 XMLTV 节目单源（失败不影响列表）。 */
 export const EPG_SOURCES: readonly string[] = [
   'https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml',
@@ -144,9 +171,14 @@ export const PATHS = {
   txtDir: 'dist/txt',
   m3uDir: 'dist/m3u',
   epgDir: 'dist/epg',
+  nbaDir: 'dist/nba',
   txt: 'dist/txt/all.txt',
   m3u: 'dist/m3u/all.m3u',
   epg: 'dist/epg/epg.xml',
+  /** NBA 赛程清单（TXT，可直接当直播源导入） */
+  nbaTxt: 'dist/nba/today.txt',
+  /** NBA 赛程清单（M3U） */
+  nbaM3u: 'dist/nba/today.m3u',
   stats: 'dist/stats.json',
   dataDir: 'data',
   blacklist: 'data/blacklist.json',

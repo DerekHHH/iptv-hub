@@ -2,19 +2,6 @@
   "version": 1,
   "items": [
     {
-      "updated_at": "2026-10-21T16:40:18+08:00",
-      "channel_count": 96,
-      "source_count": 102,
-      "stale": false
-    },
-    {
-      "updated_at": "2026-10-21T16:40:18+08:00",
-      "channel_count": 96,
-      "source_count": 102,
-      "stale": true,
-      "stale_reason": "输出频道 40 个，低于上次 96 个的 60%"
-    },
-    {
       "updated_at": "2026-10-21T18:10:26+08:00",
       "channel_count": 91,
       "source_count": 137,
@@ -36,6 +23,24 @@
       "updated_at": "2026-10-21T19:57:11+08:00",
       "channel_count": 215,
       "source_count": 263,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T10:37:15+08:00",
+      "channel_count": 460,
+      "source_count": 481,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T10:46:11+08:00",
+      "channel_count": 440,
+      "source_count": 504,
+      "stale": false
+    },
+    {
+      "updated_at": "2026-10-22T11:01:45+08:00",
+      "channel_count": 385,
+      "source_count": 433,
       "stale": false
     }
   ]

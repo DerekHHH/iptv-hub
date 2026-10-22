@@ -1,0 +1,14 @@
+NBA 赛程,#genre#
+10-22 07:00 老鹰 @ 魔术（NBA League Pass，本仓库暂无对应源）
+10-22 07:00 雄鹿 @ 奇才（MNMT/NBA League Pass/MyMi/Bucks App，本仓库暂无对应源）
+10-22 07:30 森林狼 @ 热火,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+10-22 07:30 黄蜂 @ 篮网（NBA League Pass/DAZN (YES)，本仓库暂无对应源）
+10-22 07:30 公牛 @ 猛龙（NBA League Pass，本仓库暂无对应源）
+10-22 08:00 爵士 @ 灰熊（NBA League Pass/KJZZ-TV/Jazz+/DAZN MEM，本仓库暂无对应源）
+10-22 08:00 步行者 @ 鹈鹕（NBA League Pass/DAZN IND/GCSEN/Pelicans.com，本仓库暂无对应源）
+10-22 08:30 独行侠 @ 火箭（NBA League Pass/KFAA-TV/MavsTV，本仓库暂无对应源）
+10-22 10:00 勇士 @ 湖人,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+10-22 10:00 太阳 @ 开拓者（NBA League Pass/Suns Live/Arizona's Family 3TV/KUNP 16/BlazerVision，本仓库暂无对应源）
+10-22 10:30 国王 @ 快船（NBA League Pass/KTLA/ClipperVision，本仓库暂无对应源）
+10-23 07:00 骑士 @ 76人,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+10-23 09:30 掘金 @ 雷霆,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8

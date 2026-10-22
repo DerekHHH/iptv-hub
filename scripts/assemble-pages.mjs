@@ -28,6 +28,7 @@ const DATA_ITEMS = [
   { from: join(DIST_DIR, 'txt'), to: join(OUT_DIR, 'txt'), label: 'txt/' },
   { from: join(DIST_DIR, 'm3u'), to: join(OUT_DIR, 'm3u'), label: 'm3u/' },
   { from: join(DIST_DIR, 'epg'), to: join(OUT_DIR, 'epg'), label: 'epg/' },
+  { from: join(DIST_DIR, 'nba'), to: join(OUT_DIR, 'nba'), label: 'nba/' },
   { from: join(DIST_DIR, 'stats.json'), to: join(OUT_DIR, 'stats.json'), label: 'stats.json' },
   // 可选：历史趋势（首页折线/表格用），不存在时自动跳过
   { from: join(ROOT, 'data', 'history.json'), to: join(OUT_DIR, 'history.json'), label: 'history.json' },

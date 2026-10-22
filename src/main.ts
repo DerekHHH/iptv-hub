@@ -22,6 +22,7 @@ import { readPrevStats, emitStats, emitHistory, createEmptyStats } from './emit/
 import { renderM3u } from './emit/m3u';
 import { renderTxt } from './emit/txt';
 import { emitEpg } from './emit/epg';
+import { emitNba } from './emit/nba';
 import { buildChannels } from './normalize/channelName';
 import { parseAuto } from './parse/parseTxt';
 import { probeAll } from './probe/probe';
@@ -516,6 +517,27 @@ export async function run(options: RunOptions = {}): Promise<BuildStats> {
   stats.build_duration_ms = nowMs() - startedAt;
   await emitStats(stats, paths.stats);
   await emitHistory(stats, paths.history);
+
+  // NBA 赛程产物：失败只告警，不写产物（保留上一版），不影响主列表。
+  // MOCK 离线模式下跳过：该模式承诺不触网，也不应往 dist/ 写额外文件。
+  if (!mockMode) {
+    try {
+      const nbaOutcome = await emitNba(ranked, {
+        txtPath: paths.nbaTxt,
+        m3uPath: paths.nbaM3u,
+        ...(fetchImpl === undefined ? {} : { fetchImpl }),
+        now: nowMs,
+      });
+      if (!nbaOutcome.ok) {
+        log.warn('nba', nbaOutcome.error ?? '赛程获取失败，保留上一版产物');
+      }
+    } catch (error) {
+      log.warn('nba', 'NBA 赛程生成失败，已跳过（不影响频道列表）', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
   log.info('emit', `构建完成，用时 ${formatDuration(stats.build_duration_ms)}`);
 
   return stats;
