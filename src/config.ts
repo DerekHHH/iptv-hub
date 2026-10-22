@@ -157,6 +157,7 @@ export const NBA = {
     ESPN2: ['ESPN2'],
     'NBA TV': ['NBA TV'],
     ABC: ['ABC'],
+    'YES Network': ['DAZN (YES)'],
   } as Readonly<Record<string, readonly string[]>>,
 } as const;
 
