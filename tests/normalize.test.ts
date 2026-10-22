@@ -130,7 +130,10 @@ describe('buildChannels', () => {
     expect(channels[0]?.group).toBe('港澳台');
     expect(channels[1]?.group).toBe('央视');
     expect(channels[2]?.group).toBe('卫视');
-    expect(GROUP_ORDER).toEqual(['港澳台', '广东', '央视', '卫视', '其他']);
+    // 分组顺序已数据驱动（`data/groups.json`），这里只钉住不可回退的约定：
+    // 前 4 组沿用旧习惯、兜底组「其他」永远在最后。
+    expect(GROUP_ORDER.slice(0, 4)).toEqual(['港澳台', '广东', '央视', '卫视']);
+    expect(GROUP_ORDER.at(-1)).toBe('其他');
   });
 
   it('用户自填源排在同频道最前面', () => {

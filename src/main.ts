@@ -11,6 +11,7 @@
 import {
   DEGRADE,
   FETCH,
+  OVERSEAS_ORIGINS,
   PATHS,
   PROBE,
   SELECT,
@@ -19,11 +20,12 @@ import {
 import { GROUP_ORDER, groupWeight } from './data/groups';
 import { Blacklist } from './blacklist';
 import { readPrevStats, emitStats, emitHistory, createEmptyStats } from './emit/stats';
+import { emitChannelsJson } from './emit/channelsJson';
 import { renderM3u } from './emit/m3u';
 import { renderTxt } from './emit/txt';
 import { emitEpg } from './emit/epg';
 import { emitNba } from './emit/nba';
-import { buildChannels } from './normalize/channelName';
+import { HIDDEN_CHANNEL_COUNT, buildChannels } from './normalize/channelName';
 import { parseAuto } from './parse/parseTxt';
 import { probeAll } from './probe/probe';
 import { createMockFetch } from './sources/mock';
@@ -200,7 +202,14 @@ export function selectCandidates(
   channels: readonly Channel[],
   maxCandidates: number = SELECT.maxCandidates,
 ): ProbeTarget[] {
-  const flat: Array<{ url: string; urlKey: string; channelId: string; groupRank: number; autoRank: number }> = [];
+  const flat: Array<{
+    url: string;
+    urlKey: string;
+    origin: string;
+    channelId: string;
+    groupRank: number;
+    autoRank: number;
+  }> = [];
 
   for (const channel of channels) {
     const groupRank = groupWeight(channel.group);
@@ -208,6 +217,7 @@ export function selectCandidates(
       flat.push({
         url: stream.url,
         urlKey: stream.urlKey,
+        origin: stream.origin,
         channelId: channel.id,
         groupRank,
         // 0 = 用户自填（最优先），1 = 自动抓取
@@ -239,7 +249,7 @@ export function selectCandidates(
       continue;
     }
     seen.add(item.urlKey);
-    targets.push({ urlKey: item.urlKey, url: item.url });
+    targets.push({ urlKey: item.urlKey, url: item.url, origin: item.origin });
     if (targets.length >= maxCandidates) {
       break;
     }
@@ -254,7 +264,9 @@ function countGroups(channels: readonly Channel[]): Record<GroupKey, number> {
     groups[group] = 0;
   }
   for (const channel of channels) {
-    groups[channel.group] += 1;
+    // 分组已数据驱动（`GroupKey = string`），人工覆盖可能引入不在 `GROUP_ORDER` 里的新分组，
+    // 直接 `+=` 会得到 NaN，所以用 `?? 0` 兜底。
+    groups[channel.group] = (groups[channel.group] ?? 0) + 1;
   }
   return groups;
 }
@@ -349,6 +361,8 @@ export async function run(options: RunOptions = {}): Promise<BuildStats> {
   stats.upstream = upstreamStats;
   stats.fetch_fail_rate = Number(fetchFailRate.toFixed(4));
   stats.build_duration_ms = 0;
+  // 屏蔽名单是在归一阶段就丢弃的（见 normalize/channelName.ts），数量与本次构建恒定
+  stats.hidden_count = HIDDEN_CHANNEL_COUNT;
 
   log.info('main', `上游 ${docs.length} 个，失败率 ${(fetchFailRate * 100).toFixed(0)}%`);
 
@@ -453,6 +467,45 @@ export async function run(options: RunOptions = {}): Promise<BuildStats> {
     log.info('probe', '预算不足，跳过黑名单复测');
   }
 
+  // ---------- 海外源补测 ----------
+  // 海外源在国内网络下首连失败率极高，且高并发会互相挤占连接放大误判
+  // （实测同一批 42 条海外源，并发 64 时存活数在 1~29 之间乱跳）。
+  // 所以对海外上游的**首轮失败项**再单独跑一轮，给它们第二次机会。
+  const overseasRetryTargets = candidates.filter(
+    (target) =>
+      target.origin !== undefined &&
+      OVERSEAS_ORIGINS.includes(target.origin) &&
+      mergedResults.get(target.urlKey)?.alive !== true,
+  );
+  if (overseasRetryTargets.length > 0 && PROBE.overseasRetries > 0) {
+    for (let round = 0; round < PROBE.overseasRetries; round += 1) {
+      const remaining = deadline - nowMs();
+      if (remaining <= PROBE.retryWindowMs) {
+        log.info('probe', '预算不足，跳过海外源补测');
+        break;
+      }
+      log.info('probe', `海外源补测第 ${round + 1} 轮：${overseasRetryTargets.length} 条`);
+      const retried = await probeAll(
+        overseasRetryTargets,
+        {
+          // 补测用低并发：高并发下海外源会互相挤占，反而更容易误判
+          concurrency: Math.max(1, Math.min(PROBE.concurrency, overseasRetryTargets.length)),
+          timeoutMs: PROBE.timeoutMs,
+          deadline,
+        },
+        deps,
+      );
+      let recovered = 0;
+      for (const result of retried) {
+        if (result.alive) {
+          mergedResults.set(result.urlKey, result);
+          recovered += 1;
+        }
+      }
+      log.info('probe', `海外源补测第 ${round + 1} 轮：${recovered}/${retried.length} 恢复存活`);
+    }
+  }
+
   const probeDurationMs = nowMs() - probeStartedAt;
   const allResults = [...mergedResults.values()];
   const aliveCount = allResults.filter((result) => result.alive).length;
@@ -517,6 +570,19 @@ export async function run(options: RunOptions = {}): Promise<BuildStats> {
   stats.build_duration_ms = nowMs() - startedAt;
   await emitStats(stats, paths.stats);
   await emitHistory(stats, paths.history);
+
+  // 网页端频道目录：失败只告警，不影响 txt/m3u/epg（网页端会退回读取 txt）。
+  try {
+    const channelsFile = await emitChannelsJson(ranked, stats.updated_at, paths.channelsJson);
+    log.info(
+      'emit',
+      `写出 ${paths.channelsJson}（${channelsFile.channels.length} 个频道 / ${channelsFile.groups.length} 个分组）`,
+    );
+  } catch (error) {
+    log.warn('emit', '频道目录生成失败，已跳过（不影响 txt/m3u）', {
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
 
   // NBA 赛程产物：失败只告警，不写产物（保留上一版），不影响主列表。
   // MOCK 离线模式下跳过：该模式承诺不触网，也不应往 dist/ 写额外文件。

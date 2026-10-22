@@ -47,9 +47,7 @@ import {
   verifyToken,
   type RunSummary,
 } from '../lib/githubApi';
-
-/** Token 在 localStorage 的键名。 */
-const TOKEN_KEY = 'iptv_hub_github_token';
+import { maskToken, readToken, saveToken } from '../lib/token';
 
 /** 轮询间隔（ms）。 */
 const POLL_INTERVAL_MS = 10_000;
@@ -67,49 +65,6 @@ const STEPS = [
 
 /** 页面阶段。 */
 type Phase = 'idle' | 'dispatching' | 'polling' | 'success' | 'failure';
-
-/**
- * 读取本地保存的 Token。
- *
- * @return Token 或空串
- */
-function readToken(): string {
-  try {
-    return window.localStorage.getItem(TOKEN_KEY) ?? '';
-  } catch {
-    return '';
-  }
-}
-
-/**
- * 保存 / 清除 Token。
- *
- * @param token Token，空串表示清除
- */
-function saveToken(token: string): void {
-  try {
-    if (token.length === 0) {
-      window.localStorage.removeItem(TOKEN_KEY);
-      return;
-    }
-    window.localStorage.setItem(TOKEN_KEY, token);
-  } catch {
-    // 隐私模式下 localStorage 可能不可用
-  }
-}
-
-/**
- * 把 Token 变成掩码文案（只保留末 4 位）。
- *
- * @param token Token
- * @return 掩码
- */
-function maskToken(token: string): string {
-  if (token.length <= 4) {
-    return '••••';
-  }
-  return `••••••••${token.slice(-4)}`;
-}
 
 /**
  * 根据已用时长推断当前处在第几步。

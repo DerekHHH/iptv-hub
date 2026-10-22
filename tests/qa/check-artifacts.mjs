@@ -81,18 +81,8 @@ for (const line of txtText.split('\n')) {
 }
 
 const groupNames = txtGroups.map((group) => group.name);
-const EXPECTED_ORDER = ['港澳台', '广东', '央视', '卫视', '其他'];
-const expectedPresent = EXPECTED_ORDER.filter((name) => groupNames.includes(name));
-check(
-  'txt 分组顺序 = 港澳台→广东→央视→卫视→其他',
-  JSON.stringify(groupNames) === JSON.stringify(expectedPresent),
-  `实际 ${JSON.stringify(groupNames)}`,
-);
-check(
-  'txt 分组名全部合法',
-  groupNames.every((name) => EXPECTED_ORDER.includes(name)),
-  JSON.stringify(groupNames),
-);
+// 分组体系已数据驱动（`data/groups.json`），这里不再硬编码分组名与顺序：
+// 合法性 / 顺序 / 计数一致性统一放到下面读到 stats.json 之后按 `stats.groups` 的键守卫。
 
 let badChannelLines = [];
 let txtUrlCount = 0;
@@ -119,16 +109,26 @@ check(
   badChannelLines.length === 0 ? `${txtChannelCount} 行全部合规` : `异常 ${badChannelLines.length} 行：${badChannelLines.slice(0, 3).join(' | ')}`,
 );
 
-const perChannelOver3 = [];
+// 上限跟着 src/config.ts 的 `SELECT.maxPerChannel` 走（check-config 里也钉了这个值）：
+// 硬编码 3 会和配置里的 5 打架，变成"配置允许、护栏报错"的假红灯。
+const configText = readText('src/config.ts') ?? '';
+const maxPerChannelMatch = configText.match(/maxPerChannel:\s*(\d+)/);
+const MAX_PER_CHANNEL = maxPerChannelMatch === null ? 3 : Number(maxPerChannelMatch[1]);
+
+const perChannelOverLimit = [];
 for (const group of txtGroups) {
   for (const line of group.channels) {
     const urlField = line.slice(line.indexOf(',') + 1);
-    if (urlField.split('#').length > 3) {
-      perChannelOver3.push(line.slice(0, 60));
+    if (urlField.split('#').length > MAX_PER_CHANNEL) {
+      perChannelOverLimit.push(line.slice(0, 60));
     }
   }
 }
-check('txt 每频道源数 ≤ 3', perChannelOver3.length === 0, perChannelOver3.length === 0 ? '全部 ≤3' : perChannelOver3.slice(0, 3).join(' | '));
+check(
+  `txt 每频道源数 ≤ ${MAX_PER_CHANNEL}（SELECT.maxPerChannel）`,
+  perChannelOverLimit.length === 0,
+  perChannelOverLimit.length === 0 ? '全部合规' : perChannelOverLimit.slice(0, 3).join(' | '),
+);
 
 // ---------------------------------------------------------------- M3U
 const m3uBuf = readBuf('dist/m3u/all.m3u');
@@ -157,8 +157,12 @@ for (const line of extinfLines) {
   const id = idMatch === null ? '(缺失)' : idMatch[1];
   tvgIdCount.set(id, (tvgIdCount.get(id) ?? 0) + 1);
 }
-const over3 = [...tvgIdCount.entries()].filter(([, count]) => count > 3);
-check('m3u 同一 tvg-id 记录数 ≤ 3', over3.length === 0, over3.length === 0 ? `${tvgIdCount.size} 个 tvg-id 全部 ≤3` : JSON.stringify(over3));
+const overLimit = [...tvgIdCount.entries()].filter(([, count]) => count > MAX_PER_CHANNEL);
+check(
+  `m3u 同一 tvg-id 记录数 ≤ ${MAX_PER_CHANNEL}（SELECT.maxPerChannel）`,
+  overLimit.length === 0,
+  overLimit.length === 0 ? `${tvgIdCount.size} 个 tvg-id 全部合规` : JSON.stringify(overLimit),
+);
 
 // ---------------------------------------------------------------- EPG
 const epgText = readText('dist/epg/epg.xml');
@@ -269,10 +273,12 @@ if (stats !== null) {
       schemaProblems.push(`epg.${key} 缺失/类型错`);
     }
   }
-  for (const key of EXPECTED_ORDER) {
-    if (typeof stats.groups?.[key] !== 'number') {
-      schemaProblems.push(`groups.${key} 缺失`);
-    }
+  const groupValues = Object.values(stats.groups ?? {});
+  if (groupValues.length === 0 || !groupValues.every((value) => typeof value === 'number')) {
+    schemaProblems.push('groups 缺失或含非数字值');
+  }
+  if (typeof stats.groups?.['其他'] !== 'number') {
+    schemaProblems.push('groups.其他 缺失');
   }
   check('stats 符合 BuildStats schema（含 version:1/stale/epg/probe）', schemaProblems.length === 0, schemaProblems.length === 0 ? '全部字段齐备' : schemaProblems.join('; '));
   check('stats.version === 1', stats.version === 1, String(stats.version));
@@ -301,10 +307,24 @@ if (stats !== null) {
   check('stats.channel_count == txt 频道行数', stats.channel_count === txtChannelCount, `stats ${stats.channel_count} vs txt ${txtChannelCount}`);
   check('stats.source_count == txt 中 url 总数', stats.source_count === txtUrlCount, `stats ${stats.source_count} vs txt ${txtUrlCount}`);
   check('stats.source_count == m3u URL 行数', stats.source_count === urlLines.length, `stats ${stats.source_count} vs m3u ${urlLines.length}`);
-  const groupSum = EXPECTED_ORDER.reduce((sum, key) => sum + (stats.groups?.[key] ?? 0), 0);
+  // 分组体系数据驱动：守「txt 里的分组名 ⊆ stats.groups 的键，且顺序与键序一致」，
+  // 比硬编码分组名更健壮（管理后台可以在运行时新增分组）。
+  const statsGroupKeys = Object.keys(stats.groups ?? {});
+  check(
+    'txt 分组名全部出现在 stats.groups 中',
+    groupNames.every((name) => statsGroupKeys.includes(name)),
+    JSON.stringify(groupNames),
+  );
+  const orderedNames = statsGroupKeys.filter((key) => groupNames.includes(key));
+  check(
+    'txt 分组顺序与 stats.groups 键序一致',
+    JSON.stringify(groupNames) === JSON.stringify(orderedNames),
+    `实际 ${JSON.stringify(groupNames)} / 期望 ${JSON.stringify(orderedNames)}`,
+  );
+  const groupSum = statsGroupKeys.reduce((sum, key) => sum + (stats.groups?.[key] ?? 0), 0);
   check('groups 各项之和 == channel_count', groupSum === stats.channel_count, `${groupSum} vs ${stats.channel_count}`);
   const txtGroupActual = Object.fromEntries(txtGroups.map((group) => [group.name, group.channels.length]));
-  const groupMismatch = EXPECTED_ORDER.filter((key) => (stats.groups?.[key] ?? 0) !== (txtGroupActual[key] ?? 0));
+  const groupMismatch = statsGroupKeys.filter((key) => (stats.groups?.[key] ?? 0) !== (txtGroupActual[key] ?? 0));
   check(
     'stats.groups 与 txt 实际分组计数一致',
     groupMismatch.length === 0,
@@ -314,6 +334,71 @@ if (stats !== null) {
     const failed = stats.upstream.filter((item) => item.ok !== true).length;
     const expectedRate = stats.upstream.length === 0 ? 1 : failed / stats.upstream.length;
     check('fetch_fail_rate 与 upstream.ok 计数自洽', Math.abs(expectedRate - stats.fetch_fail_rate) < 0.0002, `upstream 失败 ${failed}/${stats.upstream.length} → ${expectedRate.toFixed(4)} vs stats ${stats.fetch_fail_rate}`);
+  }
+  check(
+    'stats.hidden_count 是非负整数（缺失也算通过，老产物没有这个字段）',
+    stats.hidden_count === undefined || (Number.isInteger(stats.hidden_count) && stats.hidden_count >= 0),
+    String(stats.hidden_count),
+  );
+  const otherCount = stats.groups?.['其他'] ?? 0;
+  check(
+    '「其他」占比 < 50%（分组关键字明显失效时会飙到 90%+）',
+    stats.channel_count === 0 || otherCount / stats.channel_count < 0.5,
+    `${otherCount}/${stats.channel_count} = ${(stats.channel_count === 0 ? 0 : (otherCount / stats.channel_count) * 100).toFixed(1)}%`,
+  );
+}
+
+// ---------------------------------------------------------------- channels.json（频道浏览页的数据源）
+const channelsText = readText('dist/channels.json');
+if (channelsText === null) {
+  check('channels.json 存在', false, '缺失');
+} else {
+  check('channels.json 存在', true, `${Buffer.byteLength(channelsText, 'utf8')} 字节`);
+  let channelsFile = null;
+  try {
+    channelsFile = JSON.parse(channelsText);
+  } catch (error) {
+    check('channels.json 可解析', false, String(error.message));
+  }
+  if (channelsFile !== null) {
+    check('channels.json 可解析', true, 'OK');
+    const entries = channelsFile.channels;
+    check('channels.json channels 是数组且非空', Array.isArray(entries) && entries.length > 0, `${Array.isArray(entries) ? entries.length : '(非数组)'} 条`);
+    check(
+      'channels.json channel_count == stats.channel_count',
+      Array.isArray(entries) && stats !== null && entries.length === stats.channel_count,
+      `${Array.isArray(entries) ? entries.length : '-'} vs ${stats?.channel_count ?? '-'}`,
+    );
+    check('channels.json updated_at 与 stats 一致', channelsFile.updated_at === stats?.updated_at, `${channelsFile.updated_at} vs ${stats?.updated_at}`);
+    const badEntries = (Array.isArray(entries) ? entries : []).filter(
+      (item) =>
+        typeof item?.id !== 'string' ||
+        typeof item?.name !== 'string' ||
+        typeof item?.group !== 'string' ||
+        !Array.isArray(item?.streams) ||
+        item.streams.length === 0 ||
+        !item.streams.every((url) => typeof url === 'string' && url.startsWith('http')),
+    );
+    check('channels.json 每条都是 {id,name,group,streams[url]} 且 url 是 http', badEntries.length === 0, badEntries.length === 0 ? '全部合规' : JSON.stringify(badEntries.slice(0, 2)));
+    // 分组数（含 0）与「只列 >0 的分组」两者都要和 stats 对得上
+    const fileGroups = Array.isArray(channelsFile.groups) ? channelsFile.groups : [];
+    const nonZeroStatsGroups = Object.keys(stats?.groups ?? {}).filter((key) => (stats.groups[key] ?? 0) > 0);
+    check(
+      'channels.json groups 只列 count>0 的分组且与 stats 一致',
+      fileGroups.length === nonZeroStatsGroups.length &&
+        fileGroups.every((item) => (stats?.groups?.[item.name] ?? -1) === item.count),
+      JSON.stringify(fileGroups.map((item) => `${item.name}:${item.count}`)),
+    );
+    const urlMismatch = (Array.isArray(entries) ? entries : []).filter((item) => !Array.isArray(item?.streams) || item.streams.length > MAX_PER_CHANNEL);
+    check(`channels.json 每台源数 ≤ ${MAX_PER_CHANNEL}`, urlMismatch.length === 0, urlMismatch.length === 0 ? '全部合规' : JSON.stringify(urlMismatch.slice(0, 2).map((item) => item.id)));
+    // 分组的先后顺序必须按 data/groups.json 的 order 走
+    const orderMatch = JSON.parse(readText('data/groups.json') ?? '{"order":[]}').order ?? [];
+    const expectOrder = orderMatch.filter((name) => nonZeroStatsGroups.includes(name));
+    check(
+      'channels.json groups 顺序 = data/groups.json order',
+      JSON.stringify(fileGroups.map((item) => item.name)) === JSON.stringify(expectOrder),
+      `${JSON.stringify(fileGroups.map((item) => item.name))} vs ${JSON.stringify(expectOrder)}`,
+    );
   }
 }
 
@@ -325,7 +410,14 @@ if (indexHtml !== null) {
   check('pages-out 资源引用全部相对路径 ./assets/...', assetRefs.every((href) => href.startsWith('./')), JSON.stringify(assetRefs));
   check('pages-out 无 /assets/ 绝对路径', !assetRefs.some((href) => href.startsWith('/')), JSON.stringify(assetRefs));
 }
-for (const rel of ['pages-out/txt/all.txt', 'pages-out/m3u/all.m3u', 'pages-out/epg/epg.xml', 'pages-out/stats.json']) {
+for (const rel of [
+  'pages-out/txt/all.txt',
+  'pages-out/m3u/all.m3u',
+  'pages-out/epg/epg.xml',
+  'pages-out/stats.json',
+  'pages-out/channels.json',
+  'pages-out/player-assets/hls.min.js',
+]) {
   check(`${rel} 存在`, existsSync(join(ROOT, rel)), existsSync(join(ROOT, rel)) ? `${statSync(join(ROOT, rel)).size} 字节` : '缺失');
 }
 const pagesTxt = readText('pages-out/txt/all.txt');

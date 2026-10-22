@@ -38,8 +38,21 @@ import {
   type Stats,
 } from '../lib/links';
 
-/** 分组展示顺序。 */
-const GROUP_ORDER = ['港澳台', '广东', '央视', '卫视', '其他'] as const;
+/** 分组概况的展示顺序（分组体系已数据驱动，未知分组追加到末尾）。 */
+const KNOWN_GROUP_ORDER = ['港澳台', '广东', '央视', '卫视', '体育', '影视', '国际', '地方台'] as const;
+
+/**
+ * 按「已知分组在前、未知分组在后」排出要展示的分组名。
+ *
+ * @param stats 构建统计
+ * @return 分组名列表
+ */
+function orderedGroupNames(stats: Stats): string[] {
+  const names = Object.keys(stats.groups ?? {});
+  const known = KNOWN_GROUP_ORDER.filter((group) => names.includes(group));
+  const rest = names.filter((group) => !KNOWN_GROUP_ORDER.includes(group as (typeof KNOWN_GROUP_ORDER)[number]));
+  return [...known, ...rest];
+}
 
 /**
  * 首页。
@@ -208,7 +221,7 @@ export default function Home(): JSX.Element {
             分组概况
           </Typography>
           <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
-            {GROUP_ORDER.map((group) => (
+            {orderedGroupNames(stats).map((group) => (
               <Chip
                 key={group}
                 label={`${group} ${stats.groups?.[group] ?? 0}`}
@@ -219,7 +232,8 @@ export default function Home(): JSX.Element {
           </Stack>
           <Typography variant="caption" color="text.secondary" component="p" sx={{ mt: 1 }}>
             上次构建耗时 {stats.build_duration_ms === undefined ? '—' : `${Math.round(stats.build_duration_ms / 1000)} 秒`}
-            ；共测试 {stats.probe?.total ?? '—'} 条源，存活 {stats.probe?.alive ?? '—'} 条。
+            ；共测试 {stats.probe?.total ?? '—'} 条源，存活 {stats.probe?.alive ?? '—'} 条
+            {stats.hidden_count !== undefined ? `；按屏蔽名单丢掉 ${stats.hidden_count} 个台` : ''}。
           </Typography>
         </Box>
       )}

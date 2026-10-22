@@ -89,8 +89,9 @@ describe('港澳台与广东：别名与分组', () => {
   });
 
   it('未知频道兜底到「其他」，且两次识别得到同一个 slug（稳定）', () => {
-    const first = identifyChannel('某个没见过的频道');
-    const second = identifyChannel('某个没见过的频道');
+    // 注意：名字里不能带任何分组关键字（如「频道」「综合」「卫视」），否则会被数据驱动规则接走
+    const first = identifyChannel('未知台');
+    const second = identifyChannel('未知台');
 
     expect(first?.group).toBe('其他');
     expect(first?.id).toBe(second?.id);
@@ -165,8 +166,11 @@ describe('buildChannels：聚合与去重', () => {
 });
 
 describe('分组常量与设计约定一致', () => {
-  it('GROUP_ORDER 固定为 港澳台→广东→央视→卫视→其他，权重 0~4', () => {
-    expect(GROUP_ORDER).toEqual(['港澳台', '广东', '央视', '卫视', '其他']);
-    expect(GROUP_ORDER.map((group) => GROUP_WEIGHT[group])).toEqual([0, 1, 2, 3, 4]);
+  it('GROUP_ORDER 来自 data/groups.json：前 4 组沿用旧习惯，「其他」收尾，权重等于下标', () => {
+    expect(GROUP_ORDER.slice(0, 4)).toEqual(['港澳台', '广东', '央视', '卫视']);
+    expect(GROUP_ORDER.at(-1)).toBe('其他');
+    expect(GROUP_ORDER.map((group) => GROUP_WEIGHT[group])).toEqual(
+      GROUP_ORDER.map((_, index) => index),
+    );
   });
 });

@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 group-title="NBA",10-22 10:00 勇士 @ 湖人（美东 10-21）(ESPN)
-http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
 #EXTINF:-1 group-title="NBA",10-23 07:00 骑士 @ 76人（美东 10-22）(ESPN)
 http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
 #EXTINF:-1 group-title="NBA",10-23 09:30 掘金 @ 雷霆（美东 10-22）(ESPN)
@@ -10,13 +8,9 @@ http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
 #EXTINF:-1 group-title="NBA",10-25 07:30 雄鹿 @ 76人（美东 10-24）(NBA TV)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
 #EXTINF:-1 group-title="NBA",10-25 07:30 雄鹿 @ 76人（美东 10-24）(NBA TV)
-http://rezofoot.tv/NBATV/index.m3u8
-#EXTINF:-1 group-title="NBA",10-25 07:30 雄鹿 @ 76人（美东 10-24）(NBA TV)
 http://198.58.104.90:8989/nba/index.m3u8
 #EXTINF:-1 group-title="NBA",10-25 10:00 勇士 @ 太阳（美东 10-24）(NBA TV)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
-#EXTINF:-1 group-title="NBA",10-25 10:00 勇士 @ 太阳（美东 10-24）(NBA TV)
-http://rezofoot.tv/NBATV/index.m3u8
 #EXTINF:-1 group-title="NBA",10-25 10:00 勇士 @ 太阳（美东 10-24）(NBA TV)
 http://198.58.104.90:8989/nba/index.m3u8
 #EXTINF:-1 group-title="NBA",10-26 06:00 步行者 @ 篮网（美东 10-25）(DAZN (YES))
@@ -24,13 +18,9 @@ http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
 #EXTINF:-1 group-title="NBA",10-26 07:00 猛龙 @ 森林狼（美东 10-25）(NBA TV)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
 #EXTINF:-1 group-title="NBA",10-26 07:00 猛龙 @ 森林狼（美东 10-25）(NBA TV)
-http://rezofoot.tv/NBATV/index.m3u8
-#EXTINF:-1 group-title="NBA",10-26 07:00 猛龙 @ 森林狼（美东 10-25）(NBA TV)
 http://198.58.104.90:8989/nba/index.m3u8
 #EXTINF:-1 group-title="NBA",10-27 07:30 独行侠 @ 热火（美东 10-26）(NBA TV)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
-#EXTINF:-1 group-title="NBA",10-27 07:30 独行侠 @ 热火（美东 10-26）(NBA TV)
-http://rezofoot.tv/NBATV/index.m3u8
 #EXTINF:-1 group-title="NBA",10-27 07:30 独行侠 @ 热火（美东 10-26）(NBA TV)
 http://198.58.104.90:8989/nba/index.m3u8
 #EXTINF:-1 group-title="NBA",10-28 07:30 篮网 @ 凯尔特人（美东 10-27）(DAZN (YES))

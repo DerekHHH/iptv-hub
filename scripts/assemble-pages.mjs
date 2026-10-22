@@ -30,6 +30,8 @@ const DATA_ITEMS = [
   { from: join(DIST_DIR, 'epg'), to: join(OUT_DIR, 'epg'), label: 'epg/' },
   { from: join(DIST_DIR, 'nba'), to: join(OUT_DIR, 'nba'), label: 'nba/' },
   { from: join(DIST_DIR, 'stats.json'), to: join(OUT_DIR, 'stats.json'), label: 'stats.json' },
+  // 网页端频道目录（频道浏览页 / 播放页读取），不存在时自动跳过
+  { from: join(DIST_DIR, 'channels.json'), to: join(OUT_DIR, 'channels.json'), label: 'channels.json' },
   // 可选：历史趋势（首页折线/表格用），不存在时自动跳过
   { from: join(ROOT, 'data', 'history.json'), to: join(OUT_DIR, 'history.json'), label: 'history.json' },
 ];

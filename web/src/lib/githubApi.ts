@@ -18,6 +18,13 @@ export const WORKFLOW_FILE = 'update.yml';
 /** 请求超时（ms）。 */
 const REQUEST_TIMEOUT_MS = 15_000;
 
+/**
+ * 写路径的请求超时（ms），比读路径宽得多。
+ *
+ * `api.github.com` 在国内实测 TLS 握手要 10~12 秒，15 秒会把慢握手偶发判成超时。
+ */
+const WRITE_TIMEOUT_MS = 40_000;
+
 /** 错误类别。 */
 export type FailureKind = 'auth' | 'forbidden' | 'notfound' | 'invalid' | 'ratelimit' | 'network' | 'unknown';
 
@@ -60,7 +67,8 @@ export function mapHttpError(status: number, context = '请求'): ApiFailure {
       kind: 'auth',
       status,
       message: '钥匙（Token）无效或已经过期',
-      action: '去 GitHub 重新生成一个 Token，勾选 Actions 的 Read and write，再粘回来保存。',
+      action:
+        '去 GitHub 重新生成一个 Token，勾选 Actions: Read and write（只改分组/隐藏频道还需要 Contents: Read and write），再粘回来保存。',
     };
   }
   if (status === 403) {
@@ -68,7 +76,8 @@ export function mapHttpError(status: number, context = '请求'): ApiFailure {
       kind: 'forbidden',
       status,
       message: '这把钥匙没有权限，或者短时间内点太多次被限流',
-      action: '确认 Token 勾了 Actions: Read and write 且属于这个仓库；如果刚点过，等 1 分钟再试。',
+      action:
+        '确认 Token 勾了 Actions: Read and write 与 Contents: Read and write 且属于这个仓库；如果刚点过，等 1 分钟再试。',
     };
   }
   if (status === 404) {
@@ -117,11 +126,17 @@ export function mapHttpError(status: number, context = '请求'): ApiFailure {
  * @param path API 路径（以 / 开头）
  * @param init fetch 选项
  * @param token 可选 Token（不传 = 匿名）
+ * @param timeoutMs 超时（ms），写路径传 `WRITE_TIMEOUT_MS`
  * @return 解析后的 JSON（无正文时返回 null）
  */
-async function request<T>(path: string, init: RequestInit = {}, token?: string): Promise<T | null> {
+async function request<T>(
+  path: string,
+  init: RequestInit = {},
+  token?: string,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
+): Promise<T | null> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
@@ -272,4 +287,175 @@ export async function getRunJobs(repo: RepoRef, runId: number): Promise<JobSumma
     { method: 'GET' },
   );
   return data?.jobs ?? [];
+}
+
+// ------------------------------------------------------------------ 文件读写
+
+/** 仓库里的一个文件（内容和当前 sha）。 */
+export interface RemoteFile {
+  /** 解码后的文本 */
+  content: string;
+  /** 当前版本 sha（写入时必须带，否则会被拒） */
+  sha: string;
+}
+
+/** Contents API 返回的文件结构。 */
+interface ContentResponse {
+  content?: string;
+  sha?: string;
+  encoding?: string;
+}
+
+/**
+ * 把 base64 解码成 UTF-8 文本。
+ *
+ * `atob` 给的是 latin1 字节串，中文必须再走一遍 UTF-8 解码，否则会变乱码。
+ *
+ * @param base64 base64 文本（允许含换行）
+ * @return 解码后的文本
+ */
+function decodeBase64Utf8(base64: string): string {
+  const binary = atob(base64.replace(/\s/g, ''));
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+/**
+ * 把 UTF-8 文本编码成 base64（Contents API 要求）。
+ *
+ * @param text 文本
+ * @return base64
+ */
+function encodeBase64Utf8(text: string): string {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary);
+}
+
+/**
+ * 读仓库文件（需要 Contents 读权限；私有仓库必须带 Token）。
+ *
+ * @param token 用户 Token
+ * @param repo 仓库定位
+ * @param path 仓库内路径
+ * @param ref 分支名
+ * @return 文件内容与 sha；文件不存在时返回 null
+ */
+export async function getFile(
+  token: string,
+  repo: RepoRef,
+  path: string,
+  ref = 'main',
+): Promise<RemoteFile | null> {
+  try {
+    const data = await request<ContentResponse>(
+      `/repos/${repo.owner}/${repo.repo}/contents/${path}?ref=${encodeURIComponent(ref)}`,
+      { method: 'GET' },
+      token,
+    );
+    if (data === null || typeof data.content !== 'string') {
+      return null;
+    }
+    return { content: decodeBase64Utf8(data.content), sha: data.sha ?? '' };
+  } catch (error) {
+    if (error instanceof GithubApiError && error.failure.status === 404) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+/**
+ * 写仓库文件（条件更新：必须带 sha，否则并发会互相覆盖）。
+ *
+ * @param token 用户 Token
+ * @param repo 仓库定位
+ * @param options 路径、内容、sha（新建文件传空串）、提交信息、分支
+ */
+export async function putFile(
+  token: string,
+  repo: RepoRef,
+  options: { path: string; text: string; sha: string; message: string; ref?: string },
+): Promise<void> {
+  const body: Record<string, string> = {
+    message: options.message,
+    content: encodeBase64Utf8(options.text),
+  };
+  if (options.sha.length > 0) {
+    body.sha = options.sha;
+  }
+  if (options.ref !== undefined && options.ref.length > 0) {
+    body.branch = options.ref;
+  }
+  await request<null>(
+    `/repos/${repo.owner}/${repo.repo}/contents/${options.path}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: { 'Content-Type': 'application/json' },
+    },
+    token,
+    WRITE_TIMEOUT_MS,
+  );
+}
+
+/**
+ * 读 → 改 → 写 一个文本文件，sha 过期（409/422）时自动重取一次。
+ *
+ * 为什么放在这里而不是页面里：四个管理动作都是"把当前内容读出来，追加/删掉一项，再写回去"，
+ * 重试逻辑抄四遍必出错。
+ *
+ * @param token 用户 Token
+ * @param repo 仓库定位
+ * @param path 仓库内路径
+ * @param build 由当前内容（文件不存在时为 null）算出新内容的函数
+ * @param message 提交信息
+ * @param ref 分支名
+ * @return 是否发生了冲突重试
+ */
+export async function updateTextFile(
+  token: string,
+  repo: RepoRef,
+  path: string,
+  build: (current: string | null) => string,
+  message: string,
+  ref = 'main',
+): Promise<{ retried: boolean }> {
+  let retried = false;
+  for (let round = 0; round < 2; round += 1) {
+    const existing = await getFile(token, repo, path, ref);
+    const nextText = build(existing === null ? null : existing.content);
+    try {
+      await putFile(token, repo, {
+        path,
+        text: nextText,
+        sha: existing?.sha ?? '',
+        message,
+        ref,
+      });
+      return { retried };
+    } catch (error) {
+      // 409/422 = sha 已过期（别人刚提交过），重取一次再写
+      const conflict =
+        error instanceof GithubApiError &&
+        (error.failure.status === 409 || error.failure.status === 422) &&
+        round === 0;
+      if (!conflict) {
+        throw error;
+      }
+      retried = true;
+    }
+  }
+  throw new GithubApiError({
+    kind: 'unknown',
+    status: 409,
+    message: '文件被别处改过，重试后仍然冲突',
+    action: '刷新页面重新操作一次；如果刚在手机上改过，等构建跑完再来。',
+  });
 }

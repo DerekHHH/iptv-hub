@@ -15,9 +15,10 @@ export function isGroupKey(value: string): value is GroupKey {
   return (GROUP_ORDER as readonly string[]).includes(value);
 }
 
-/** 分组权重（0 最靠前）。 */
+/** 分组权重（0 最靠前；不在 `GROUP_ORDER` 里的分组排到所有已知分组之后）。 */
 export function groupWeight(group: GroupKey): number {
-  return GROUP_WEIGHT[group] ?? GROUP_WEIGHT['其他'];
+  const index = GROUP_ORDER.indexOf(group);
+  return index < 0 ? GROUP_ORDER.length : index;
 }
 
 /**

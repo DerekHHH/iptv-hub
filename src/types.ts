@@ -5,8 +5,14 @@
  * 不允许改名或删字段（网页端只读 `stats.json`，改字段会导致首页炸掉）。
  */
 
-/** 频道的五个固定分组，顺序即输出顺序（权重 0~4）。 */
-export type GroupKey = '港澳台' | '广东' | '央视' | '卫视' | '其他';
+/**
+ * 分组名。
+ *
+ * 分组**不再是固定枚举**：顺序与名称由 `data/groups.json` 的 `order` 决定
+ * （见 `src/config.ts` 的 `GROUP_ORDER`），网页端与管理后台可以新增分组，
+ * 所以这里退化成 `string`，唯一权威是 `data/groups.json`。
+ */
+export type GroupKey = string;
 
 /** 流的封装类型（由 content-type / 后缀嗅探得出）。 */
 export type StreamKind = 'hls' | 'flv' | 'ts' | 'mp4' | 'other';
@@ -112,6 +118,8 @@ export interface BuildStats {
   };
   epg: { ok: boolean; programmes: number; error?: string };
   build_duration_ms: number;
+  /** 被 `data/hidden-channels.json` 屏蔽掉的频道数（新增字段，只加不改名） */
+  hidden_count?: number;
   stale: boolean;
   stale_reason?: string;
 }
@@ -169,6 +177,11 @@ export interface RawDoc {
 export interface ProbeTarget {
   urlKey: string;
   url: string;
+  /**
+   * 来源标识（`Stream.origin`）。海外上游在网络抖动时容易被误判为死源，
+   * `main.ts` 据此对海外目标做额外重试（见 `PROBE.overseasRetries`）。
+   */
+  origin?: string;
 }
 
 /** `dist/stats.json` 之外的历史条目别名，语义化用。 */

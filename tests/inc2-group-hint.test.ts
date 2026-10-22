@@ -93,9 +93,11 @@ describe('M3U group-title 透传 + 分类', () => {
   });
 
   it('未知频道靠上游提示归到广东（关键词推断给不出这个结论）', () => {
-    const withHint = buildChannels(parseM3U(m3uWithGroup('☘️广东频道', '顺德频道'), 'guovin-iptv-api'));
-    const withoutHint = buildChannels([...parseM3U(m3uWithGroup('', '顺德频道'), 'guovin-iptv-api')]);
-    expect(identifyChannel('顺德频道')?.group).toBe('其他');
+    // 用「顺德」而不是「顺德频道」：后者含关键字「频道」会被数据驱动规则判成地方台，
+    // 就测不出「上游提示强于名称关键词」这条了
+    const withHint = buildChannels(parseM3U(m3uWithGroup('☘️广东频道', '顺德'), 'guovin-iptv-api'));
+    const withoutHint = buildChannels([...parseM3U(m3uWithGroup('', '顺德'), 'guovin-iptv-api')]);
+    expect(identifyChannel('顺德')?.group).toBe('其他');
     expect(withHint[0]?.group).toBe('广东');
     expect(withoutHint[0]?.group).toBe('其他');
   });

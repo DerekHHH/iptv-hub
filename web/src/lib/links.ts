@@ -38,6 +38,7 @@ const PATHS = {
   txt: 'dist/txt/all.txt',
   m3u: 'dist/m3u/all.m3u',
   epg: 'dist/epg/epg.xml',
+  channels: 'dist/channels.json',
 } as const;
 
 /** 默认分支名。 */
@@ -199,6 +200,8 @@ export interface Stats {
   };
   epg?: { ok: boolean; programmes: number; error?: string };
   build_duration_ms?: number;
+  /** 被 `data/hidden-channels.json` 屏蔽掉的频道数 */
+  hidden_count?: number;
   stale: boolean;
   stale_reason?: string;
 }
@@ -251,6 +254,61 @@ export async function loadHistory(): Promise<History | null> {
   } catch {
     return null;
   }
+}
+
+/** `dist/channels.json` 里本页用到的字段。 */
+export interface ChannelsFile {
+  version: 1;
+  updated_at: string;
+  groups: Array<{ name: string; count: number }>;
+  channels: Array<{
+    id: string;
+    name: string;
+    group: string;
+    aliases?: string[];
+    logo?: string;
+    epg_id?: string;
+    streams: string[];
+  }>;
+}
+
+/**
+ * 读取频道目录 `channels.json`。
+ *
+ * 先取同目录的相对地址（Pages 部署后就在旁边）；失败再用 jsDelivr 兜底
+ * ——`github.io` 偶发被污染，而频道浏览页没有目录就整页空白，值得多兜一层。
+ *
+ * @param repo 仓库定位（用于拼 jsDelivr 兜底地址），不传则只试相对地址
+ * @return 频道目录或 null
+ */
+export async function loadChannels(repo?: RepoRef | null): Promise<ChannelsFile | null> {
+  const candidates = ['./channels.json'];
+  if (repo !== null && repo !== undefined) {
+    candidates.push(
+      `https://cdn.jsdelivr.net/gh/${repo.owner}/${repo.repo}@${MAIN_BRANCH}/${PATHS.channels}`,
+    );
+  }
+  for (const url of candidates) {
+    try {
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) {
+        continue;
+      }
+      const data = (await response.json()) as Partial<ChannelsFile>;
+      if (!Array.isArray(data.channels) || !Array.isArray(data.groups)) {
+        continue;
+      }
+      return {
+        version: 1,
+        updated_at: typeof data.updated_at === 'string' ? data.updated_at : '',
+        groups: data.groups,
+        channels: data.channels,
+      };
+    } catch {
+      // 换下一个地址
+    }
+  }
+  return null;
 }
 
 /**

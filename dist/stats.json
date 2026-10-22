@@ -1,21 +1,31 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T12:39:47+08:00",
-  "channel_count": 379,
-  "source_count": 440,
+  "updated_at": "2026-10-22T15:46:39+08:00",
+  "channel_count": 367,
+  "source_count": 399,
   "groups": {
-    "港澳台": 15,
-    "广东": 9,
-    "央视": 19,
-    "卫视": 24,
-    "其他": 312
+    "港澳台": 13,
+    "广东": 5,
+    "央视": 11,
+    "卫视": 16,
+    "体育": 12,
+    "影视": 13,
+    "娱乐时尚": 2,
+    "国际": 6,
+    "文旅": 66,
+    "纪录": 5,
+    "少儿": 0,
+    "综艺": 25,
+    "宠物": 1,
+    "地方台": 164,
+    "其他": 28
   },
   "upstream": [
     {
       "name": "iptv-org-cn",
       "ok": true,
       "items": 511,
-      "channel": "raw"
+      "channel": "jsdelivr"
     },
     {
       "name": "iptv-org-hk",
@@ -34,7 +44,7 @@
       "ok": false,
       "items": 0,
       "channel": "jsdelivr",
-      "error": "raw HTTP 404 / jsdelivr HTTP 404"
+      "error": "raw HTTP 404 / jsdelivr AbortError: This operation was aborted"
     },
     {
       "name": "vbskycn-iptv",
@@ -46,7 +56,7 @@
       "name": "free-tv-china",
       "ok": true,
       "items": 21,
-      "channel": "raw"
+      "channel": "jsdelivr"
     },
     {
       "name": "iptv-org-mo",
@@ -58,7 +68,7 @@
       "name": "guovin-iptv-api",
       "ok": true,
       "items": 1634,
-      "channel": "raw"
+      "channel": "jsdelivr"
     },
     {
       "name": "akira-curated",
@@ -67,26 +77,33 @@
       "channel": "raw"
     },
     {
+      "name": "akira-overseas",
+      "ok": true,
+      "items": 42,
+      "channel": "jsdelivr"
+    },
+    {
       "name": "custom",
       "ok": true,
       "items": 12,
       "channel": "custom"
     }
   ],
-  "fetch_fail_rate": 0.1,
+  "fetch_fail_rate": 0.0909,
   "probe": {
-    "total": 2470,
-    "alive": 407,
-    "dead": 500,
-    "timeout": 1556,
+    "total": 2512,
+    "alive": 379,
+    "dead": 516,
+    "timeout": 1610,
     "skipped": 7,
-    "duration_ms": 230790
+    "duration_ms": 249144
   },
   "epg": {
     "ok": false,
     "programmes": 0,
     "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml fetch failed"
   },
-  "build_duration_ms": 254815,
-  "stale": false
+  "build_duration_ms": 288609,
+  "stale": false,
+  "hidden_count": 0
 }

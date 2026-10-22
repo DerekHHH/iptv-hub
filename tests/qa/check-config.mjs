@@ -142,9 +142,11 @@ const tokenHits = grep(['src', 'web/src', 'scripts', '.github'], /gh[pousr]_[A-Z
 const allowed = (hit) =>
   hit.startsWith('src/util/logger.ts') || // 脱敏正则
   hit.startsWith('web/src/lib/githubApi.ts') || // Authorization 请求头
+  hit.startsWith('web/src/pages/Admin.tsx') || // Authorization 请求头（管理后台直写 GitHub API）
+  hit.startsWith('scripts/push-via-api.mjs') || // Authorization 请求头 + 用法示例里的占位 Token
   hit.startsWith('web/src/pages/Update.tsx'); // 输入框 placeholder 文案
 const unexpected = tokenHits.filter((hit) => !allowed(hit));
-const unexpectedBearer = tokenHits.filter((hit) => hit.includes('Bearer ') && !hit.startsWith('web/src/lib/githubApi.ts'));
+const unexpectedBearer = tokenHits.filter((hit) => hit.includes('Bearer ') && !allowed(hit));
 check('Token 形态字符串只出现在脱敏正则 / Authorization 头 / UI 提示文案', unexpected.length === 0 && unexpectedBearer.length === 0, unexpected.length === 0 ? `命中 ${tokenHits.length} 处，均属允许位置` : JSON.stringify(unexpected));
 check('Token 未写入 console/日志调用', grep(['src', 'web/src'], /console\.(log|warn|error)\([^)]*token/i).length === 0, `${grep(['src', 'web/src'], /console\.(log|warn|error)\([^)]*token/i).length} 处`);
 

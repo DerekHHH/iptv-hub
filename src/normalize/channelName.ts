@@ -7,6 +7,8 @@
  *   3. 静态规则表查表；仍未命中 → 关键词推断分组 + 哈希 slug（绝不丢源）
  */
 
+import hiddenConfig from '../../data/hidden-channels.json';
+import overridesConfig from '../../data/channel-overrides.json';
 import {
   CCTV_CHANNELS,
   CHANNEL_RULES,
@@ -19,6 +21,60 @@ import { inferGroup, resolveGroup } from './group';
 import { toSimplified } from './traditional';
 import type { Channel, GroupKey, Stream } from '../types';
 import { hashSlug } from '../util/slug';
+
+/**
+ * 管理后台写入的人工分组覆盖（`data/channel-overrides.json`）。
+ *
+ * 结构：`{ version, items: [{ id, group }] }`。命中的频道直接落 `group`，
+ * 优先级高于「规则表 / 上游提示 / 关键字推断」的一切自动判定。
+ */
+function loadGroupOverrides(): ReadonlyMap<string, GroupKey> {
+  const map = new Map<string, GroupKey>();
+  const items: unknown = overridesConfig.items;
+  if (!Array.isArray(items)) {
+    return map;
+  }
+  for (const item of items) {
+    if (typeof item !== 'object' || item === null) {
+      continue;
+    }
+    const { id, group } = item as { id?: unknown; group?: unknown };
+    if (typeof id === 'string' && id.length > 0 && typeof group === 'string' && group.length > 0) {
+      map.set(id, group);
+    }
+  }
+  return map;
+}
+
+/**
+ * 管理后台写入的屏蔽名单（`data/hidden-channels.json`）。
+ *
+ * 结构：`{ version, items: [{ id }] }`。命中的频道在归一后直接丢弃，
+ * 不进测活、不进产物（隐藏但在仓库里保留配置，便于随时恢复）。
+ */
+function loadHiddenChannelIds(): ReadonlySet<string> {
+  const set = new Set<string>();
+  const items: unknown = hiddenConfig.items;
+  if (!Array.isArray(items)) {
+    return set;
+  }
+  for (const item of items) {
+    if (typeof item !== 'object' || item === null) {
+      continue;
+    }
+    const { id } = item as { id?: unknown };
+    if (typeof id === 'string' && id.length > 0) {
+      set.add(id);
+    }
+  }
+  return set;
+}
+
+const GROUP_OVERRIDES = loadGroupOverrides();
+const HIDDEN_CHANNEL_IDS = loadHiddenChannelIds();
+
+/** 被屏蔽名单屏蔽的频道 id 数量（构建时写进 `stats.hidden_count`）。 */
+export const HIDDEN_CHANNEL_COUNT = HIDDEN_CHANNEL_IDS.size;
 
 /** 归一结果。 */
 export interface ChannelIdentity {
@@ -165,7 +221,6 @@ function matchCctvRule(key: string): ChannelRule | null {
     return {
       id: 'cctv4k',
       name: 'CCTV-4K 超高清',
-      group: '央视',
       aliases: [],
       epgId: 'CCTV4K',
     };
@@ -176,7 +231,6 @@ function matchCctvRule(key: string): ChannelRule | null {
     return {
       id: 'cctv5plus',
       name: 'CCTV-5+ 体育赛事',
-      group: '央视',
       aliases: [],
       epgId: 'CCTV5Plus',
     };
@@ -197,7 +251,6 @@ function matchCctvRule(key: string): ChannelRule | null {
         return {
           id: hit.id,
           name: hit.name,
-          group: '央视',
           aliases: [],
           epgId: `CCTV${hit.no}`,
         };
@@ -215,7 +268,6 @@ function matchCctvRule(key: string): ChannelRule | null {
         return {
           id: hit.id,
           name: hit.name,
-          group: '央视',
           aliases: [],
           epgId: `CCTV${hit.no}`,
         };
@@ -267,7 +319,13 @@ export function identifyChannel(rawName: string): ChannelIdentity | null {
   const rule = matchCctvRule(key) ?? ALIAS_INDEX.get(key) ?? null;
   let identity: ChannelIdentity;
   if (rule !== null) {
-    identity = { id: rule.id, name: rule.name, group: rule.group, ruleMatched: true };
+    // 规则表只给「身份」，分组统一由关键字数据推断（`data/group-keywords.json`），
+    // 这样管理后台改一次关键字就能整体重新分类，不受规则表拖累。
+    //
+    // 注意：必须用**规则的标准中文名**去推断，不能用命中时的英文别名 key。
+    // `TVB Jade` / `Jade` / `JADE` 都会归一到 `tvb-jade`，但 key 是 `JADE`，
+    // 而分组关键字里没有 `JADE`（只有 `翡翠`），拿 key 推断会把翡翠台打进「其他」。
+    identity = { id: rule.id, name: rule.name, group: inferGroup(normalizeAliasKey(rule.name)), ruleMatched: true };
     if (rule.logo !== undefined && rule.logo.length > 0) {
       identity.logo = rule.logo;
     }
@@ -329,11 +387,20 @@ export function buildChannels(streams: readonly Stream[]): Channel[] {
       continue;
     }
 
-    const group = resolveGroup({
-      ruleMatched: identity.ruleMatched,
-      nameGroup: identity.group,
-      upstreamGroup: stream.upstreamGroup,
-    });
+    // 屏蔽名单：归一后立刻丢弃，连测活都不做
+    if (HIDDEN_CHANNEL_IDS.has(identity.id)) {
+      continue;
+    }
+
+    // 人工分组覆盖（管理后台写入）优先级最高，其次才是自动判定
+    const overridden = GROUP_OVERRIDES.get(identity.id);
+    const group =
+      overridden ??
+      resolveGroup({
+        ruleMatched: identity.ruleMatched,
+        nameGroup: identity.group,
+        upstreamGroup: stream.upstreamGroup,
+      });
 
     stream.channelId = identity.id;
     stream.group = group;

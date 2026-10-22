@@ -5,19 +5,36 @@
  * 业务文件禁止出现魔法数。
  */
 
+import groupsConfig from '../data/groups.json';
 import type { GroupKey } from './types';
 
-/** 分组顺序即输出顺序，权重 = 数组下标（0~4，升序）。 */
-export const GROUP_ORDER: readonly GroupKey[] = ['港澳台', '广东', '央视', '卫视', '其他'];
+/**
+ * 分组顺序（即输出顺序，权重 = 数组下标，升序）。
+ *
+ * 权威来源是 `data/groups.json`：分组名与顺序必须放在**数据文件**里，
+ * 因为管理后台可以在运行时改它，而纯静态站改不动 TypeScript 里的枚举。
+ * 文件结构异常时退化为只保留兜底组「其他」，保证构建不炸。
+ */
+export const GROUP_ORDER: readonly GroupKey[] = readGroupOrder();
 
-/** 分组权重：港澳台最前（电视端首屏可见）。 */
-export const GROUP_WEIGHT: Readonly<Record<GroupKey, number>> = {
-  港澳台: 0,
-  广东: 1,
-  央视: 2,
-  卫视: 3,
-  其他: 4,
-};
+/** 分组权重：由 `GROUP_ORDER` 下标派生，未知分组在 `src/data/groups.ts` 里排到末尾。 */
+export const GROUP_WEIGHT: Readonly<Record<GroupKey, number>> = Object.fromEntries(
+  GROUP_ORDER.map((group, index) => [group, index] as const),
+);
+
+/**
+ * 读取并清洗 `data/groups.json` 的分组顺序。
+ *
+ * @return 非空的分组名数组（异常时返回 `['其他']`）
+ */
+function readGroupOrder(): readonly GroupKey[] {
+  const order: unknown = groupsConfig.order;
+  if (!Array.isArray(order)) {
+    return ['其他'];
+  }
+  const cleaned = order.filter((item): item is string => typeof item === 'string' && item.length > 0);
+  return cleaned.length > 0 ? cleaned : ['其他'];
+}
 
 /** 单个上游的定义。 */
 export interface UpstreamSource {
@@ -118,6 +135,17 @@ export const UPSTREAMS: readonly UpstreamSource[] = [
     format: 'm3u',
     fixture: 'upstream-akira-curated.m3u',
   },
+  {
+    name: 'akira-overseas',
+    label: 'akiralereal/iptv 海外',
+    // 42 个海外免费台（体育 13 / 娱乐时尚 12 / 国际 9 / 文旅 7 / 韩国 1），
+    // 来自 Samsung TV Plus、Plex、Rakuten、LG Channels 等 FAST 平台及各家官方入口。
+    // ⚠️ 作者自己标注「在大陆常卡顿或连不上」，实测能活下来的一般是个位数。
+    rawUrl: 'https://raw.githubusercontent.com/akiralereal/iptv/main/IPTV-overseas.m3u',
+    jsdelivrUrl: 'https://cdn.jsdelivr.net/gh/akiralereal/iptv@main/IPTV-overseas.m3u',
+    format: 'm3u',
+    fixture: 'upstream-akira-overseas.m3u',
+  },
 ];
 
 /**
@@ -193,6 +221,8 @@ export const PATHS = {
   nbaTxt: 'dist/nba/today.txt',
   /** NBA 赛程清单（M3U） */
   nbaM3u: 'dist/nba/today.m3u',
+  /** 网页端频道目录（分组 + 频道 + 源地址），供频道浏览页 / 播放页读取 */
+  channelsJson: 'dist/channels.json',
   stats: 'dist/stats.json',
   dataDir: 'data',
   blacklist: 'data/blacklist.json',
@@ -231,7 +261,20 @@ export const PROBE = {
   subRangeBytes: 2048,
   /** TS 包长度，>=188 字节视为有真实流数据 */
   tsPacketBytes: 188,
+  /**
+   * 海外上游源的额外重试轮数。
+   *
+   * 动机：`akira-overseas` 这类 FAST 平台的源普遍在境外，国内网络下首连失败率极高，
+   * 且高并发会互相挤占连接放大误判（实测并发 64 时存活数会在 1~29 之间乱跳）。
+   * 所以第一轮测活结束后，对海外源的**失败项**再跑一轮单独重试，给它们第二次机会。
+   */
+  overseasRetries: 1,
 } as const;
+
+/**
+ * 需要额外重试的海外上游名单（对应 `Stream.origin`）。
+ */
+export const OVERSEAS_ORIGINS: readonly string[] = ['akira-overseas'];
 
 /** 优选层参数。 */
 export const SELECT = {

@@ -6,14 +6,19 @@ import { Box, Container, Divider, Stack, Tab, Tabs, Typography } from '@mui/mate
 import { Link as RouterLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import Home from './pages/Home';
+import Admin from './pages/Admin';
+import Channels from './pages/Channels';
+import Play from './pages/Play';
 import Tester from './pages/Tester';
 import Update from './pages/Update';
 
-/** 三个页面（Hash 路由）。 */
+/** 页面（Hash 路由）。 */
 const NAV_ITEMS: ReadonlyArray<{ path: string; label: string }> = [
   { path: '/', label: '首页' },
+  { path: '/channels', label: '频道浏览' },
   { path: '/tester', label: '测源（检测能不能用）' },
   { path: '/update', label: '一键更新' },
+  { path: '/admin', label: '管理后台' },
 ];
 
 /**
@@ -25,7 +30,9 @@ export default function App(): JSX.Element {
   const location = useLocation();
   const currentIndex = Math.max(
     0,
-    NAV_ITEMS.findIndex((item) => item.path === location.pathname),
+    NAV_ITEMS.findIndex((item) =>
+      item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path),
+    ),
   );
 
   return (
@@ -63,8 +70,11 @@ export default function App(): JSX.Element {
       <Container maxWidth="md" sx={{ flexGrow: 1, py: { xs: 2, sm: 3 } }}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/channels" element={<Channels />} />
+          <Route path="/play/:id" element={<Play />} />
           <Route path="/tester" element={<Tester />} />
           <Route path="/update" element={<Update />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Container>
