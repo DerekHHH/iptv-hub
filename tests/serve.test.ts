@@ -2,7 +2,7 @@
  * @file 本机服务（scripts/serve.mjs）测试：路由解析、目录穿越防护、赛事统计、HTTP 接口。
  */
 
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import type { AddressInfo } from 'node:net';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -233,6 +233,65 @@ describe('本机服务 HTTP 接口', () => {
       // 服务本身还活着
       expect((await fetch(`${failUrl}/api/health`)).status).toBe(200);
       await new Promise<void>((done) => failing.server.close(() => done()));
+    });
+  });
+
+  it('GET /api/state 返回两个开关的状态', async () => {
+    await withServer(async (url) => {
+      const response = await fetch(`${url}/api/state`);
+      expect(response.status).toBe(200);
+      const data = (await response.json()) as { web: string; live: string };
+      expect(['on', 'off']).toContain(data.web);
+      expect(['on', 'off']).toContain(data.live);
+    });
+  });
+
+  it('POST /api/state 改开关并落盘到状态文件', async () => {
+    const stateDir = await mkdtemp(join(tmpdir(), 'iptv-state-'));
+    await withServer(async (url) => {
+      const scoped = createServeServer({
+        autoPull: false,
+        host: '127.0.0.1',
+        port: 0,
+        pagesDir,
+        liveDir,
+        stateDir,
+      });
+      await new Promise<void>((done) => scoped.server.listen(0, '127.0.0.1', done));
+      const scopedUrl = `http://127.0.0.1:${(scoped.server.address() as AddressInfo).port}`;
+      try {
+        const response = await fetch(`${scopedUrl}/api/state`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ target: 'live', value: 'off' }),
+        });
+        expect(response.status).toBe(200);
+        const data = (await response.json()) as { ok: boolean; target: string; value: string };
+        expect(data.ok).toBe(true);
+        expect(data.target).toBe('live');
+        expect(data.value).toBe('off');
+
+        // 状态文件真的写了
+        const onDisk = (await readFile(join(stateDir, 'live.state'), 'utf8')).trim();
+        expect(onDisk).toBe('off');
+
+        // 再读回来应该是 off
+        const readBack = (await (await fetch(`${scopedUrl}/api/state`)).json()) as { live: string };
+        expect(readBack.live).toBe('off');
+      } finally {
+        await new Promise<void>((done) => scoped.server.close(() => done()));
+      }
+    });
+  });
+
+  it('POST /api/state 收到非法 JSON 返回 400', async () => {
+    await withServer(async (url) => {
+      const response = await fetch(`${url}/api/state`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: 'not-json',
+      });
+      expect(response.status).toBe(400);
     });
   });
 });

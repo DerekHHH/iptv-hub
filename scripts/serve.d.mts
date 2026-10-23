@@ -46,6 +46,10 @@ export interface ServeOptions {
   autoPull?: boolean;
   /** 赛事刷新命令，形如 `['npm', ['run', 'build:live']]` */
   liveCommand?: [string, string[]];
+  /** 开关状态文件所在目录（与 scripts/toggle.sh 共用） */
+  stateDir?: string;
+  /** 最近一次真实访问的时间戳文件，用于自动回收 */
+  lastUseFile?: string;
 }
 
 /** 服务内部状态。 */

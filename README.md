@@ -286,6 +286,29 @@ bash scripts/termux-serve.sh
 | `POST /api/live/refresh` | 触发赛事刷新；正在刷新时返回 409 |
 | `SERVE_PORT=18081 npm run serve` | 端口被占用时换端口 |
 
+### 开关（不想它一直跑的时候用）
+
+两个**互相独立**的开关：网页服务、赛事服务。
+
+| 想做什么 | 怎么操作 |
+|---|---|
+| **开**网页服务 | Termux 里执行 `web.sh`（或 `bash scripts/open-local.sh`，会自动打开浏览器） |
+| **关**网页服务 | ① 在网页上点「本机服务开关 → 网页服务」按钮；② Termux 里执行 `web.sh` 再执行一次（切换）；③ 下拉通知栏点「网页服务」 |
+| **开/关**赛事服务 | Termux 里 `live.sh`；或下拉通知栏点「赛事服务」；或在网页上点按钮 |
+
+设计要点：
+
+- 开关只改一个**状态文件**（`~/.local/state/iptv-hub/*.state`），实际启停由看门狗按状态对齐 → 不会出现"说关了、进程还在"
+- **网页服务默认关闭**，赛事服务默认开启（原生二进制不吃电，电视要用）
+- **省电保险丝**：网页服务开着但 30 分钟没人访问会自动关闭（`SERVE_AUTO_CLOSE_MIN` 可调）。"有人访问"以真实页面访问为准，看门狗自己的健康探测不计入
+- 通知栏按钮通过 `~/.termux/termux.properties` 的 `shortcut.<名字>=<脚本路径>` 配置
+
+```bash
+bash scripts/toggle.sh status      # 看当前状态
+bash scripts/toggle.sh web on      # 明确开启
+bash scripts/toggle.sh live off    # 明确关闭
+```
+
 ### 注意事项
 
 - 本服务**只绑 127.0.0.1**，局域网里其他设备访问不到，这是有意的

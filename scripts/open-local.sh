@@ -17,9 +17,10 @@ PORT="${SERVE_PORT:-18080}"
 DIR="${IPTV_DIR:-$HOME/iptv-hub}"
 cd "$DIR"
 
-# 服务没在跑就拉起来
-if ! pgrep -f "scripts/serve.mjs" >/dev/null 2>&1; then
-    echo "[open] 启动本机服务…"
+# 服务没在跑就拉起来（走状态文件，由看门狗按状态对齐）
+bash "$DIR/scripts/toggle.sh" web on >/dev/null 2>&1 || true
+if ! curl -sS -m 3 "http://127.0.0.1:${PORT}/api/health" >/dev/null 2>&1; then
+    echo "[open] 直接启动服务…"
     nohup node scripts/serve.mjs >>"$HOME/serve.log" 2>&1 &
     sleep 3
 fi

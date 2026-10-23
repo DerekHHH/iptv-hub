@@ -25,10 +25,10 @@
 
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { homedir } from 'node:os';
 import { extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 const ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 /** 扩展名 → Content-Type。 */
@@ -156,6 +156,52 @@ export function createServeServer(options = {}) {
   // 直接用 node --import tsx 跑，跳过 npm 包装层（省 1~2 秒启动开销）
   const liveCommand = options.liveCommand ?? ['node', ['--import', 'tsx', 'src/pipeline/liveOnly.ts']];
 
+  /**
+   * 最近一次**真实访问**的时间戳文件。
+   *
+   * 看门狗用它判断"网页服务开着但一直没人用"，好做自动回收。
+   * 只有非 /api/ 的请求才算（看门狗自己的健康探测走 /api/，不能自我续命）。
+   */
+  const lastUseFile = options.lastUseFile
+    ?? process.env.SERVE_LAST_USE_FILE
+    ?? join(homedir(), '.local', 'state', 'iptv-hub', 'web.last');
+  let lastUseDirReady = false;
+
+  /**
+   * 开关状态文件所在目录（与 scripts/toggle.sh 共用同一套状态）。
+   */
+  const stateDir = options.stateDir
+    ?? process.env.SERVE_STATE_DIR
+    ?? join(homedir(), '.local', 'state', 'iptv-hub');
+
+  /** 读某个开关的状态（不存在时按默认值算）。 */
+  async function readState(name) {
+    try {
+      const raw = await readFile(join(stateDir, `${name}.state`), 'utf8');
+      return raw.trim() === 'on' ? 'on' : 'off';
+    } catch {
+      return name === 'live' ? 'on' : 'off';
+    }
+  }
+
+  /** 写某个开关的状态。 */
+  async function writeState(name, value) {
+    await mkdir(stateDir, { recursive: true });
+    await writeFile(join(stateDir, `${name}.state`), `${value}\n`);
+  }
+
+  async function markUsed() {
+    try {
+      if (!lastUseDirReady) {
+        await mkdir(resolve(lastUseFile, '..'), { recursive: true });
+        lastUseDirReady = true;
+      }
+      await writeFile(lastUseFile, String(Date.now()));
+    } catch {
+      // 记录失败不影响服务
+    }
+  }
+
   const state = {
     liveRunning: false,
     lastLive: null,
@@ -241,6 +287,36 @@ export function createServeServer(options = {}) {
           sendJson(res, 200, { running: state.liveRunning, last: state.lastLive });
           return;
         }
+        if (url.startsWith('/api/state')) {
+          if (req.method === 'POST') {
+            // 页面上的开关：改状态文件，看门狗会在几秒内对齐
+            const chunks = [];
+            for await (const chunk of req) {
+              chunks.push(chunk);
+            }
+            let body = {};
+            try {
+              body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+            } catch {
+              sendJson(res, 400, { ok: false, message: '请求体不是合法 JSON' });
+              return;
+            }
+            const target = body.target === 'live' ? 'live' : 'web';
+            const value = body.value === 'on' ? 'on' : 'off';
+            await writeState(target, value);
+            sendJson(res, 200, { ok: true, target, value });
+            // 关网页服务时直接退出，省得等看门狗（状态已是 off，不会被拉起）
+            if (target === 'web' && value === 'off') {
+              setTimeout(() => process.exit(0), 150);
+            }
+            return;
+          }
+          sendJson(res, 200, {
+            web: await readState('web'),
+            live: await readState('live'),
+          });
+          return;
+        }
         if (url.startsWith('/api/live/refresh')) {
           if (req.method !== 'POST') {
             sendJson(res, 405, { ok: false, message: '请用 POST' });
@@ -263,6 +339,11 @@ export function createServeServer(options = {}) {
         res.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' });
         res.end('路径不合法');
         return;
+      }
+
+      // 真实访问打点（/api/ 下的探测不算，用于看门狗的自动回收判断）
+      if (!url.startsWith('/api/')) {
+        void markUsed();
       }
 
       let target = filePath;

@@ -27,6 +27,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import CopyField from '../components/CopyField';
 import GuideSteps from '../components/GuideSteps';
 import LiveRefreshCard from '../components/LiveRefreshCard';
+import LocalServicePanel from '../components/LocalServicePanel';
 import StatCards from '../components/StatCards';
 import {
   buildLinks,
@@ -152,6 +153,9 @@ export default function Home(): JSX.Element {
 
       {/* 赛事刷新（本机模式才显示） */}
       <LiveRefreshCard />
+
+      {/* 本机服务开关（本机模式才显示） */}
+      <LocalServicePanel />
 
       {/* 三步教程 */}
       <Box>
