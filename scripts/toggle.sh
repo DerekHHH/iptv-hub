@@ -16,6 +16,7 @@ PREFIX=/data/data/com.termux/files/usr
 export PATH="$PREFIX/bin:$PATH"
 STATE_DIR="$HOME/.local/state/iptv-hub"
 PORT="${SERVE_PORT:-18080}"
+DIR="${IPTV_DIR:-$HOME/iptv-hub}"
 mkdir -p "$STATE_DIR"
 
 get_state() {
@@ -43,6 +44,21 @@ label_of() {
   esac
 }
 
+# 看门狗是 Termux 会话的子进程：会话一旦重启（强杀 Termux、应用被系统回收），
+# 它就没了，此时光改状态文件没人执行。开关命令必须自己保证它在跑。
+ensure_watchdog() {
+  if pgrep -f "scripts/watchdog.sh" >/dev/null 2>&1; then
+    return 0
+  fi
+  local script="$DIR/scripts/watchdog.sh"
+  if [ ! -f "$script" ]; then
+    return 1
+  fi
+  nohup bash "$script" >>"$HOME/watchdog.log" 2>&1 &
+  sleep 2
+  return 0
+}
+
 show_status() {
   printf '%-8s 状态=%-4s 实际运行=%s\n' "网页" "$(get_state web)" "$(is_running web && echo 是 || echo 否)"
   printf '%-8s 状态=%-4s 实际运行=%s\n' "赛事" "$(get_state live)" "$(is_running live && echo 是 || echo 否)"
@@ -61,7 +77,11 @@ case "${1:-status}" in
       if [ "$(get_state "$target")" = "on" ]; then want="off"; else want="on"; fi
     fi
     set_state "$target" "$want"
-    echo "$(label_of "$target") 已设为 $want（看门狗会在几秒内对齐）"
+    if ensure_watchdog; then
+      echo "$(label_of "$target") 已设为 $want（看门狗会在几秒内对齐）"
+    else
+      echo "$(label_of "$target") 已设为 $want，但看门狗没起来：请手动执行 scripts/watchdog.sh" >&2
+    fi
     ;;
   status)
     show_status
