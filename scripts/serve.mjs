@@ -301,7 +301,28 @@ export function createServeServer(options = {}) {
   });
 
   let pullTimer = null;
+  let heartbeatTimer = null;
+
+  /**
+   * 心跳：定时做一件微小的事，把进程从"空闲"状态里拽出来。
+   *
+   * 背景（实测）：Android 厂商（vivo 等）会给进入后台的应用降级调度，
+   * 空闲的 Node 进程会拿不到 CPU，事件循环随之停摆——连接能建立但服务
+   * 一个字节都不回，浏览器报 ERR_TIMED_OUT。同一个应用里的原生二进制
+   * （wudaliansai）却不受影响，说明是"空闲被降级"而非"整个应用被冻"。
+   * 保持周期性活动可以避免被判定为空闲。
+   */
+  function startHeartbeat() {
+    const intervalMs = Number(process.env.SERVE_HEARTBEAT_MS ?? 10000);
+    heartbeatTimer = setInterval(() => {
+      // 一次极轻量的本地读，既产生活动又不打扰 I/O
+      void readFile(join(pagesDir, 'index.html')).catch(() => undefined);
+    }, intervalMs);
+    heartbeatTimer.unref?.();
+  }
+
   server.on('listening', () => {
+    startHeartbeat();
     if (!autoPull) {
       return;
     }
@@ -312,6 +333,9 @@ export function createServeServer(options = {}) {
   server.on('close', () => {
     if (pullTimer !== null) {
       clearInterval(pullTimer);
+    }
+    if (heartbeatTimer !== null) {
+      clearInterval(heartbeatTimer);
     }
   });
 
