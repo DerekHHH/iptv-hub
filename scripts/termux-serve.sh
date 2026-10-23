@@ -64,12 +64,19 @@ else
 fi
 
 # ---- 本机服务 ----------------------------------------------------------
-if [ ! -d site ] || [ ! -d dist ]; then
-    echo "[serve] 首次运行，先构建网页与产物…"
+# 只补缺的部分：`dist/` 是入库的（Actions 每 2 小时更新并提交），
+# 所以正常情况下不需要重跑主列表那 4~6 分钟的全量构建。
+if [ ! -f site/index.html ]; then
+    echo "[serve] 构建网页…"
     npm run web:build
-    npm run build || echo "[serve] 主列表构建失败，先用已有产物"
-    npm run pages:assemble
 fi
+
+if [ ! -f dist/stats.json ]; then
+    echo "[serve] 没有产物，跑一次全量构建（约 4~6 分钟）…"
+    npm run build || echo "[serve] 构建失败，先用已有产物"
+fi
+
+npm run pages:assemble
 
 echo "[serve] 浏览器打开： http://127.0.0.1:${PORT}"
 exec env SERVE_PORT="$PORT" node scripts/serve.mjs
