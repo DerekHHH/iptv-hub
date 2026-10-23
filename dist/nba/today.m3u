@@ -33,3 +33,7 @@ http://rezofoot.tv/NBATV/index.m3u8
 http://198.58.104.90:8989/nba/index.m3u8
 #EXTINF:-1 group-title="NBA",10-28 07:30 篮网 @ 凯尔特人（美东 10-27）(DAZN (YES))
 http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
+#EXTINF:-1 group-title="NBA",10-29 07:00 76人 @ 步行者（美东 10-28）(ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 group-title="NBA",10-29 09:30 雷霆 @ 独行侠（美东 10-28）(ESPN)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8

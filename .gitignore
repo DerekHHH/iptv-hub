@@ -26,3 +26,6 @@ Thumbs.db
 
 # 内部工作记录（不发布）
 .workbuddy/
+
+# 编辑器目录
+.trae/
