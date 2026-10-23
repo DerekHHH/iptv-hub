@@ -9,12 +9,15 @@
   },
   "scripts": {
     "build": "tsx src/main.ts",
+    "build:live": "tsx src/pipeline/liveOnly.ts",
     "validate:local": "tsx src/main.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "web:dev": "vite --config web/vite.config.ts",
     "web:build": "vite build --config web/vite.config.ts",
     "pages:assemble": "node scripts/assemble-pages.mjs",
+    "serve": "node scripts/serve.mjs",
+    "start": "npm run web:build && npm run pages:assemble && node scripts/serve.mjs",
     "push:api": "node scripts/push-via-api.mjs",
     "find": "node scripts/find-channel.mjs",
     "check:upstreams": "node scripts/check-upstreams.mjs"

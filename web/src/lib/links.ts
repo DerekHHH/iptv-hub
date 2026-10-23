@@ -123,6 +123,59 @@ export function resolveRepo(): RepoRef | null {
 }
 
 /**
+ * 判断当前是不是「本机模式」。
+ *
+ * 手机上跑 `npm run serve` 时，浏览器地址是 `127.0.0.1:18080`，
+ * 这时产物应该直接指向本机服务，而不是 github.io。
+ *
+ * @return true 表示本机模式
+ */
+export function isLocalHost(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  return /^(?:127\.0\.0\.1|localhost|\[::1\]|::1)$/.test(window.location.hostname);
+}
+
+/**
+ * 本机模式的链接集合：全部指向本机服务。
+ *
+ * @param origin 形如 `http://127.0.0.1:18080`（一般取 `window.location.origin`）
+ * @return 链接集合
+ */
+export function buildLocalLinks(origin: string): LinkSet {
+  const base = origin.replace(/\/+$/, '');
+  const all: ProductLink[] = [
+    {
+      key: 'txt',
+      label: 'TXT 列表（本机，推荐先用这个）',
+      description: 'DIYP、影视仓、TVBox 都能直接读。只在这台手机上打开得了。',
+      url: `${base}/txt/all.txt`,
+    },
+    {
+      key: 'm3u',
+      label: 'M3U 列表（本机）',
+      description: '支持台标和分组信息，播放器识别更准。',
+      url: `${base}/m3u/all.m3u`,
+    },
+    {
+      key: 'live',
+      label: '赛事清单（本机）',
+      description: '足球 / 篮球 / 电竞，秒级刷新。电视要用请换成局域网地址。',
+      url: `${base}/live/live.txt`,
+    },
+    {
+      key: 'epg',
+      label: 'EPG 节目单（本机）',
+      description: '配套的节目时间表，播放器里填在「节目单地址」处。',
+      url: `${base}/epg/epg.xml`,
+    },
+  ];
+
+  return { primary: all[0] as ProductLink, all };
+}
+
+/**
  * 生成三套链接。
  *
  * @param repo 仓库定位

@@ -26,11 +26,14 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import CopyField from '../components/CopyField';
 import GuideSteps from '../components/GuideSteps';
+import LiveRefreshCard from '../components/LiveRefreshCard';
 import StatCards from '../components/StatCards';
 import {
   buildLinks,
+  buildLocalLinks,
   formatDateTime,
   formatRelative,
+  isLocalHost,
   loadHistory,
   loadStats,
   resolveRepo,
@@ -65,7 +68,14 @@ export default function Home(): JSX.Element {
   const [loading, setLoading] = useState(true);
 
   const repo = useMemo(() => resolveRepo(), []);
-  const links = useMemo(() => (repo === null ? null : buildLinks(repo)), [repo]);
+  const local = useMemo(() => isLocalHost(), []);
+  // 本机模式优先给本机链接；只有拿不到本机地址时才退回 github.io 三套。
+  const links = useMemo(() => {
+    if (typeof window !== 'undefined' && isLocalHost()) {
+      return buildLocalLinks(window.location.origin);
+    }
+    return repo === null ? null : buildLinks(repo);
+  }, [repo]);
 
   useEffect(() => {
     let cancelled = false;
@@ -119,7 +129,7 @@ export default function Home(): JSX.Element {
         </Alert>
       )}
 
-      {links === null && (
+      {links === null && !local && (
         <Alert severity="info">
           没能从当前网址推断出仓库名。请到「一键更新」页面的高级设置里手动填写
           <b> 用户名 </b>和<b> 仓库名</b>，所有链接会自动生成。
@@ -139,6 +149,9 @@ export default function Home(): JSX.Element {
           { label: '节目单（EPG）', value: stats?.epg?.ok === true ? '有' : '无', hint: epgLabel },
         ]}
       />
+
+      {/* 赛事刷新（本机模式才显示） */}
+      <LiveRefreshCard />
 
       {/* 三步教程 */}
       <Box>
