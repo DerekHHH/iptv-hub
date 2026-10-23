@@ -29,7 +29,8 @@ cd "$DIR"
 
 PORT="${SERVE_PORT:-18080}"
 
-# 防止系统休眠把服务杀掉（需要 termux-api 组件，没装就跳过）。
+# 防止系统休眠把服务杀掉（需要 termux-api 包：pkg install termux-api）。
+# 息屏后 Android 的应用冻结器会冻结 Termux，这个锁能把 CPU 唤醒权留住。
 termux-wake-lock 2>/dev/null || true
 
 # ---- 赛事服务（可选）--------------------------------------------------
@@ -78,5 +79,12 @@ fi
 
 npm run pages:assemble
 
+# 用看门狗托管两个服务（心跳 + wakelock + 健康检查自愈）
+pkill -f "scripts/watchdog.sh" 2>/dev/null || true
+sleep 1
+nohup bash "$SCRIPT_DIR/watchdog.sh" >>"$HOME/watchdog.log" 2>&1 &
+
 echo "[serve] 浏览器打开： http://127.0.0.1:${PORT}"
-exec env SERVE_PORT="$PORT" node scripts/serve.mjs
+echo "[serve] 看门狗已启动（崩溃/卡死自动恢复，息屏也能扛）"
+echo "[serve] 脚本结束，服务在后台继续跑；Termux 可以切走（wakelock 兜着）"
+exit 0
