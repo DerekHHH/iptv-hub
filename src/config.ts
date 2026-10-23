@@ -217,8 +217,6 @@ export const WUDALIANSAI = {
   noticeGroup: '注意事项',
   /** 表示"这场没有可看内容"的状态后缀；其余后缀（赛场原声/高清/…）都算直播中 */
   deadSuffixes: ['完场', '未开赛', '暂无直播'] as readonly string[],
-  /** 状态后缀 → 产物里的展示文案 */
-  statusLabels: { 完场: '已结束', 未开赛: '未开赛', 暂无直播: '暂无直播' } as Readonly<Record<string, string>>,
   /** 分类展示顺序（其余分类按字典序排在其后） */
   categoryOrder: ['足球', '篮球', '电竞'] as readonly string[],
 } as const;

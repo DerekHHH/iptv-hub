@@ -25,6 +25,7 @@ import {
   type LiveMatch,
 } from '../src/sources/wudaliansai';
 import { renderLiveM3u, renderLiveTxt, emitLive } from '../src/emit/live';
+import { detectLeague, leagueRank, OTHER_LEAGUE } from '../src/data/live-leagues';
 
 /** 一份贴近真实产物的样本（含公告、完场、未开赛、多线路）。 */
 const SAMPLE = `#EXTM3U
@@ -236,6 +237,7 @@ describe('parseLiveM3u', () => {
   it('compareMatches 对未知分类排在其后', () => {
     const make = (category: string): LiveMatch => ({
       category,
+      league: '其他联赛',
       title: 'x',
       status: 'live',
       variants: [{ line: '', url: 'http://a' }],
@@ -244,8 +246,108 @@ describe('parseLiveM3u', () => {
   });
 });
 
+describe('detectLeague（靠队名推断联赛）', () => {
+  it('篮球：NBA 队名归 NBA', () => {
+    expect(detectLeague('篮球', '雷霆 vs 掘金')).toBe('NBA');
+    expect(detectLeague('篮球', '湖人 vs 勇士')).toBe('NBA');
+    expect(detectLeague('篮球', '凯尔特人 vs 雄鹿')).toBe('NBA');
+  });
+
+  it('篮球：CBA 队名归 CBA', () => {
+    expect(detectLeague('篮球', '广东宏远 vs 辽宁本钢')).toBe('CBA');
+    expect(detectLeague('篮球', '浙江稠州 vs 深圳马可波罗')).toBe('CBA');
+  });
+
+  it('篮球：认不出来的队归其他联赛', () => {
+    expect(detectLeague('篮球', '卡德 vs 耶鲁竞技')).toBe(OTHER_LEAGUE);
+  });
+
+  it('篮球：澳洲队名里含 NBA 简称时不能误判（蜜蜂 vs 太阳）', () => {
+    // 「蜜蜂」是澳洲 NBL 队，「太阳」是 NBA 队 —— 不能因为对面叫「太阳」就判成 NBA
+    expect(detectLeague('篮球', '蜜蜂 vs 太阳')).toBe(OTHER_LEAGUE);
+    // 「伊拉瓦拉老鹰」含 NBA 的「老鹰」，长关键词必须压过短关键词
+    expect(detectLeague('篮球', '伊拉瓦拉老鹰 vs 凯尔特人')).toBe(OTHER_LEAGUE);
+  });
+
+  it('篮球：日本 B.League 队名里含 NBA 简称时不能误判', () => {
+    // 「东京太阳摇滚」含「太阳」、「兰实公牛」含「公牛」
+    expect(detectLeague('篮球', '东京太阳摇滚 vs 凯尔特人')).toBe(OTHER_LEAGUE);
+    expect(detectLeague('篮球', '兰实公牛 vs 雷霆')).toBe(OTHER_LEAGUE);
+    expect(detectLeague('篮球', '大阪七福神 vs 东京太阳摇滚')).toBe(OTHER_LEAGUE);
+  });
+
+  it('校队/青年队不按职业联赛算（真实数据里踩过的坑）', () => {
+    // 「大连足校女足」含「大连」、「山西财经大学」含「山西」
+    expect(detectLeague('足球', '大连足校女足 vs 山西喜华女足')).toBe(OTHER_LEAGUE);
+    expect(detectLeague('篮球', '山西财经大学 vs 广东宏远')).toBe(OTHER_LEAGUE);
+    // U20 青年队
+    expect(detectLeague('足球', 'CB米拉U20 vs 伊尤马U20')).toBe(OTHER_LEAGUE);
+  });
+
+  it('中超梯队仍算中超（不能被梯队规则误伤）', () => {
+    expect(detectLeague('足球', '上海海港B队 vs 杭州临平吴越')).toBe('中超');
+  });
+
+  it('足球：五大联赛 + 中超 + 欧冠', () => {
+    expect(detectLeague('足球', '曼联 vs 利物浦')).toBe('英超');
+    expect(detectLeague('足球', '皇家马德里 vs 巴塞罗那')).toBe('西甲');
+    expect(detectLeague('足球', '国际米兰 vs 尤文图斯')).toBe('意甲');
+    expect(detectLeague('足球', '拜仁仁 vs 多特蒙德')).toBe('德甲');
+    expect(detectLeague('足球', '巴黎圣日耳曼 vs 摩纳哥')).toBe('法甲');
+    expect(detectLeague('足球', '山东泰山 vs 上海海港')).toBe('中超');
+    expect(detectLeague('足球', '皇家马德里 vs 曼城')).toBe('欧冠');
+  });
+
+  it('足球：小联赛归其他联赛', () => {
+    expect(detectLeague('足球', '弗拉门戈 vs 拉普拉塔大学生')).toBe(OTHER_LEAGUE);
+  });
+
+  it('电竞不细分', () => {
+    expect(detectLeague('电竞', 'Metizport vs Genone')).toBe('电竞');
+  });
+
+  it('同分类内联赛顺序固定，「其他联赛」最后', () => {
+    expect(leagueRank('篮球', 'NBA')).toBeLessThan(leagueRank('篮球', 'CBA'));
+    expect(leagueRank('篮球', 'CBA')).toBeLessThan(leagueRank('篮球', OTHER_LEAGUE));
+    expect(leagueRank('足球', '英超')).toBeLessThan(leagueRank('足球', '欧冠'));
+    expect(leagueRank('足球', '欧冠')).toBeLessThan(leagueRank('足球', OTHER_LEAGUE));
+  });
+});
+
 describe('renderLiveTxt / renderLiveM3u', () => {
   const matches = parseLiveM3u(SAMPLE, BASE);
+
+  it('分组名是「分类|联赛」，线路不再占分组位', () => {
+    const text = renderLiveTxt(matches);
+    const groups = text
+      .split('\n')
+      .filter((line) => line.endsWith(',#genre#'))
+      .map((line) => line.slice(0, -',#genre#'.length));
+    expect(groups).toContain('篮球|NBA');
+    expect(groups).toContain('足球|其他联赛');
+    expect(groups).toContain('电竞|电竞');
+    // 旧格式（把线路当分组）不该再出现
+    expect(groups.some((group) => group.endsWith('|高清'))).toBe(false);
+    expect(groups.some((group) => group.endsWith('|赛场原声'))).toBe(false);
+  });
+
+  it('条目名统一带状态前缀，线路名进括号', () => {
+    const text = renderLiveTxt(matches);
+    expect(text).toContain('[直播中] 湖人 vs 勇士 (赛场原声)');
+    expect(text).toContain('[直播中] 湖人 vs 勇士 (高清)');
+    expect(text).toContain('[已结束] 灰熊 vs 爵士');
+  });
+
+  it('无线路名时不出现空括号', () => {
+    const text = renderLiveTxt(matches);
+    expect(text).not.toContain('()');
+  });
+
+  it('M3U 的 group-title 也是分类|联赛', () => {
+    const m3u = renderLiveM3u(matches);
+    expect(m3u).toContain('group-title="篮球|NBA"');
+    expect(m3u).not.toContain('group-title="篮球|高清"');
+  });
 
   it('TXT 无 BOM、只有 LF、末尾单个换行', () => {
     const text = renderLiveTxt(matches);
@@ -255,24 +357,23 @@ describe('renderLiveTxt / renderLiveM3u', () => {
     expect(text.endsWith('\n\n')).toBe(false);
   });
 
-  it('TXT 分组头是「分类|线路,#genre#」', () => {
+  it('TXT 分组头是「分类|联赛,#genre#」', () => {
     const lines = renderLiveTxt(matches).split('\n');
-    expect(lines).toContain('足球,#genre#');
-    expect(lines).toContain('篮球|高清,#genre#');
-    expect(lines).toContain('篮球|赛场原声,#genre#');
-    expect(lines).toContain('电竞|赛场原声,#genre#');
+    expect(lines).toContain('篮球|NBA,#genre#');
+    expect(lines).toContain('足球|其他联赛,#genre#');
+    expect(lines).toContain('电竞|电竞,#genre#');
   });
 
-  it('TXT 频道行是「名条,地址」，非直播中的带状态前缀', () => {
+  it('TXT 频道行是「名条,地址」，名条带状态前缀与线路名', () => {
     const lines = renderLiveTxt(matches).split('\n');
-    expect(lines).toContain(`湖人 vs 勇士,${BASE}/play/bbb`);
+    expect(lines).toContain(`[直播中] 湖人 vs 勇士 (高清),${BASE}/play/bbb`);
     expect(lines).toContain(`[已结束] 灰熊 vs 爵士,${BASE}/play/ccc`);
   });
 
   it('M3U 带 group-title 与台标', () => {
     const text = renderLiveM3u(matches);
     expect(text.startsWith('#EXTM3U')).toBe(true);
-    expect(text).toContain('group-title="篮球|高清"');
+    expect(text).toContain('group-title="篮球|NBA"');
     expect(text).toContain('tvg-logo="http://logo/lakers.png"');
   });
 });

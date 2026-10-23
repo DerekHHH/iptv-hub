@@ -17,6 +17,7 @@
 import { networkInterfaces } from 'node:os';
 
 import { WUDALIANSAI } from '../config';
+import { detectLeague, leagueRank } from '../data/live-leagues';
 import { parseM3U } from '../parse/parseM3U';
 import type { Stream } from '../types';
 import { describeError, fetchText } from '../util/http';
@@ -37,6 +38,8 @@ export interface LiveVariant {
 export interface LiveMatch {
   /** 分类，即上游 `group-title`：足球 / 篮球 / 电竞 */
   category: string;
+  /** 联赛名（上游没有这个字段，靠队名推断，见 `src/data/live-leagues.ts`） */
+  league: string;
   /** 赛事标题，如 `湖人 vs 勇士` */
   title: string;
   /** 综合状态：任一条线在直播就算直播中 */
@@ -394,7 +397,7 @@ export function parseLiveM3u(text: string, publicBase: string): LiveMatch[] {
 
     let match = byKey.get(key);
     if (match === undefined) {
-      match = { category, title, status, variants: [] };
+      match = { category, title, status, league: detectLeague(category, title), variants: [] };
       if (stream.logo !== undefined && stream.logo.length > 0) {
         match.logo = stream.logo;
       }
@@ -423,7 +426,7 @@ export function parseLiveM3u(text: string, publicBase: string): LiveMatch[] {
 }
 
 /**
- * 赛事排序：分类顺序 → 状态（直播中优先）→ 标题。
+ * 赛事排序：分类顺序 → 联赛顺序 → 状态（直播中优先）→ 标题。
  *
  * @param left 赛事 A
  * @param right 赛事 B
@@ -440,6 +443,14 @@ export function compareMatches(left: LiveMatch, right: LiveMatch): number {
   }
   if (left.category !== right.category) {
     return left.category < right.category ? -1 : 1;
+  }
+  // 同一分类内按联赛顺序排（NBA 在 CBA 前，五大联赛在前，「其他联赛」最后）
+  const leagueDiff = leagueRank(left.category, left.league) - leagueRank(right.category, right.league);
+  if (leagueDiff !== 0) {
+    return leagueDiff;
+  }
+  if (left.league !== right.league) {
+    return left.league < right.league ? -1 : 1;
   }
   const statusDiff = STATUS_WEIGHT[left.status] - STATUS_WEIGHT[right.status];
   if (statusDiff !== 0) {

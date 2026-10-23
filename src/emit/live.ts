@@ -6,8 +6,9 @@
  * 混进主列表会让频道目录持续抖动、还会把"找不到台"的锅甩给主源。
  *
  * 格式沿用主产物约定（UTF-8 无 BOM、LF、`分组名,#genre#` 组头），
- * 只是分组名细到「分类|线路」（`足球|高清`），电视端分组栏一眼能看出
- * 是哪个分类、走的哪条线路；非直播中的条目在名字前加 `[已结束]` 之类的标记。
+ * 只是分组名细到「分类|联赛」（`篮球|NBA`、`足球|英超`），电视端分组栏一眼能看出
+ * 是哪项运动、哪个联赛；名条统一带状态前缀（`[直播中]` / `[未开赛]` / `[已结束]`），
+ * 同一场比赛的多个资源用线路名区分（`… (高清)`）。
  *
  * 失败策略：服务不在（GitHub Actions / 手机没起服务）时**不写产物**，
  * 保留上一版，只打 info 日志，绝不影响主列表。
@@ -21,34 +22,41 @@ import { log } from '../util/logger';
 /** TXT 分组头标记（与 `emit/txt.ts` 保持一致）。 */
 const GENRE_MARKER = '#genre#';
 
-/** 状态 → 名条前缀（直播中的保持干净，不加标记）。 */
+/** 状态 → 名条前缀（四种状态统一标注，一眼能分清）。 */
 const STATUS_TAG: Readonly<Record<LiveStatus, string>> = {
-  live: '',
+  live: '[直播中]',
   upcoming: '[未开赛]',
   unavailable: '[暂无直播]',
   ended: '[已结束]',
 };
 
 /**
- * 分组名：`足球|高清`。
+ * 分组名：`篮球|NBA`。
+ *
+ * 父子两级（`分类|联赛`），播放器里会显示成两层：「篮球」下面分「NBA」「CBA」
+ * 「其他联赛」。**线路名不再占分组位**——它写进条目名里（见 `entryLabel`）。
  *
  * @param match 赛事
- * @param line 线路名（可为空）
  * @return 分组名
  */
-function groupLabel(match: LiveMatch, line: string): string {
-  return line.length > 0 ? `${match.category}|${line}` : match.category;
+function groupLabel(match: LiveMatch): string {
+  return `${match.category}|${match.league}`;
 }
 
 /**
- * 名条文案：非直播中的加状态前缀。
+ * 名条文案：`[直播中] 雷霆 vs 掘金 (高清)`。
+ *
+ * 状态前缀对四种状态统一输出；线路名非空时追加在括号里（同一场比赛的多个
+ * 资源就是靠它区分的）。
  *
  * @param match 赛事
+ * @param line 线路名（可为空）
  * @return 名条
  */
-function entryLabel(match: LiveMatch): string {
+function entryLabel(match: LiveMatch, line: string): string {
   const tag = STATUS_TAG[match.status];
-  return tag.length > 0 ? `${tag} ${match.title}` : match.title;
+  const suffix = line.length > 0 ? ` (${line})` : '';
+  return `${tag} ${match.title}${suffix}`;
 }
 
 /**
@@ -62,9 +70,9 @@ function collectGroups(matches: readonly LiveMatch[]): Array<{ group: string; it
   const buckets = new Map<string, Array<[string, string]>>();
 
   for (const match of matches) {
-    const label = entryLabel(match);
     for (const variant of match.variants) {
-      const group = groupLabel(match, variant.line);
+      const label = entryLabel(match, variant.line);
+      const group = groupLabel(match);
       let bucket = buckets.get(group);
       if (bucket === undefined) {
         bucket = [];
@@ -116,11 +124,11 @@ export function renderLiveM3u(matches: readonly LiveMatch[]): string {
   const lines: string[] = ['#EXTM3U'];
   for (const match of matches) {
     for (const variant of match.variants) {
-      const attributes = [`group-title="${groupLabel(match, variant.line)}"`];
+      const attributes = [`group-title="${groupLabel(match)}"`];
       if (match.logo !== undefined && match.logo.length > 0) {
         attributes.unshift(`tvg-logo="${match.logo}"`);
       }
-      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${entryLabel(match)}`);
+      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${entryLabel(match, variant.line)}`);
       lines.push(variant.url);
     }
   }
