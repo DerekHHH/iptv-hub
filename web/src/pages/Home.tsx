@@ -140,11 +140,11 @@ export default function Home(): JSX.Element {
       <StatCards
         items={[
           { label: '可用频道', value: stats?.channel_count ?? '—', hint: '测活通过才会列出' },
-          { label: '可用源', value: stats?.source_count ?? '—', hint: '每个频道最多 3 个备用' },
+          { label: '可用源', value: stats?.source_count ?? '—', hint: '普通频道 5 个备用' },
           {
             label: '每台备用数',
-            value: '3',
-            hint: '一个挂了自动换下一个',
+            value: '5',
+            hint: '常看台 10 个，一个挂了自动换下一个',
           },
           { label: '节目单（EPG）', value: stats?.epg?.ok === true ? '有' : '无', hint: epgLabel },
         ]}

@@ -32,3 +32,11 @@ Thumbs.db
 
 # 赛事清单只在本机/局域网有意义，且含内网 IP，不进版本库
 dist/live/
+
+# filter-branch 临时目录与本地审计用文件，不入库
+.git-rewrite/
+_audit/
+
+# filter-branch 临时目录与本地审计用文件，不入库
+.git-rewrite/
+_audit/
