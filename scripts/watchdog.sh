@@ -263,7 +263,15 @@ while true; do
     if [ "$USE_PROXY" = "on" ]; then
       start_proxy
     fi
+    # 每轮按当前网络重算基址；若运行中的二进制配置已变（例如 WiFi 切换导致
+    # 局域网 IP 变化），自动重启套用新地址，避免 M3U 里一直是旧 IP。
+    refresh_base_url
     if ! probe "http://127.0.0.1:${WDL_PORT}/health"; then
+      start_live
+    elif [ "$USE_PROXY" = "on" ] && ! wdl_has_domain; then
+      logline "赛事配置已变（基址/域名），重启套用"
+      pkill -f "wudaliansai" 2>/dev/null
+      sleep 2
       start_live
     fi
   else
