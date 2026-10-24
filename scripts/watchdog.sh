@@ -185,6 +185,9 @@ start_web() {
   pgrep -f "scripts/serve.mjs" >/dev/null 2>&1 || {
     nohup node scripts/serve.mjs >>"$HOME/serve.log" 2>&1 &
     sleep 3
+    # 刚（重）启动时重置"最近访问时间"，给一个全新的自动关闭窗口；
+    # 否则会用上次会话留下的陈旧 web.last，判定"已闲置很久"，起来就被立刻关掉。
+    touch "$STATE_DIR/web.last" 2>/dev/null
   }
 }
 
