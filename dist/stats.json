@@ -1,30 +1,30 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T18:35:51+08:00",
-  "channel_count": 512,
-  "source_count": 585,
+  "updated_at": "2026-10-25T08:52:09+08:00",
+  "channel_count": 455,
+  "source_count": 554,
   "groups": {
-    "港澳台": 17,
-    "广东": 10,
-    "央视": 16,
-    "卫视": 21,
-    "体育": 17,
-    "影视": 58,
-    "娱乐时尚": 7,
-    "国际": 25,
-    "文旅": 68,
-    "纪录": 5,
-    "少儿": 0,
-    "综艺": 25,
+    "港澳台": 15,
+    "广东": 6,
+    "央视": 13,
+    "卫视": 26,
+    "体育": 5,
+    "影视": 5,
+    "娱乐时尚": 1,
+    "国际": 6,
+    "文旅": 14,
+    "纪录": 7,
+    "少儿": 6,
+    "综艺": 27,
     "宠物": 1,
-    "地方台": 210,
-    "其他": 32
+    "地方台": 257,
+    "其他": 66
   },
   "upstream": [
     {
       "name": "iptv-org-cn",
       "ok": true,
-      "items": 511,
+      "items": 510,
       "channel": "raw"
     },
     {
@@ -37,7 +37,7 @@
       "name": "iptv-org-tw",
       "ok": true,
       "items": 56,
-      "channel": "raw"
+      "channel": "jsdelivr"
     },
     {
       "name": "fanmingming-live",
@@ -49,7 +49,7 @@
     {
       "name": "vbskycn-iptv",
       "ok": true,
-      "items": 532,
+      "items": 512,
       "channel": "raw"
     },
     {
@@ -73,7 +73,7 @@
     {
       "name": "akira-curated",
       "ok": true,
-      "items": 34,
+      "items": 30,
       "channel": "raw"
     },
     {
@@ -91,19 +91,19 @@
   ],
   "fetch_fail_rate": 0.0909,
   "probe": {
-    "total": 2506,
-    "alive": 552,
-    "dead": 537,
-    "timeout": 1410,
+    "total": 2484,
+    "alive": 520,
+    "dead": 853,
+    "timeout": 1104,
     "skipped": 7,
-    "duration_ms": 212983
+    "duration_ms": 195048
   },
   "epg": {
     "ok": false,
     "programmes": 0,
-    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml fetch failed"
+    "error": "未获取到节目单：https://raw.githubusercontent.com/fanmingming/live/main/tv/xmltv.xml fetch failed；https://raw.githubusercontent.com/iptv-org/epg/master/epg.xml HTTP 404"
   },
-  "build_duration_ms": 244925,
+  "build_duration_ms": 232206,
   "stale": false,
   "hidden_count": 0
 }

@@ -1,50 +1,54 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T18:35:51+08:00",
+  "updated_at": "2026-10-25T08:52:09+08:00",
   "groups": [
     {
       "name": "港澳台",
-      "count": 17
+      "count": 15
     },
     {
       "name": "广东",
-      "count": 10
+      "count": 6
     },
     {
       "name": "央视",
-      "count": 16
+      "count": 13
     },
     {
       "name": "卫视",
-      "count": 21
+      "count": 26
     },
     {
       "name": "体育",
-      "count": 17
-    },
-    {
-      "name": "影视",
-      "count": 58
-    },
-    {
-      "name": "娱乐时尚",
-      "count": 7
-    },
-    {
-      "name": "国际",
-      "count": 25
-    },
-    {
-      "name": "文旅",
-      "count": 68
-    },
-    {
-      "name": "纪录",
       "count": 5
     },
     {
+      "name": "影视",
+      "count": 5
+    },
+    {
+      "name": "娱乐时尚",
+      "count": 1
+    },
+    {
+      "name": "国际",
+      "count": 6
+    },
+    {
+      "name": "文旅",
+      "count": 14
+    },
+    {
+      "name": "纪录",
+      "count": 7
+    },
+    {
+      "name": "少儿",
+      "count": 6
+    },
+    {
       "name": "综艺",
-      "count": 25
+      "count": 27
     },
     {
       "name": "宠物",
@@ -52,11 +56,11 @@
     },
     {
       "name": "地方台",
-      "count": 210
+      "count": 257
     },
     {
       "name": "其他",
-      "count": 32
+      "count": 66
     }
   ],
   "channels": [
@@ -103,11 +107,19 @@
       "group": "港澳台",
       "streams": [
         "https://epg.pw/stream/ab6df63b64d0cc44a1f4f029ed847a26fa54a7aebd455578fb05a63f02c22f4b.m3u8",
-        "https://epg.pw/stream/8855a9936e37e608a0ec8a014cce1673dee9c5d68d560da376cc92e5edef2b25.m3u8",
         "https://epg.pw/stream/4f18dfe0593db5c686eb64ae8edaf2a9202d4d46bdc9bbde2cee27708e12ea01.m3u8",
         "https://hlsz.yjjcfw.com/live/vl.m3u8?expire=1786948372&sign=2e4a56b89fe644db147552011f972714"
       ],
       "logo": "https://tb.zbds.top/logo/纬来体育.png"
+    },
+    {
+      "id": "ch-fok7vn",
+      "name": "TV BRICS Chinese",
+      "group": "港澳台",
+      "streams": [
+        "https://chibrics.mediacdn.ru/cdn/brics/chinese/playlist.m3u8"
+      ],
+      "logo": "https://i.imgur.com/896132Z.png"
     },
     {
       "id": "ch-o2pn4",
@@ -152,22 +164,6 @@
       "epg_id": "FTVNews"
     },
     {
-      "id": "phoenix-chinese",
-      "name": "凤凰卫视中文台",
-      "group": "港澳台",
-      "streams": [
-        "http://zmgd.zyrnet.com:8888/hls/110/index.m3u8"
-      ],
-      "aliases": [
-        "凤凰中文 (720p)",
-        "凤凰中文 (576p)",
-        "凤凰中文",
-        "凤凰卫视"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/凤凰中文.png",
-      "epg_id": "PhoenixChinese"
-    },
-    {
       "id": "phoenix-hk",
       "name": "凤凰卫视香港台",
       "group": "港澳台",
@@ -180,21 +176,6 @@
       ],
       "logo": "https://gitee.com/suxuang/logo/raw/master/mylogo/凤凰香港台.png",
       "epg_id": "PhoenixHK"
-    },
-    {
-      "id": "phoenix-info",
-      "name": "凤凰卫视资讯台",
-      "group": "港澳台",
-      "streams": [
-        "http://zmgd.zyrnet.com:8888/hls/109/index.m3u8"
-      ],
-      "aliases": [
-        "凤凰资讯 (720p)",
-        "凤凰资讯 (576p)",
-        "凤凰资讯"
-      ],
-      "logo": "https://live.fanmingming.cn/tv/凤凰卫视资讯台.png",
-      "epg_id": "PhoenixInfo"
     },
     {
       "id": "ptt",
@@ -231,20 +212,6 @@
       "epg_id": "TTV"
     },
     {
-      "id": "tvb-jade",
-      "name": "翡翠台",
-      "group": "港澳台",
-      "streams": [
-        "http://103.172.187.30:12000/stream/mytv/null-1/master.m3u8",
-        "https://cdn3.indevs.in/stream/tvb/fct/"
-      ],
-      "aliases": [
-        "Jade (1080p)"
-      ],
-      "logo": "https://gitee.com/suxuang/logo/raw/master/mylogo/翡翠台.png",
-      "epg_id": "TVBJade"
-    },
-    {
       "id": "tvbs-news",
       "name": "TVBS 新闻台",
       "group": "港澳台",
@@ -255,15 +222,6 @@
         "TVBS Asia (1080p)"
       ],
       "epg_id": "TVBSNews"
-    },
-    {
-      "id": "ch-13t1g4t",
-      "name": "河源公共",
-      "group": "广东",
-      "streams": [
-        "http://tmpstream.hyrtv.cn/hygg/sd/live.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/河源公共.png"
     },
     {
       "id": "ch-79vhli",
@@ -305,34 +263,13 @@
       "epg_id": "GDBayArea"
     },
     {
-      "id": "gd-sports",
-      "name": "广东体育",
-      "group": "广东",
-      "streams": [
-        "http://cdn2.163189.xyz/live/gdty/stream.m3u8"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/广东体育.png",
-      "epg_id": "GDSports"
-    },
-    {
-      "id": "gd-zhujiang",
-      "name": "广东珠江",
-      "group": "广东",
-      "streams": [
-        "http://gxyd.484947.xyz/PLTV/77777777/224/3221225717/index.m3u8?servicetype=2",
-        "http://cdn2.163189.xyz/live/gdzj/stream.m3u8"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/广东珠江.png",
-      "epg_id": "GDZhuJiang"
-    },
-    {
       "id": "gz-general",
       "name": "广州综合",
       "group": "广东",
       "streams": [
-        "http://tencentplay.gztv.com/live/zonghes.m3u8?txSecret=c8dbe86d6f86eb1a21999ab479fd5667&txTime=18d3c4690e8",
         "https://tencentplay.gztv.com/live/zonghes.m3u8?txSecret=439b0fd2cf766b363c93a59cbcbe1370&txTime=18d00acf488",
-        "https://tencentplay.gztv.com/live/zonghes.m3u8?txSecret=f0147ae6453a80f5989f382368b72aad&txTime=18d00acf487"
+        "https://tencentplay.gztv.com/live/zonghes.m3u8?txSecret=f0147ae6453a80f5989f382368b72aad&txTime=18d00acf487",
+        "http://tencentplay.gztv.com/live/zonghes.m3u8?txSecret=c8dbe86d6f86eb1a21999ab479fd5667&txTime=18d3c4690e8"
       ],
       "logo": "https://tb.zbds.top/logo/广州综合.png",
       "epg_id": "GZGeneral"
@@ -348,33 +285,19 @@
       "epg_id": "GZNews"
     },
     {
-      "id": "hy-heyuan",
-      "name": "河源综合",
-      "group": "广东",
-      "streams": [
-        "http://tmpstream.hyrtv.cn/xwzh/sd/live.m3u8",
-        "https://tmpstream.hyrtv.cn/xwzh/sd/live.m3u8"
-      ],
-      "aliases": [
-        "河源综合 (540p)"
-      ],
-      "logo": "https://tb.zbds.top/logo/河源综合.png",
-      "epg_id": "HYHeyuan"
-    },
-    {
       "id": "cctv1",
       "name": "CCTV-1 综合",
       "group": "央视",
       "streams": [
+        "http://74.91.26.218:82/live/cctv1hd.m3u8",
         "https://liveplay-srs.voc.com.cn/hls/tv/134_180adf.m3u8"
       ],
       "aliases": [
         "CCTV-1 (1080p)",
         "CCTV-1 (720p)",
-        "CCTV-1",
-        "CCTV1"
+        "CCTV-1"
       ],
-      "logo": "https://tb.zbds.top/logo/CCTV1.png",
+      "logo": "https://i.imgur.com/uHU6Vc0.png",
       "epg_id": "CCTV1"
     },
     {
@@ -455,29 +378,25 @@
       "epg_id": "CCTV16"
     },
     {
-      "id": "cctv4",
-      "name": "CCTV-4 中文国际",
+      "id": "cctv5",
+      "name": "CCTV-5 体育",
       "group": "央视",
       "streams": [
-        "https://dash2.antik.sk/live/test_cctv_tizen/playlist.m3u8"
+        "http://gmxw.7766.org:808/hls/93/index.m3u8"
       ],
       "aliases": [
-        "CCTV-4 Asia (720p)",
-        "CCTV4",
-        "CCTV-4 中文国际（亚）",
-        "CCTV-4 中文国际（欧）",
-        "CCTV-4 中文国际（美）",
-        "CCTV-4"
+        "CCTV5",
+        "CCTV-5"
       ],
-      "logo": "https://tb.zbds.top/logo/CCTV4.png",
-      "epg_id": "CCTV4"
+      "logo": "https://tb.zbds.top/logo/CCTV5.png",
+      "epg_id": "CCTV5"
     },
     {
       "id": "cctv8",
       "name": "CCTV-8 电视剧",
       "group": "央视",
       "streams": [
-        "http://124.165.251.82:85/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0"
+        "http://gmxw.7766.org:808/hls/96/index.m3u8"
       ],
       "aliases": [
         "CCTV-8 (720p)",
@@ -492,26 +411,16 @@
       "name": "CCTV-9 纪录",
       "group": "央视",
       "streams": [
-        "https://xykt-fix.github.io/Y77.m3u8",
+        "http://74.91.26.218:82/live/cctv9hd.m3u8",
         "http://stream10.jlntv.cn/jiutaitv/sd/live.m3u8?zjild"
       ],
       "aliases": [
         "CCTV-9 (576i)",
-        "CCTV9",
         "九台",
         "CCTV-9"
       ],
-      "logo": "https://tb.zbds.top/logo/CCTV9.png",
+      "logo": "https://tb.zbds.top/logo/九台.png",
       "epg_id": "CCTV9"
-    },
-    {
-      "id": "ch-11fh7ct",
-      "name": "熊猫直播",
-      "group": "央视",
-      "streams": [
-        "https://gcwbndali.v.myalicdn.com/gcwbnd/ipanda1000_2/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/熊猫直播.png"
     },
     {
       "id": "ch-1yhogpc",
@@ -521,15 +430,6 @@
         "https://gcalic.v.myalicdn.com/gc/ztn_1/index.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/中央电视塔南.png"
-    },
-    {
-      "id": "ch-4p340h",
-      "name": "CGTN西语",
-      "group": "央视",
-      "streams": [
-        "https://0472.org/hls/cgtnx.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/CGTN西语.png"
     },
     {
       "id": "ch-gu8qcy",
@@ -547,15 +447,6 @@
         "https://gcalic.v.myalicdn.com/gc/ztd_1/index.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/中央电视塔东.png"
-    },
-    {
-      "id": "ch-mhvemp",
-      "name": "CGTN阿语",
-      "group": "央视",
-      "streams": [
-        "https://0472.org/hls/cgtna.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/CGTN阿语.png"
     },
     {
       "id": "ch-qoqvin",
@@ -576,21 +467,11 @@
       "logo": "https://tb.zbds.top/logo/人间卫视.png"
     },
     {
-      "id": "ch-1d081p1",
-      "name": "福建海峡卫视",
-      "group": "卫视",
-      "streams": [
-        "https://m.italkbbtv.com/live/6a30f74820a80832dc74e2c7"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/福建海峡卫视.png"
-    },
-    {
       "id": "ch-1ksbrth",
       "name": "苏州4K",
       "group": "卫视",
       "streams": [
         "https://live-auth.51kandianshi.com/szgd/csztv1.m3u8",
-        "https://tylive.kan0512.com/norecord/csztv4k_4k.m3u8",
         "https://live-auth.51kandianshi.com/szgd/csztv4k_4k.m3u8"
       ],
       "aliases": [
@@ -642,34 +523,88 @@
       "logo": "https://tb.zbds.top/logo/山东教育.png"
     },
     {
+      "id": "satellite-anhui",
+      "name": "安徽卫视",
+      "group": "卫视",
+      "streams": [
+        "http://gmxw.7766.org:808/hls/40/index.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/安徽卫视.png",
+      "epg_id": "AnhuiTV"
+    },
+    {
+      "id": "satellite-beijing",
+      "name": "北京卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000083.m3u8"
+      ],
+      "aliases": [
+        "北京衛視 (1080p) [Geo-blocked]"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/北京卫视.png",
+      "epg_id": "BeijingTV"
+    },
+    {
       "id": "satellite-dragon",
       "name": "东方卫视",
       "group": "卫视",
       "streams": [
-        "http://bp-resource-dfl.bestv.cn/148/3/video.m3u8",
-        "https://txmov2.a.kwimgs.com/bs3/video-hls/5219953535631090825_hlsb.m3u8"
+        "http://bp-resource-dfl.bestv.cn/148/3/video.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/东方卫视.png",
       "epg_id": "DragonTV"
+    },
+    {
+      "id": "satellite-gansu",
+      "name": "甘肃卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000119.m3u8"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/甘肃卫视.png",
+      "epg_id": "GansuTV"
     },
     {
       "id": "satellite-gd",
       "name": "广东卫视",
       "group": "卫视",
       "streams": [
+        "http://120.76.248.139/live/bfgd/4200000092.m3u8",
         "https://txmov2.a.kwimgs.com/upic/2023/01/26/09/BMjAyMzAxMjYwOTE3NDVfNzM5MzQzNzIyXzk0NjI1OTUwNTA3XzBfMw==_b_B81ddda927d33445d544befd008e60109.mp4"
       ],
       "logo": "https://tb.zbds.top/logo/广东卫视.png",
       "epg_id": "GDStar"
     },
     {
+      "id": "satellite-guangxi",
+      "name": "广西卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000116.m3u8"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/广西卫视.png",
+      "epg_id": "GuangxiTV"
+    },
+    {
+      "id": "satellite-hainan",
+      "name": "海南卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000473.m3u8"
+      ],
+      "logo": "https://gitee.com/suxuang/logo/raw/master/mylogo/海南卫视.png",
+      "epg_id": "HainanTV"
+    },
+    {
       "id": "satellite-hebei",
       "name": "河北卫视",
       "group": "卫视",
       "streams": [
+        "http://120.76.248.139/live/bfgd/4200000108.m3u8",
         "https://event.pull.hebtv.com/live/live101.m3u8"
       ],
-      "logo": "https://tb.zbds.top/logo/河北卫视.png",
+      "logo": "https://www.xn--rgv465a.top/tvlogo/河北卫视.png",
       "epg_id": "HebeiTV"
     },
     {
@@ -677,7 +612,7 @@
       "name": "黑龙江卫视",
       "group": "卫视",
       "streams": [
-        "https://idclive.hljtv.com:4430/live/hljws_own.m3u8"
+        "http://120.76.248.139/live/bfgd/4200000095.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/黑龙江卫视.png",
       "epg_id": "HeilongjiangTV"
@@ -693,6 +628,16 @@
       "epg_id": "HenanTV"
     },
     {
+      "id": "satellite-hubei",
+      "name": "湖北卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000102.m3u8"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/湖北卫视.png",
+      "epg_id": "HubeiTV"
+    },
+    {
       "id": "satellite-hunan",
       "name": "湖南卫视",
       "group": "卫视",
@@ -704,40 +649,70 @@
       "epg_id": "HunanTV"
     },
     {
-      "id": "satellite-jiangxi",
-      "name": "江西卫视",
+      "id": "satellite-liaoning",
+      "name": "辽宁卫视",
       "group": "卫视",
       "streams": [
-        "http://112.27.5.218:9901/tsfile/live/faacts/0138_1.m3u8?key=txiptv&playlive=1&authid=0"
+        "http://61.136.172.236:9901/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0"
       ],
       "aliases": [
-        "江西卫视 (1080p)",
-        "江西卫视 (720p)",
-        "江西卫视 (576p)",
-        "江西卫视 (360p)"
+        "辽宁卫视 (1080p)",
+        "辽宁卫视 (720p)",
+        "辽宁卫视 (576p)"
       ],
-      "logo": "https://tb.zbds.top/logo/江西卫视.png",
-      "epg_id": "JiangxiTV"
+      "logo": "https://tb.zbds.top/logo/辽宁卫视.png",
+      "epg_id": "LiaoningTV"
     },
     {
-      "id": "satellite-neimenggu",
-      "name": "内蒙古卫视",
+      "id": "satellite-qinghai",
+      "name": "青海卫视",
       "group": "卫视",
       "streams": [
-        "http://play1-qk.nmtv.cn/live/1769652018126032.m3u8"
+        "http://120.76.248.139/live/bfgd/4200000111.m3u8"
       ],
       "aliases": [
-        "内蒙古卫视 (576p)"
+        "青海卫视 (576p)",
+        "青海卫视 (540p)"
       ],
-      "logo": "https://tb.zbds.top/logo/内蒙古卫视.png",
-      "epg_id": "NeiMongolTV"
+      "logo": "https://www.xn--rgv465a.top/tvlogo/青海卫视.png",
+      "epg_id": "QinghaiTV"
+    },
+    {
+      "id": "satellite-shandong",
+      "name": "山东卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000099.m3u8"
+      ],
+      "aliases": [
+        "山东卫视 (1080p)",
+        "山东卫视 (720p)",
+        "山东卫视 (576p)"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/山东卫视.png",
+      "epg_id": "ShandongTV"
+    },
+    {
+      "id": "satellite-shenzhen",
+      "name": "深圳卫视",
+      "group": "卫视",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000100.m3u8",
+        "http://gmxw.7766.org:808/hls/45/index.m3u8"
+      ],
+      "aliases": [
+        "深圳卫视 (1080p) [Not 24/7]",
+        "深圳卫视 (1080p)"
+      ],
+      "logo": "https://tb.zbds.top/logo/深圳卫视.png",
+      "epg_id": "SZTV"
     },
     {
       "id": "satellite-southeast",
       "name": "东南卫视",
       "group": "卫视",
       "streams": [
-        "http://live.zohi.tv/video/s10001-fztv-3/index.m3u8"
+        "http://120.76.248.139/live/bfgd/4200000483.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/东南卫视.png",
       "epg_id": "SoutheastTV"
@@ -757,38 +732,11 @@
       "epg_id": "XinjiangTV"
     },
     {
-      "id": "satellite-xizang",
-      "name": "西藏卫视",
-      "group": "卫视",
-      "streams": [
-        "http://112.27.5.218:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=1&authid=0"
-      ],
-      "aliases": [
-        "西藏卫视 (576p)"
-      ],
-      "logo": "https://tb.zbds.top/logo/西藏卫视.png",
-      "epg_id": "XizangTV"
-    },
-    {
-      "id": "satellite-yanbian",
-      "name": "延边卫视",
-      "group": "卫视",
-      "streams": [
-        "https://srs.iyb983.cn:443/video/CYS/index.m3u8"
-      ],
-      "aliases": [
-        "延边卫视 (576p)"
-      ],
-      "logo": "https://tb.zbds.top/logo/延边卫视.png",
-      "epg_id": "YanbianTV"
-    },
-    {
       "id": "satellite-zhejiang",
       "name": "浙江卫视",
       "group": "卫视",
       "streams": [
-        "http://ali-m-l.cztv.com/channels/lantian/channel01/1080p.m3u8",
-        "https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8"
+        "http://ali-m-l.cztv.com/channels/lantian/channel01/1080p.m3u8"
       ],
       "aliases": [
         "浙江卫视 (1080p)",
@@ -796,38 +744,6 @@
       ],
       "logo": "https://tb.zbds.top/logo/浙江卫视.png",
       "epg_id": "ZhejiangTV"
-    },
-    {
-      "id": "ch-13dekdm",
-      "name": "World Poker Tour",
-      "group": "体育",
-      "streams": [
-        "https://amg00477-samsungelectron-worldpokertour-samsunguk-81igb.amagi.tv/playlist/amg00477-samsungelectron-worldpokertour-samsunguk/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-150ec8m",
-      "name": "FIFA+",
-      "group": "体育",
-      "streams": [
-        "https://d2w9q46ikgrcwx.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-of5cbk3sav3w5/v1/sysdata_s_p_a_fifa_7/samsungheadend_us/latest/main/hls/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-155hxwv",
-      "name": "World of Freesports",
-      "group": "体育",
-      "streams": [
-        "https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/1080p-en/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-16dybp3",
-      "name": "Sky Racing 1",
-      "group": "体育",
-      "streams": [
-        "https://636ffd31f0e12.streamlock.net/RacingStream1/RacingStream1/playlist.m3u8"
-      ]
     },
     {
       "id": "ch-16nxxe2",
@@ -838,73 +754,12 @@
       ]
     },
     {
-      "id": "ch-17am2qp",
-      "name": "精品体育",
-      "group": "体育",
-      "streams": [
-        "https://epg.pw/stream/866a097a0907c9832440f8df38272dd555abf05200dfbafcc137e214c9b30ca7.m3u8",
-        "https://epg.pw/stream/94ed0232b61ce8d89883160a4cdfbfc8f3225cae70ef8e17d93eec249a3c8ad6.m3u8",
-        "https://epg.pw/stream/f7556eccd4ae06b0c2991fdc7a4f8388496559f728cc82459a8e50346040e226.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/精品体育.png"
-    },
-    {
-      "id": "ch-17xi5i7",
-      "name": "NHL FAST",
-      "group": "体育",
-      "streams": [
-        "https://nhl-firetv.amagi.tv/playlist1080p.m3u8"
-      ]
-    },
-    {
       "id": "ch-1cmbp0v",
       "name": "ESPN",
       "group": "体育",
       "streams": [
         "http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8"
       ]
-    },
-    {
-      "id": "ch-1e8w80u",
-      "name": "FloRacing",
-      "group": "体育",
-      "streams": [
-        "https://amg02278-amg02278c1-flosports-worldwide-7592.playouts.now.amagi.tv/1080p-cc/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1r103qn",
-      "name": "足球频道",
-      "group": "体育",
-      "streams": [
-        "https://epg.pw/stream/c7df950876e6a1ceb8be74ee86f9f702cebbbae29f1d15124ef8f86fd43161cf.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/足球频道.png"
-    },
-    {
-      "id": "ch-1rkv23q",
-      "name": "Pac-12 Insider",
-      "group": "体育",
-      "streams": [
-        "https://pac12-firetv.amagi.tv/1080p-en-cc/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1stuw3",
-      "name": "Tennis Channel International",
-      "group": "体育",
-      "streams": [
-        "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01444-tennischannelth-tennischnlintl-lggb/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1tw7o6d",
-      "name": "beIN Sports Xtra",
-      "group": "体育",
-      "streams": [
-        "https://bein-xtra-bein.amagi.tv/playlistR1080p.m3u8"
-      ],
-      "logo": "https://image.xumo.com/v1/channels/channel/99991387/168x168.png?type=color_onBlack"
     },
     {
       "id": "ch-5h5z66",
@@ -925,14 +780,6 @@
       ]
     },
     {
-      "id": "ch-ecm3gi",
-      "name": "MTRSPT1",
-      "group": "体育",
-      "streams": [
-        "https://amg02873-kravemedia-mtrspt1-samsungau-2anp4.amagi.tv/playlist/amg02873-kravemedia-mtrspt1-samsungau/playlist.m3u8"
-      ]
-    },
-    {
       "id": "ch-f6s2g7",
       "name": "ESPN2",
       "group": "体育",
@@ -950,75 +797,12 @@
       "logo": "https://tb.zbds.top/logo/CHC电影.png"
     },
     {
-      "id": "ch-1148ku8",
-      "name": "电影八点档",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/880261?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影八点档.png"
-    },
-    {
-      "id": "ch-11u9ti2",
-      "name": "电影蜘蛛侠",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/21059599?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影蜘蛛侠.png"
-    },
-    {
-      "id": "ch-127ijwk",
-      "name": "林正英电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342421"
-      ],
-      "logo": "https://tb.zbds.top/logo/林正英电影.png"
-    },
-    {
-      "id": "ch-127zq8m",
-      "name": "贺岁电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11601986"
-      ],
-      "logo": "https://tb.zbds.top/logo/贺岁电影.png"
-    },
-    {
-      "id": "ch-12o9l3",
-      "name": "电影喜剧专场",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11602044?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影喜剧专场.png"
-    },
-    {
-      "id": "ch-14g4vzo",
-      "name": "战争电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/21059574"
-      ],
-      "logo": "https://tb.zbds.top/logo/战争电影.png"
-    },
-    {
-      "id": "ch-14ieywq",
-      "name": "甄子丹电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11352935"
-      ],
-      "logo": "https://tb.zbds.top/logo/甄子丹电影.png"
-    },
-    {
       "id": "ch-15i6gag",
       "name": "Mei Ah Movie Channel",
       "group": "影视",
       "streams": [
-        "http://103.172.187.30:12000/stream/mytv/null-10/master.m3u8",
         "http://103.172.187.30:12000/stream/mytv/null-9/master.m3u8",
+        "http://103.172.187.30:12000/stream/mytv/null-10/master.m3u8",
         "http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8"
       ],
       "aliases": [
@@ -1026,275 +810,12 @@
       ]
     },
     {
-      "id": "ch-189ywxj",
-      "name": "电影搞笑喜剧",
+      "id": "ch-9ds2jw",
+      "name": "Jilin Movie Channel",
       "group": "影视",
       "streams": [
-        "http://live.metshop.top/huya/11342423?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影搞笑喜剧.png"
-    },
-    {
-      "id": "ch-1c8jbwo",
-      "name": "安徽影视",
-      "group": "影视",
-      "streams": [
-        "https://www.ahtv.cn/folder9000/folder20193?channelIndex=3"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/安徽影视.png"
-    },
-    {
-      "id": "ch-1cxqfhn",
-      "name": "电影梁家辉",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11342429?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影梁家辉.png"
-    },
-    {
-      "id": "ch-1e6hrhs",
-      "name": "哈尔滨影视",
-      "group": "影视",
-      "streams": [
-        "http://stream.hrbtv.net/yspd/sd/live.m3u8?zheild"
-      ],
-      "logo": "https://tb.zbds.top/logo/哈尔滨影视.png"
-    },
-    {
-      "id": "ch-1epuwjw",
-      "name": "成龙电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342386"
-      ],
-      "logo": "https://tb.zbds.top/logo/成龙电影.png"
-    },
-    {
-      "id": "ch-1hi2ltf",
-      "name": "苏州电影娱乐",
-      "group": "影视",
-      "streams": [
-        "https://live-auth.51kandianshi.com/szgd/csztv4.m3u8"
+        "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/906341e6f19b4c4bacdc89941eb85d12/index.m3u8"
       ]
-    },
-    {
-      "id": "ch-1ht11od",
-      "name": "NewTV动作电影",
-      "group": "影视",
-      "streams": [
-        "https://iptv.catvod.com/live.php?id=NewTV%E5%8A%A8%E4%BD%9C%E7%94%B5%E5%BD%B1"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/NewTV动作电影.png"
-    },
-    {
-      "id": "ch-1i9v329",
-      "name": "电影高分动作",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11352884?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影高分动作.png"
-    },
-    {
-      "id": "ch-1irv633",
-      "name": "强森电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/21059581"
-      ],
-      "logo": "https://tb.zbds.top/logo/强森电影.png"
-    },
-    {
-      "id": "ch-1j6732m",
-      "name": "电影功夫片",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11352941?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影功夫片.png"
-    },
-    {
-      "id": "ch-1jlwggx",
-      "name": "新昌休闲影视",
-      "group": "影视",
-      "streams": [
-        "https://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8"
-      ],
-      "aliases": [
-        "新昌休闲影视 (1080p) [Not 24/7]"
-      ]
-    },
-    {
-      "id": "ch-1mez1ed",
-      "name": "李连杰电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342390"
-      ],
-      "logo": "https://tb.zbds.top/logo/李连杰电影.png"
-    },
-    {
-      "id": "ch-1nio4mc",
-      "name": "刘德华电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342424"
-      ],
-      "logo": "https://tb.zbds.top/logo/刘德华电影.png"
-    },
-    {
-      "id": "ch-1ov7oaa",
-      "name": "周星驰电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342412"
-      ],
-      "logo": "https://tb.zbds.top/logo/周星驰电影.png"
-    },
-    {
-      "id": "ch-1pgynx5",
-      "name": "东阳影视生活",
-      "group": "影视",
-      "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXdongyang1/720p.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/东阳影视生活.png"
-    },
-    {
-      "id": "ch-1q659d",
-      "name": "武侠电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342427"
-      ],
-      "logo": "https://tb.zbds.top/logo/武侠电影.png"
-    },
-    {
-      "id": "ch-1qbhwd3",
-      "name": "上虞文化影院",
-      "group": "影视",
-      "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXshangyu2/720p.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/上虞文化影院.png"
-    },
-    {
-      "id": "ch-1rmsao6",
-      "name": "王晶电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11602058"
-      ],
-      "logo": "https://tb.zbds.top/logo/王晶电影.png"
-    },
-    {
-      "id": "ch-1uyx6k3",
-      "name": "电影谍战片",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/21059587?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影谍战片.png"
-    },
-    {
-      "id": "ch-1vadhzn",
-      "name": "都市剧场",
-      "group": "影视",
-      "streams": [
-        "https://satellitepull.cnr.cn/live/wxcqxwgb/playlist.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/都市剧场.png"
-    },
-    {
-      "id": "ch-1vblmig",
-      "name": "罪犯电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11352962"
-      ],
-      "logo": "https://tb.zbds.top/logo/罪犯电影.png"
-    },
-    {
-      "id": "ch-2xi5g",
-      "name": "古天乐电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/29982675"
-      ],
-      "logo": "https://tb.zbds.top/logo/古天乐电影.png"
-    },
-    {
-      "id": "ch-3asvuf",
-      "name": "南宁影视娱乐",
-      "group": "影视",
-      "streams": [
-        "http://hls.nntv.cn/nnlive/YSYL_244.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/南宁影视娱乐.png"
-    },
-    {
-      "id": "ch-4ac6t9",
-      "name": "功夫电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11352941"
-      ],
-      "logo": "https://tb.zbds.top/logo/功夫电影.png"
-    },
-    {
-      "id": "ch-4cgd8d",
-      "name": "电影战争片",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/21059574?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影战争片.png"
-    },
-    {
-      "id": "ch-53st6a",
-      "name": "玄幻电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11342414"
-      ],
-      "logo": "https://tb.zbds.top/logo/玄幻电影.png"
-    },
-    {
-      "id": "ch-ajhrsk",
-      "name": "电影嫣然影厅",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11601977?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影嫣然影厅.png"
-    },
-    {
-      "id": "ch-dd5tbs",
-      "name": "浙江教科影视",
-      "group": "影视",
-      "streams": [
-        "http://ali-m-l.cztv.com/channels/lantian/channel04/1080p.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/浙江教科影视.png"
-    },
-    {
-      "id": "ch-denn3z",
-      "name": "电影周星星",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11336587?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影周星星.png"
-    },
-    {
-      "id": "ch-e5x9em",
-      "name": "电影贺岁",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11601971?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影贺岁.png"
     },
     {
       "id": "ch-e8ov3b",
@@ -1305,294 +826,20 @@
       ]
     },
     {
-      "id": "ch-g8glo0",
-      "name": "韩国电影1",
+      "id": "ch-ztumzx",
+      "name": "辽宁影视剧",
       "group": "影视",
       "streams": [
-        "https://stream.ads.ottera.tv/playlist.m3u8?network_id=595"
+        "http://120.76.248.139/live/bfgd/4200000070.m3u8"
       ],
-      "logo": "https://tb.zbds.top/logo/韩国电影1.png"
+      "logo": "https://live.fanmingming.cn/tv/辽宁影视剧.png"
     },
     {
-      "id": "ch-gftqb8",
-      "name": "句容影院",
-      "group": "影视",
-      "streams": [
-        "http://jrlive.jrntv.com/live/_definst_/yingshis/chunklist_w1994429382.m3u8?zjiangsd"
-      ],
-      "logo": "https://tb.zbds.top/logo/句容影院.png"
-    },
-    {
-      "id": "ch-gjrcrp",
-      "name": "电影动作电影",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11602077?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影动作电影.png"
-    },
-    {
-      "id": "ch-gzrwl0",
-      "name": "电影刘德华",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11342424?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影刘德华.png"
-    },
-    {
-      "id": "ch-h2feqx",
-      "name": "韩国电影2",
-      "group": "影视",
-      "streams": [
-        "https://stream.ads.ottera.tv/playlist.m3u8?network_id=743"
-      ],
-      "logo": "https://tb.zbds.top/logo/韩国电影2.png"
-    },
-    {
-      "id": "ch-h6rpzx",
-      "name": "枪战电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/21059579"
-      ],
-      "logo": "https://tb.zbds.top/logo/枪战电影.png"
-    },
-    {
-      "id": "ch-hadzsq",
-      "name": "怪兽电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/21059577"
-      ],
-      "logo": "https://tb.zbds.top/logo/怪兽电影.png"
-    },
-    {
-      "id": "ch-iymdo2",
-      "name": "浙江 I 绍兴影视",
-      "group": "影视",
-      "streams": [
-        "http://live.shaoxing.com.cn/video/s10001-sxtv3/index.m3u8"
-      ],
-      "aliases": [
-        "浙江 Ⅰ 绍兴影视 (720p)"
-      ]
-    },
-    {
-      "id": "ch-q24hdm",
-      "name": "MovieSphere",
-      "group": "影视",
-      "streams": [
-        "https://amg00353-lionsgatefilmsi-moviesphereaus-samsungau-7qzhf.amagi.tv/playlist/amg00353-lionsgatefilmsi-moviesphereaus-samsungau/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-qfrntu",
-      "name": "Harbin Movie Channel",
-      "group": "影视",
-      "streams": [
-        "https://stream.hrbtv.net/yspd/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-soiqwz",
-      "name": "黄渤电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11352876"
-      ],
-      "logo": "https://tb.zbds.top/logo/黄渤电影.png"
-    },
-    {
-      "id": "ch-t27uc1",
-      "name": "沈腾电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/11601968"
-      ],
-      "logo": "https://tb.zbds.top/logo/沈腾电影.png"
-    },
-    {
-      "id": "ch-ubyjne",
-      "name": "谍战电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/21059585"
-      ],
-      "logo": "https://tb.zbds.top/logo/谍战电影.png"
-    },
-    {
-      "id": "ch-w7yjmv",
-      "name": "电影犯罪片",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/11352974?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影犯罪片.png"
-    },
-    {
-      "id": "ch-xgluui",
-      "name": "淮安影院娱乐",
-      "group": "影视",
-      "streams": [
-        "http://live1.habctv.com/ysylsl/sd/live.m3u8?zjiangsd",
-        "http://live1.habctv.com/ysylsl/sd/live.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/淮安影院娱乐.png"
-    },
-    {
-      "id": "ch-y114y9",
-      "name": "电影丧尸片",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/21059578?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影丧尸片.png"
-    },
-    {
-      "id": "ch-y75h4s",
-      "name": "狄仁杰电影",
-      "group": "影视",
-      "streams": [
-        "https://live.metshop.top/huya/30080229"
-      ],
-      "logo": "https://tb.zbds.top/logo/狄仁杰电影.png"
-    },
-    {
-      "id": "ch-yfbl5y",
-      "name": "电影谍战",
-      "group": "影视",
-      "streams": [
-        "http://live.metshop.top/huya/21059585?cdn=alicdn"
-      ],
-      "logo": "https://tb.zbds.top/logo/电影谍战.png"
-    },
-    {
-      "id": "ch-13w7bf4",
-      "name": "Mystery TV",
+      "id": "ch-1z0jz1j",
+      "name": "Wipeout Xtra",
       "group": "娱乐时尚",
       "streams": [
-        "https://aenetworks-mysterytv-rakuten.amagi.tv/1080p-vtt/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1b4171f",
-      "name": "FashionTV Paris L'Original",
-      "group": "娱乐时尚",
-      "streams": [
-        "https://ftv1.b-cdn.net/bfdbb576-83f7-11f0-9f89-0200170e3e04_1000028043_HLS/manifest.m3u8"
-      ]
-    },
-    {
-      "id": "ch-9jaqnm",
-      "name": "哈尔滨娱乐",
-      "group": "娱乐时尚",
-      "streams": [
-        "https://stream.hrbtv.net/ylpd/sd/live.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/哈尔滨娱乐.png"
-    },
-    {
-      "id": "ch-9qcm9d",
-      "name": "Global Fashion Channel",
-      "group": "娱乐时尚",
-      "streams": [
-        "https://pubgfc.teleosmedia.com/linear/globalfashionchannel/globalfashionchannel/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-d1744p",
-      "name": "Gusto TV",
-      "group": "娱乐时尚",
-      "streams": [
-        "https://dbrb49pjoymg4.cloudfront.net/10001/99991328/hls/playlist.m3u8?ads.xumo_channelId=99991328"
-      ]
-    },
-    {
-      "id": "ch-pmyojt",
-      "name": "湖州文化娱乐",
-      "group": "娱乐时尚",
-      "streams": [
-        "http://hzcm-live.media.hugd.com/613c47f0ab0d4eaa98b21378d0db6ded/0051d31c9dd543a7825eea4e49675b2a.m3u8?auth_key=2277598059-0a5ebfa1c0dc4671b42a60810fc37039-0-fa625b7d1feab612062453c12e3c8887"
-      ],
-      "logo": "https://tb.zbds.top/logo/湖州文化娱乐.png"
-    },
-    {
-      "id": "ch-wctguf",
-      "name": "龙游生活娱乐",
-      "group": "娱乐时尚",
-      "streams": [
-        "https://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8",
-        "http://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8?zzhed"
-      ],
-      "logo": "https://tb.zbds.top/logo/龙游生活娱乐.png"
-    },
-    {
-      "id": "ch-1265xnx",
-      "name": "广西国际",
-      "group": "国际",
-      "streams": [
-        "https://hlscdn.liangtv.cn/live/0234c48e0bc24fe1b41b9999a253e581/1075ee38e04f490690f6a36a16e09c79.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/广西国际.png"
-    },
-    {
-      "id": "ch-12w1svj",
-      "name": "CGTN Global Biz",
-      "group": "国际",
-      "streams": [
-        "https://fastlive.cctvplus.com/out/v1/2b3d8a0c805d437f9dc85b764c2ac599/index.m3u8"
-      ],
-      "aliases": [
-        "CGTN Global Biz (1080p)"
-      ]
-    },
-    {
-      "id": "ch-12ycijz",
-      "name": "CNA",
-      "group": "国际",
-      "streams": [
-        "https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_5.m3u8"
-      ]
-    },
-    {
-      "id": "ch-14shvld",
-      "name": "Zhejiang TV International",
-      "group": "国际",
-      "streams": [
-        "https://ali-m-l.cztv.com/channels/lantian/channel10/1080p.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1chsq9u",
-      "name": "CGTN Documentary",
-      "group": "国际",
-      "streams": [
-        "https://english-livebkali.cgtn.com/live/doccgtn.m3u8",
-        "https://amg00405-rakutentv-cgtndocumentary-rakuten-0ql8j.amagi.tv/master.m3u8",
-        "https://hlspackager.akamaized.net/live/DB/CGTN_DOCUMENTARY/HLS/CGTN_DOCUMENTARY.m3u8"
-      ],
-      "aliases": [
-        "CGTN Documentary (1080p)"
-      ]
-    },
-    {
-      "id": "ch-1imkiwu",
-      "name": "VOA美国之音",
-      "group": "国际",
-      "streams": [
-        "https://voa-ingest.akamaized.net/hls/live/2033878/tvmc08/playlist.m3u8"
-      ],
-      "aliases": [
-        "VOA美国之音 (1080p)"
-      ]
-    },
-    {
-      "id": "ch-1mqq6ge",
-      "name": "Thai PBS",
-      "group": "国际",
-      "streams": [
-        "https://thaipbs-mcx0wm.cdn.byteark.com/vtt-live/playlist.m3u8"
+        "https://amg00627-banijaygroup-wipeoutxtraau-samsungau-ashbl.amagi.tv/playlist/amg00627-banijaygroup-wipeoutxtraau-samsungau/playlist.m3u8"
       ]
     },
     {
@@ -1616,29 +863,20 @@
       ]
     },
     {
-      "id": "ch-1rlulzb",
-      "name": "Estrella TV",
+      "id": "ch-1yga3gk",
+      "name": "Dragon TV International",
       "group": "国际",
       "streams": [
-        "https://estrellatv-oando.amagi.tv/playlistR1080p.m3u8"
+        "https://restream.pdtvhd.com/memfs/0b1b95c9-3543-4af9-9fdb-cf45f1602f17.m3u8"
       ]
     },
     {
-      "id": "ch-1y6xtx5",
-      "name": "Rai Italia",
+      "id": "ch-4bscqg",
+      "name": "Xinjiang TV 5",
       "group": "国际",
       "streams": [
-        "https://d3k8wzt41aflvx.cloudfront.net/RAIHD/Live.m3u8"
+        "http://120.70.60.179:9901/tsfile/live/1002_1.m3u8?key=txiptv&playlive=1&authid=0"
       ]
-    },
-    {
-      "id": "ch-321b6o",
-      "name": "CGTN纪录",
-      "group": "国际",
-      "streams": [
-        "https://0472.org/hls/cgtnd.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/CGTN纪录.png"
     },
     {
       "id": "ch-8ha5zx",
@@ -1649,106 +887,12 @@
       ]
     },
     {
-      "id": "ch-er08uk",
-      "name": "France 24 English",
-      "group": "国际",
-      "streams": [
-        "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_5000.m3u8"
-      ]
-    },
-    {
-      "id": "ch-flfg39",
-      "name": "安徽国际",
-      "group": "国际",
-      "streams": [
-        "https://m.italkbbtv.com/live/6a3a3784260d0d240f66a62c"
-      ],
-      "logo": "https://www.xn--rgv465a.top/tvlogo/安徽国际.png"
-    },
-    {
-      "id": "ch-jvynza",
-      "name": "Rai World Premium",
-      "group": "国际",
-      "streams": [
-        "https://d3k8wzt41aflvx.cloudfront.net/RAIP/Live.m3u8"
-      ]
-    },
-    {
-      "id": "ch-jw7gct",
-      "name": "QTV-5",
-      "group": "国际",
-      "streams": [
-        "http://video10.qtv.com.cn/drm/qtv5at/manifest.m3u8"
-      ]
-    },
-    {
-      "id": "ch-leyp4i",
-      "name": "Al Jazeera English",
-      "group": "国际",
-      "streams": [
-        "https://live-hls-web-aje-gcp.thehlive.com/AJE/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-p1j4nn",
-      "name": "Mediaset Italia",
-      "group": "国际",
-      "streams": [
-        "https://d3k8wzt41aflvx.cloudfront.net/Mediaset_AU/Live.m3u8"
-      ]
-    },
-    {
-      "id": "ch-qjp9x9",
-      "name": "CGTN French",
-      "group": "国际",
-      "streams": [
-        "http://145.239.5.177/214/index.m3u8"
-      ],
-      "aliases": [
-        "CGTN French (1080p)"
-      ]
-    },
-    {
-      "id": "ch-qt6a8j",
-      "name": "浙江国际",
-      "group": "国际",
-      "streams": [
-        "http://ali-m-l.cztv.com/channels/lantian/channel010/1080p.m3u8",
-        "https://ali-m-l.cztv.com/channels/lantian/channel010/1080p.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/浙江国际.png"
-    },
-    {
-      "id": "ch-uf5ylz",
-      "name": "Arirang",
-      "group": "国际",
-      "streams": [
-        "https://amdlive-ch01-g-ctnd-com.akamaized.net/arirang_1gch/smil:arirang_1gch.smil/playlist.m3u8"
-      ]
-    },
-    {
-      "id": "ch-vsnuyd",
-      "name": "France 24 Español",
-      "group": "国际",
-      "streams": [
-        "https://live.france24.com/hls/live/2037220-b/F24_ES_HI_HLS/master_5000.m3u8"
-      ]
-    },
-    {
-      "id": "ch-y9nusj",
-      "name": "France 24 Français",
-      "group": "国际",
-      "streams": [
-        "https://live.france24.com/hls/live/2037179-b/F24_FR_HI_HLS/master_5000.m3u8"
-      ]
-    },
-    {
       "id": "other-cgtn",
       "name": "CGTN",
       "group": "国际",
       "streams": [
-        "https://english-livebkali.cgtn.com/live/encgtn.m3u8",
-        "https://0472.org/hls/cgtn.m3u8"
+        "https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8",
+        "https://hlspackager.akamaized.net/live/DB/CGTN_ENGLISH/HLS/CGTN_ENGLISH.m3u8"
       ],
       "aliases": [
         "CGTN (1080p)",
@@ -1757,502 +901,13 @@
       "logo": "https://tb.zbds.top/logo/CGTN.png"
     },
     {
-      "id": "ch-101l7tl",
-      "name": "月牙泉",
+      "id": "ch-8omufi",
+      "name": "黄山排云亭",
       "group": "文旅",
       "streams": [
-        "https://gcalic.v.myalicdn.com/gc/dhyyqsm_1/index.m3u8"
+        "https://gcalic.v.myalicdn.com/gc/hspyt_1/index.m3u8"
       ],
-      "logo": "https://tb.zbds.top/logo/月牙泉.png"
-    },
-    {
-      "id": "ch-10qakla",
-      "name": "黄果树六角亭瀑布",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hgsspzxdpb_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/黄果树六角亭瀑布.png"
-    },
-    {
-      "id": "ch-11tsl0",
-      "name": "泰山玉皇顶",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/taishan06_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山玉皇顶.png"
-    },
-    {
-      "id": "ch-12q34yh",
-      "name": "泰山主峰",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/taishan01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山主峰.png"
-    },
-    {
-      "id": "ch-12t7wzl",
-      "name": "泰山碧霞祠",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkts03_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山碧霞祠.png"
-    },
-    {
-      "id": "ch-12waic0",
-      "name": "张掖七彩丹霞",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zyqcdx01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/张掖七彩丹霞.png"
-    },
-    {
-      "id": "ch-12wx07v",
-      "name": "丽江古城万古楼遥望玉龙雪山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ljgcwglytylxs_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/丽江古城万古楼遥望玉龙雪山.png"
-    },
-    {
-      "id": "ch-145p2fa",
-      "name": "四川四姑娘山隆珠措",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/sgns02_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/四川四姑娘山隆珠措.png"
-    },
-    {
-      "id": "ch-15yj22f",
-      "name": "四川峨眉山普贤菩萨铜像",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/emspxps_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/四川峨眉山普贤菩萨铜像.png"
-    },
-    {
-      "id": "ch-16epy1q",
-      "name": "乌镇西市河",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zjwzbblh_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/乌镇西市河.png"
-    },
-    {
-      "id": "ch-16tnkn5",
-      "name": "乐山大佛全景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/lsdfgfl_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/乐山大佛全景.png"
-    },
-    {
-      "id": "ch-184vnmm",
-      "name": "云南丽江玉龙雪山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ylxs11_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南丽江玉龙雪山.png"
-    },
-    {
-      "id": "ch-185n5fi",
-      "name": "丽江古城大水车",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ljgcdsc_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/丽江古城大水车.png"
-    },
-    {
-      "id": "ch-18y1ti5",
-      "name": "泰山大观峰",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/taishan03_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山大观峰.png"
-    },
-    {
-      "id": "ch-194ufh",
-      "name": "江苏徐州云龙湖风景区云龙山观景台西",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ylh04_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/江苏徐州云龙湖风景区云龙山观景台西.png"
-    },
-    {
-      "id": "ch-1an83vr",
-      "name": "航拍中国第二季",
-      "group": "文旅",
-      "streams": [
-        "http://newcntv.qcloudcdn.com/asp/hls/4000/0303000a/3/default/2bdfdad540b342f592f9817cb7f3b79a/4000.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/航拍中国第二季.png"
-    },
-    {
-      "id": "ch-1boly5o",
-      "name": "黄山飞来石",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hsptgy_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/黄山飞来石.png"
-    },
-    {
-      "id": "ch-1c29by3",
-      "name": "丽江古城大研花巷观景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ljgcdyhxgjt_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/丽江古城大研花巷观景.png"
-    },
-    {
-      "id": "ch-1c9inwv",
-      "name": "泰山望人松",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/taishan02_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山望人松.png"
-    },
-    {
-      "id": "ch-1dctnxz",
-      "name": "都江堰鱼嘴",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/djyqyl1_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/都江堰鱼嘴.png"
-    },
-    {
-      "id": "ch-1epm48h",
-      "name": "乌镇全景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zjwzblt_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/乌镇全景.png"
-    },
-    {
-      "id": "ch-1gjm8zg",
-      "name": "陕西洋县国宝朱鹮02",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zh02_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/陕西洋县国宝朱鹮02.png"
-    },
-    {
-      "id": "ch-1gv9ga",
-      "name": "安徽黟县西递牌坊",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/yxxdpf_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/安徽黟县西递牌坊.png"
-    },
-    {
-      "id": "ch-1h30uq",
-      "name": "InTravel",
-      "group": "文旅",
-      "streams": [
-        "https://amg00861-amg00861c10-rakuten-uk-3152.playouts.now.amagi.tv/1080p/index.m3u8"
-      ]
-    },
-    {
-      "id": "ch-1i2k0op",
-      "name": "乌镇蓝印花布",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zjwzlyhb_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/乌镇蓝印花布.png"
-    },
-    {
-      "id": "ch-1jtqo5i",
-      "name": "黄山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ahhs01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/黄山.png"
-    },
-    {
-      "id": "ch-1kmlib",
-      "name": "厦门鼓浪屿",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/gly01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/厦门鼓浪屿.png"
-    },
-    {
-      "id": "ch-1l715m7",
-      "name": "直播中国精编直播",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/wgw05_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/直播中国精编直播.png"
-    },
-    {
-      "id": "ch-1manun4",
-      "name": "鸣沙山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/dhyyqst_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/鸣沙山.png"
-    },
-    {
-      "id": "ch-1nu5cza",
-      "name": "泰山南天门",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkts07_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山南天门.png"
-    },
-    {
-      "id": "ch-1nz8fy5",
-      "name": "青岛崂山八水河",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/qdls02_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/青岛崂山八水河.png"
-    },
-    {
-      "id": "ch-1ouipjo",
-      "name": "China Travel",
-      "group": "文旅",
-      "streams": [
-        "https://fastlive.cctvplus.com/out/v1/ca6f9297b7314a63959435028af287fc/index.m3u8"
-      ],
-      "aliases": [
-        "China Travel (1080p)"
-      ]
-    },
-    {
-      "id": "ch-1p3r1op",
-      "name": "云南大理崇圣寺三塔中景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/dlst03_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南大理崇圣寺三塔中景.png"
-    },
-    {
-      "id": "ch-1plh82r",
-      "name": "狮子山鸟瞰丽江古城",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ljgcszsnkgc_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/狮子山鸟瞰丽江古城.png"
-    },
-    {
-      "id": "ch-1rl4yyh",
-      "name": "云南丽江蓝月谷",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/ylxs12_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南丽江蓝月谷.png"
-    },
-    {
-      "id": "ch-1usw549",
-      "name": "恒山悬空寺全景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hsxksqj_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/恒山悬空寺全景.png"
-    },
-    {
-      "id": "ch-1v6psj7",
-      "name": "广西桂林漓江景区",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/gllj01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/广西桂林漓江景区.png"
-    },
-    {
-      "id": "ch-1v7tj5l",
-      "name": "八里沟风景区天界山玻璃栈道",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/blg03_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/八里沟风景区天界山玻璃栈道.png"
-    },
-    {
-      "id": "ch-1vcma6w",
-      "name": "八里沟风景区桃花湾瀑布",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/blg05_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/八里沟风景区桃花湾瀑布.png"
-    },
-    {
-      "id": "ch-1wbzo3g",
-      "name": "泰山太平岭",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkts09_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山太平岭.png"
-    },
-    {
-      "id": "ch-1xbfjrc",
-      "name": "直播中国",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/wgw05_1/index.m3u8?contentid=2820180516001"
-      ],
-      "logo": "https://tb.zbds.top/logo/直播中国.png"
-    },
-    {
-      "id": "ch-1y61zgw",
-      "name": "云南大理崇圣寺三塔远景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/dlst01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南大理崇圣寺三塔远景.png"
-    },
-    {
-      "id": "ch-1yh61t3",
-      "name": "开化国家公园",
-      "group": "文旅",
-      "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXkaihua2/720p.m3u8",
-        "http://l.cztvcloud.com/channels/lantian/SXkaihua2/720p.m3u8?zzhed",
-        "http://l.cztvcloud.com/channels/lantian/SXkaihua2/720p.m3u8zzhed"
-      ],
-      "logo": "https://tb.zbds.top/logo/开化国家公园.png"
-    },
-    {
-      "id": "ch-2lgme5",
-      "name": "南京玄武湖公园",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/xwh01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/南京玄武湖公园.png"
-    },
-    {
-      "id": "ch-51e2gp",
-      "name": "长白山电视台",
-      "group": "文旅",
-      "streams": [
-        "http://stream8.jlntv.cn/cbstv/sd/live.m3u8?zjild"
-      ],
-      "logo": "https://tb.zbds.top/logo/长白山电视台.png"
-    },
-    {
-      "id": "ch-6fxydw",
-      "name": "湖南张家界水绕四门",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zjjsrsm_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/湖南张家界水绕四门.png"
-    },
-    {
-      "id": "ch-6kw2d9",
-      "name": "乌镇龙形田",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/zjwzlxt_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/乌镇龙形田.png"
-    },
-    {
-      "id": "ch-76ro8m",
-      "name": "安徽黟县芦村远眺",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/yxlcyt_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/安徽黟县芦村远眺.png"
-    },
-    {
-      "id": "ch-9hfw0m",
-      "name": "普陀山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/pts01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/普陀山.png"
-    },
-    {
-      "id": "ch-b4o81d",
-      "name": "泰山白云亭悬崖",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkts02_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/泰山白云亭悬崖.png"
-    },
-    {
-      "id": "ch-bhrnad",
-      "name": "云南丽江印象实景",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkylxs01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南丽江印象实景.png"
-    },
-    {
-      "id": "ch-bxw3i2",
-      "name": "云南丽江冰川",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkylxs05_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南丽江冰川.png"
-    },
-    {
-      "id": "ch-c7dd4",
-      "name": "贵州省兴义市万峰林",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/xywfl_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/贵州省兴义市万峰林.png"
-    },
-    {
-      "id": "ch-cbrhr2",
-      "name": "云南白沙远眺玉龙雪山",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/hkylxs03_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/云南白沙远眺玉龙雪山.png"
-    },
-    {
-      "id": "ch-igepp5",
-      "name": "六盘山红军长征景区",
-      "group": "文旅",
-      "streams": [
-        "https://gcalic.v.myalicdn.com/gc/lpsgmjng01_1/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/六盘山红军长征景区.png"
+      "logo": "https://tb.zbds.top/logo/黄山排云亭.png"
     },
     {
       "id": "ch-jndvmn",
@@ -2381,6 +1036,14 @@
       "logo": "https://tb.zbds.top/logo/中国村庄.png"
     },
     {
+      "id": "ch-1d6mq8p",
+      "name": "NASA+",
+      "group": "纪录",
+      "streams": [
+        "https://ee119c17e6ed643893ff6ae377fe0693.7wzuvg.channel-assembly.mediatailor.us-east-1.amazonaws.com/v1/channel/NASAPrime/NASAPlus.m3u8"
+      ]
+    },
+    {
       "id": "ch-1j93d3y",
       "name": "之江纪录",
       "group": "纪录",
@@ -2401,6 +1064,14 @@
       "logo": "https://tb.zbds.top/logo/地理中国.png"
     },
     {
+      "id": "ch-1kejnhf",
+      "name": "Documentary+",
+      "group": "纪录",
+      "streams": [
+        "https://ef79b15c8c7c46c7a9de9d33001dbd07.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-859-DOCUMENTARYPLUS-DOCUMENTARYPLUS/mt/documentaryplus/859/hls/master/playlist.m3u8"
+      ]
+    },
+    {
       "id": "ch-1ydsdbh",
       "name": "人与自然",
       "group": "纪录",
@@ -2415,6 +1086,63 @@
       "group": "纪录",
       "streams": [
         "https://lds-timeline-rakuten.amagi.tv/1080p-cc/index.m3u8"
+      ]
+    },
+    {
+      "id": "ch-8y4k2l",
+      "name": "韩国EBS少儿",
+      "group": "少儿",
+      "streams": [
+        "http://ebsonairios.ebs.co.kr/ebsutablet500k/tablet500k/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/韩国EBS少儿.png"
+    },
+    {
+      "id": "ch-hdbh78",
+      "name": "福州少儿",
+      "group": "少儿",
+      "streams": [
+        "http://live.zohi.tv/video/s10001-fztv-4/index.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/福州少儿.png"
+    },
+    {
+      "id": "ch-i9h7zy",
+      "name": "FZTV-4 Children 少儿频道",
+      "group": "少儿",
+      "streams": [
+        "http://live.zohi.tv/video/s10001-fztv-4/index.m3u8"
+      ],
+      "logo": "https://i.imgur.com/J4WtNTX.png"
+    },
+    {
+      "id": "ch-l8uw8d",
+      "name": "浙江少儿",
+      "group": "少儿",
+      "streams": [
+        "https://ali-m-l.cztv.com/channels/lantian/channel008/1080p.m3u8",
+        "http://ali-m-l.cztv.com/channels/lantian/channel008/1080p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江少儿.png"
+    },
+    {
+      "id": "ch-slupg4",
+      "name": "黑龙江少儿",
+      "group": "少儿",
+      "streams": [
+        "https://ls.qingting.fm/live/4972/64k.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/黑龙江少儿.png"
+    },
+    {
+      "id": "ch-yexbe3",
+      "name": "福州电视台少儿频道 (FZTV-少儿)",
+      "group": "少儿",
+      "streams": [
+        "http://live.zohi.tv/video/s10001-fztv-4/index.m3u8"
+      ],
+      "aliases": [
+        "福州电视台少儿频道 (FZTV-少儿) (1080p)"
       ]
     },
     {
@@ -2478,15 +1206,6 @@
         "https://p2.bdstatic.com/rtmp.liveshow.lss-user.baidubce.com/live/stream_bduid_6488563992_8982723413/merged_1707497046297_88536_25144_41936.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/2024年春晚.png"
-    },
-    {
-      "id": "ch-1ghylu6",
-      "name": "梨园",
-      "group": "综艺",
-      "streams": [
-        "https://dxtx.hntv.tv/live/lypd.m3u8?txSecret=10c771842a0be59e8b575d765173ec96&txTime=7B923E0A&wsSecret=41543190cdf375f1c73207222bb96542&wsTime=1769313549"
-      ],
-      "logo": "https://tb.zbds.top/logo/梨园.png"
     },
     {
       "id": "ch-1i126ao",
@@ -2561,6 +1280,14 @@
       "logo": "https://tb.zbds.top/logo/2010年春晚.png"
     },
     {
+      "id": "ch-3ev6fv",
+      "name": "Totalmusic Concerts",
+      "group": "综艺",
+      "streams": [
+        "https://cdn.40mediagroup.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8"
+      ]
+    },
+    {
       "id": "ch-4dk9yu",
       "name": "2013年春晚",
       "group": "综艺",
@@ -2604,6 +1331,24 @@
         "https://alimov2.a.kwimgs.com/upic/2023/01/06/16/BMjAyMzAxMDYxNjMxMTNfNDAzMDAxOTlfOTI4OTY2ODAzNjlfMF8z_b_Bdee65c77f9e7b2120a185c919dad81d2.mp4"
       ],
       "logo": "https://tb.zbds.top/logo/2014年春晚.png"
+    },
+    {
+      "id": "ch-c3na9k",
+      "name": "音乐现场",
+      "group": "综艺",
+      "streams": [
+        "https://satellitepull.cnr.cn/live/wx32nmgyygb/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/音乐现场.png"
+    },
+    {
+      "id": "ch-ijjztl",
+      "name": "1987年春晚",
+      "group": "综艺",
+      "streams": [
+        "https://txmov2.a.kwimgs.com/bs3/video-hls/5195746663405928031_hlsb.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/1987年春晚.png"
     },
     {
       "id": "ch-kmfvw7",
@@ -2660,15 +1405,6 @@
       "logo": "https://tb.zbds.top/logo/余杭未来E.png"
     },
     {
-      "id": "ch-10mt5zf",
-      "name": "吉林乡村",
-      "group": "地方台",
-      "streams": [
-        "https://satellitepull.cnr.cn/live/wxjlxcgb/playlist.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/吉林乡村.png"
-    },
-    {
       "id": "ch-10wofum",
       "name": "哈尔滨资讯",
       "group": "地方台",
@@ -2717,15 +1453,6 @@
       "logo": "https://tb.zbds.top/logo/兰溪新闻综合.png"
     },
     {
-      "id": "ch-11vweh7",
-      "name": "剑阁综合",
-      "group": "地方台",
-      "streams": [
-        "https://m3u8.channel.dzsm.com/nmip-media/channellive/channel105549/playlist.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/剑阁综合.png"
-    },
-    {
       "id": "ch-1293vpq",
       "name": "长子综合",
       "group": "地方台",
@@ -2735,21 +1462,12 @@
       "logo": "https://tb.zbds.top/logo/长子综合.png"
     },
     {
-      "id": "ch-12f9t63",
-      "name": "新昌生活",
-      "group": "地方台",
-      "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/新昌生活.png"
-    },
-    {
       "id": "ch-12hrjlv",
       "name": "固镇新闻",
       "group": "地方台",
       "streams": [
-        "http://www.guzhenm.com:7001/hls/hd-live.m3u8",
-        "http://www.guzhenm.com:7001/hls/hd-live.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]"
+        "http://www.guzhenm.com:7001/hls/hd-live.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]",
+        "http://www.guzhenm.com:7001/hls/hd-live.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/固镇新闻.png"
     },
@@ -2769,6 +1487,7 @@
       "name": "浙江经视",
       "group": "地方台",
       "streams": [
+        "https://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8",
         "http://ali-m-l.cztv.com/channels/lantian/channel003/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/浙江经视.png"
@@ -2843,6 +1562,18 @@
       ]
     },
     {
+      "id": "ch-14onjzz",
+      "name": "宿州公共",
+      "group": "地方台",
+      "streams": [
+        "http://live.ahsz.tv/video/s10001-ggpd/index.m3u8"
+      ],
+      "aliases": [
+        "宿州公共 (1080p) [Not 24/7]"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/宿州公共.png"
+    },
+    {
       "id": "ch-14peaze",
       "name": "四平新闻综合",
       "group": "地方台",
@@ -2867,8 +1598,8 @@
       "name": "浙江经济生活",
       "group": "地方台",
       "streams": [
-        "https://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8",
-        "http://ali-m-l.cztv.com/channels/lantian/channel03/1080p.m3u8"
+        "http://ali-m-l.cztv.com/channels/lantian/channel03/1080p.m3u8",
+        "https://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/浙江经济生活.png"
     },
@@ -2910,6 +1641,15 @@
       "logo": "https://tb.zbds.top/logo/嘉兴新闻综合.png"
     },
     {
+      "id": "ch-16g392e",
+      "name": "辽宁经济",
+      "group": "地方台",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000480.m3u8"
+      ],
+      "logo": "https://live.fanmingming.cn/tv/辽宁经济.png"
+    },
+    {
       "id": "ch-16vo45e",
       "name": "山东生活",
       "group": "地方台",
@@ -2935,8 +1675,10 @@
       "name": "云霄综合",
       "group": "地方台",
       "streams": [
-        "http://live.zzyxxw.com:85/live/xwzh.m3u8?fujian,",
-        "http://live.zzyxxw.com:85/live/xwzh.m3u8"
+        "http://live.zzyxxw.com:85/live/xwzh.m3u8?fujian",
+        "https://live.zzyxxw.com:2443/live/xwzh.m3u8",
+        "http://live.zzyxxw.com:85/live/xwzh.m3u8",
+        "http://live.zzyxxw.com:85/live/xwzh.m3u8?fujian,"
       ],
       "logo": "https://tb.zbds.top/logo/云霄综合.png"
     },
@@ -2948,6 +1690,15 @@
         "http://live.qthnews.org.cn:1935/live/live1/800k/tzwj_video.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/七台河新闻综合.png"
+    },
+    {
+      "id": "ch-17jycze",
+      "name": "张掖新闻综合",
+      "group": "地方台",
+      "streams": [
+        "https://play.kankanlive.com/live/1720583434627241.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/张掖新闻综合.png"
     },
     {
       "id": "ch-17pvqe6",
@@ -3020,6 +1771,7 @@
       "name": "新野综合",
       "group": "地方台",
       "streams": [
+        "http://tvpull.dxhmt.cn:9081/tv/11329-1.m3u8?zhend?",
         "http://tvpull.dxhmt.cn:9081/tv/11329-1.m3u8",
         "http://tvpull.dxhmt.cn:9081/tv/11329-1.m3u8?zhend"
       ],
@@ -3052,6 +1804,17 @@
       ]
     },
     {
+      "id": "ch-1ahvc2j",
+      "name": "武进新闻",
+      "group": "地方台",
+      "streams": [
+        "https://live.wjyanghu.com/live/CH1.m3u8"
+      ],
+      "aliases": [
+        "武进新闻 (576p) [Not 24/7]"
+      ]
+    },
+    {
       "id": "ch-1aimmh6",
       "name": "可克达拉综合",
       "group": "地方台",
@@ -3074,9 +1837,10 @@
       "name": "萧山生活",
       "group": "地方台",
       "streams": [
-        "https://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8",
+        "http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8?zzhed?",
         "http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8?zzhed",
-        "http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8?zzhed?"
+        "http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8",
+        "https://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/萧山生活.png"
     },
@@ -3112,6 +1876,7 @@
       "name": "余杭综合",
       "group": "地方台",
       "streams": [
+        "http://l.cztvcloud.com/channels/lantian/SXyuhang1/720p.m3u8?zzhed",
         "http://l.cztvcloud.com/channels/lantian/SXyuhang1/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/余杭综合.png"
@@ -3147,8 +1912,8 @@
       "name": "洞头综合",
       "group": "地方台",
       "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXdongtou1/720p.m3u8",
-        "http://l.cztvcloud.com/channels/lantian/SXdongtou1/720p.m3u8?zzhed?"
+        "http://l.cztvcloud.com/channels/lantian/SXdongtou1/720p.m3u8?zzhed?",
+        "http://l.cztvcloud.com/channels/lantian/SXdongtou1/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/洞头综合.png"
     },
@@ -3177,9 +1942,18 @@
       "name": "营山电视台",
       "group": "地方台",
       "streams": [
+        "http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd",
         "http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/营山电视台.png"
+    },
+    {
+      "id": "ch-1dzw9xt",
+      "name": "Jilin Lifestyle Channel",
+      "group": "地方台",
+      "streams": [
+        "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/0a76740c72b74fabae611845aa21e06a/index.m3u8"
+      ]
     },
     {
       "id": "ch-1e2hty5",
@@ -3230,6 +2004,14 @@
       "logo": "https://tb.zbds.top/logo/庆元综合.png"
     },
     {
+      "id": "ch-1f57o2i",
+      "name": "Anhui TV",
+      "group": "地方台",
+      "streams": [
+        "https://restream.pdtvhd.com/memfs/c1cd2ed0-3b2b-4c25-af98-a7fb0b1eb130.m3u8"
+      ]
+    },
+    {
       "id": "ch-1f6ek2h",
       "name": "浙江数码时代",
       "group": "地方台",
@@ -3240,13 +2022,12 @@
       "logo": "https://tb.zbds.top/logo/浙江数码时代.png"
     },
     {
-      "id": "ch-1f8213t",
-      "name": "安徽导视",
+      "id": "ch-1fmw2zv",
+      "name": "Jilin City Channel",
       "group": "地方台",
       "streams": [
-        "http://dspdhls.appcoo.com:8888/live/dspd/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/安徽导视.png"
+        "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/7e8474e6daea44ccaa5aa2300191439e/index.m3u8"
+      ]
     },
     {
       "id": "ch-1fs858k",
@@ -3263,8 +2044,8 @@
       "group": "地方台",
       "streams": [
         "http://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8",
-        "https://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8",
-        "http://ali-m-l.cztv.com/channels/lantian/channel03/720p.m3u8"
+        "http://ali-m-l.cztv.com/channels/lantian/channel03/720p.m3u8",
+        "https://ali-m-l.cztv.com/channels/lantian/channel003/1080p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/浙江经济.png"
     },
@@ -3310,8 +2091,8 @@
       "name": "太谷新闻综合",
       "group": "地方台",
       "streams": [
-        "https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&amp;amp;tpid=1516989100&amp;amp;type=0",
-        "https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&tpid=1516989100&type=0"
+        "https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&tpid=1516989100&type=0",
+        "https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&amp;amp;tpid=1516989100&amp;amp;type=0"
       ],
       "logo": "https://tb.zbds.top/logo/太谷新闻综合.png"
     },
@@ -3401,17 +2182,6 @@
       "logo": "https://tb.zbds.top/logo/普陀电视台.png"
     },
     {
-      "id": "ch-1kjvd60",
-      "name": "Nei Monggol TV",
-      "group": "地方台",
-      "streams": [
-        "http://play1-qk.nmtv.cn/live/1769652018126032.m3u8"
-      ],
-      "aliases": [
-        "Nei Monggol TV (1080i) [Not 24/7]"
-      ]
-    },
-    {
       "id": "ch-1kmeb1k",
       "name": "祁门综合",
       "group": "地方台",
@@ -3419,6 +2189,15 @@
         "http://zbbf2.ahbztv.com/live/416.m3u8?zanhd"
       ],
       "logo": "https://tb.zbds.top/logo/祁门综合.png"
+    },
+    {
+      "id": "ch-1lcnwv6",
+      "name": "沐川综合",
+      "group": "地方台",
+      "streams": [
+        "http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd"
+      ],
+      "logo": "https://tb.zbds.top/logo/沐川综合.png"
     },
     {
       "id": "ch-1lyy7ed",
@@ -3485,6 +2264,15 @@
       "logo": "https://tb.zbds.top/logo/陕西公共.png"
     },
     {
+      "id": "ch-1nsxxta",
+      "name": "西峰综合",
+      "group": "地方台",
+      "streams": [
+        "https://play.kankanlive.com/live/1683944827526991.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/西峰综合.png"
+    },
+    {
       "id": "ch-1o8aqwi",
       "name": "万州三峡移民",
       "group": "地方台",
@@ -3527,20 +2315,12 @@
       "name": "Hebei TV",
       "group": "地方台",
       "streams": [
+        "https://restream.pdtvhd.com/memfs/1db8c005-9365-4b32-94a4-3736987b5646.m3u8",
         "https://event.pull.hebtv.com/live/live101.m3u8"
       ],
       "aliases": [
         "Hebei TV (2160p)"
       ]
-    },
-    {
-      "id": "ch-1pgnxiw",
-      "name": "平遥新闻综合",
-      "group": "地方台",
-      "streams": [
-        "https://tntgjhjb.live.sxmty.com/live/hls/3a4585ac11ec4e1bb07b419101b370c3/baf63e2b313440c2a25d7859f9b73b05-1.m3u8?zshanxd"
-      ],
-      "logo": "https://tb.zbds.top/logo/平遥新闻综合.png"
     },
     {
       "id": "ch-1pxesr2",
@@ -3579,6 +2359,15 @@
       "logo": "https://tb.zbds.top/logo/象山新闻综合.png"
     },
     {
+      "id": "ch-1q4pdyd",
+      "name": "浙江钱江频道",
+      "group": "地方台",
+      "streams": [
+        "http://ali-m-l.cztv.com/channels/lantian/channel02/1080p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江钱江频道.png"
+    },
+    {
       "id": "ch-1q7y58v",
       "name": "衢江新闻综合",
       "group": "地方台",
@@ -3610,8 +2399,8 @@
       "name": "泗洪新闻综合",
       "group": "地方台",
       "streams": [
-        "http://live1.habctv.com/ggpdsl/sd/live.m3u8",
-        "http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd"
+        "http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd",
+        "http://live1.habctv.com/ggpdsl/sd/live.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/泗洪新闻综合.png"
     },
@@ -3683,7 +2472,8 @@
       "name": "缙云综合",
       "group": "地方台",
       "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXjinyun1/720p.m3u8?zzhed"
+        "http://l.cztvcloud.com/channels/lantian/SXjinyun1/720p.m3u8?zzhed",
+        "http://l.cztvcloud.com/channels/lantian/SXjinyun1/720p.m3u8?zzhed?"
       ],
       "logo": "https://tb.zbds.top/logo/缙云综合.png"
     },
@@ -3705,6 +2495,25 @@
       "logo": "https://tb.zbds.top/logo/任丘综合.png"
     },
     {
+      "id": "ch-1tbwcd9",
+      "name": "延边新闻综合",
+      "group": "地方台",
+      "streams": [
+        "https://stream2.jlntv.cn/jlyb/sd/live.m3u8"
+      ],
+      "aliases": [
+        "延边新闻综合 [Geo-blocked]"
+      ]
+    },
+    {
+      "id": "ch-1tddxe0",
+      "name": "Jilin Rural Channel",
+      "group": "地方台",
+      "streams": [
+        "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/3ffc4824dce54b92be185555923ce382/index.m3u8"
+      ]
+    },
+    {
       "id": "ch-1teo6q0",
       "name": "海宁新闻综合",
       "group": "地方台",
@@ -3714,14 +2523,45 @@
       "logo": "https://tb.zbds.top/logo/海宁新闻综合.png"
     },
     {
+      "id": "ch-1th0qlz",
+      "name": "浙江公共新闻",
+      "group": "地方台",
+      "streams": [
+        "http://ali-m-l.cztv.com/channels/lantian/channel007/1080p.m3u8",
+        "http://ali-m-l.cztv.com/channels/lantian/channel07/1080p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江公共新闻.png"
+    },
+    {
+      "id": "ch-1tknsg3",
+      "name": "万荣综合",
+      "group": "地方台",
+      "streams": [
+        "http://60.222.246.220:19433/hls1.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/万荣综合.png"
+    },
+    {
       "id": "ch-1tl2qw0",
       "name": "西宁新闻综合",
       "group": "地方台",
       "streams": [
-        "https://liveout.xntv.tv/a65jur/96iln2.m3u8",
-        "https://liveout.xntv.tv/a65jur/96iln2.m3u8?zqinghd"
+        "https://liveout.xntv.tv/a65jur/96iln2.m3u8?zqinghd",
+        "https://liveout.xntv.tv/a65jur/96iln2.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/西宁新闻综合.png"
+    },
+    {
+      "id": "ch-1tli2nx",
+      "name": "宿州新闻综合",
+      "group": "地方台",
+      "streams": [
+        "http://live.ahsz.tv/video/s10001-szzh/index.m3u8"
+      ],
+      "aliases": [
+        "宿州新闻综合 (1080p) [Not 24/7]"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/宿州新闻综合.png"
     },
     {
       "id": "ch-1u2fjlg",
@@ -3742,6 +2582,16 @@
       "logo": "https://tb.zbds.top/logo/铜陵新闻综合.png"
     },
     {
+      "id": "ch-1ubu6z7",
+      "name": "邢台综合",
+      "group": "地方台",
+      "streams": [
+        "http://jwplay.hebyun.com.cn/live/xtsrmtzs/1500k/tzwj_video.m3u8",
+        "https://jwplay.hebyun.com.cn:443/live/xtsrmtzs/1500k/tzwj_video.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/邢台综合.png"
+    },
+    {
       "id": "ch-1ulbilg",
       "name": "集安综合",
       "group": "地方台",
@@ -3757,6 +2607,7 @@
       "name": "余姚新闻综合",
       "group": "地方台",
       "streams": [
+        "http://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8?cWlkPSZzPTg3OWMwYmMyZDMzYTFhZGY3NDQxMjgyYTg1MmUzNTY0JmVzPTE3MDY2Nzc4NzMmdXVpZD0yMjdiY2MzNGNiNGY0MThlYjRiY2IxYzcwNmZjODNkMS02NzQ3NDY2NyZ2PTImYXM9MCZjZG5leF9pZD10eF9waG9uZV9saXZl",
         "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
         "http://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8"
       ],
@@ -3764,6 +2615,24 @@
         "余姚新闻综合 (576p)"
       ],
       "logo": "https://tb.zbds.top/logo/余姚新闻综合.png"
+    },
+    {
+      "id": "ch-1utxzo2",
+      "name": "浙江民生休闲",
+      "group": "地方台",
+      "streams": [
+        "http://ali-vl.cztv.com/channels/lantian/channel006/360p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江民生休闲.png"
+    },
+    {
+      "id": "ch-1v6yxei",
+      "name": "通化县",
+      "group": "地方台",
+      "streams": [
+        "http://stream5.jlntv.cn/thx/sd/live.m3u8?zjild"
+      ],
+      "logo": "https://tb.zbds.top/logo/通化县.png"
     },
     {
       "id": "ch-1vku4nc",
@@ -3818,6 +2687,24 @@
       ]
     },
     {
+      "id": "ch-1wo5kaa",
+      "name": "浙江休闲台",
+      "group": "地方台",
+      "streams": [
+        "http://ali-m-l.cztv.com/channels/lantian/channel006/720p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江休闲台.png"
+    },
+    {
+      "id": "ch-1wpvhtm",
+      "name": "新沂新闻",
+      "group": "地方台",
+      "streams": [
+        "http://live.xysrmt.cn/xwzh/sd/live.m3u8?zjiangsd\""
+      ],
+      "logo": "https://tb.zbds.top/logo/新沂新闻.png"
+    },
+    {
       "id": "ch-1xih1co",
       "name": "江津新闻",
       "group": "地方台",
@@ -3831,7 +2718,7 @@
       "name": "泸县新闻综合",
       "group": "地方台",
       "streams": [
-        "http://lxfile.lxxcb.cn:80/nmip-media/channellive/channel103799/playlist.m3u8",
+        "http://lxfile.lxxcb.cn/nmip-media/channellive/channel103799/playlist.m3u8",
         "https://m3u8channel.ganzitv.com/nmip-media/channellive/channel1/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/泸县新闻综合.png"
@@ -3850,7 +2737,8 @@
       "name": "松潘新闻综合",
       "group": "地方台",
       "streams": [
-        "http://live.spccmc.com:90/live/spxwzh.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]"
+        "http://live.spccmc.com:90/live/spxwzh.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]",
+        "http://live.spccmc.com:90/live/spxwzh.m3u8?zsicd"
       ],
       "logo": "https://tb.zbds.top/logo/松潘新闻综合.png"
     },
@@ -3887,10 +2775,18 @@
       "name": "伊犁维吾尔",
       "group": "地方台",
       "streams": [
-        "http://110.153.180.106:55555/out_2/index.m3u8",
-        "http://110.153.180.106:55555/out_2/index.m3u8?zxinjd"
+        "http://110.153.180.106:55555/out_2/index.m3u8?zxinjd",
+        "http://110.153.180.106:55555/out_2/index.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/伊犁维吾尔.png"
+    },
+    {
+      "id": "ch-3htjnj",
+      "name": "Xinjiang TV 8",
+      "group": "地方台",
+      "streams": [
+        "http://120.70.60.179:9901/tsfile/live/1002_1.m3u8?authid=0&key=txiptv&playlive=1"
+      ]
     },
     {
       "id": "ch-4xqps",
@@ -3967,8 +2863,10 @@
       "name": "Xinjiang TV 3",
       "group": "地方台",
       "streams": [
+        "http://218.84.35.38:3000/m3u8/live/tctv-2/index.m3u8",
         "http://110.153.180.106:55555/out_2/index.m3u8",
-        "http://218.84.35.38:3000/m3u8/live/tctv-2/index.m3u8"
+        "http://120.70.60.179:9901/tsfile/live/1006_1.m3u8?key=txiptv&playlive=1&authid=0",
+        "http://120.70.60.179:9901/tsfile/live/1006_1.m3u8?authid=0&key=txiptv&playlive=1"
       ]
     },
     {
@@ -4019,6 +2917,18 @@
       "logo": "https://tb.zbds.top/logo/玛纳斯.png"
     },
     {
+      "id": "ch-7kxkbi",
+      "name": "宿州科教",
+      "group": "地方台",
+      "streams": [
+        "http://live.ahsz.tv/video/s10001-kxjy/index.m3u8"
+      ],
+      "aliases": [
+        "宿州科教 (1080p) [Not 24/7]"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/宿州科教.png"
+    },
+    {
       "id": "ch-7lk64v",
       "name": "桦甸综合",
       "group": "地方台",
@@ -4067,21 +2977,12 @@
       ]
     },
     {
-      "id": "ch-91bobv",
-      "name": "绍兴公共",
-      "group": "地方台",
-      "streams": [
-        "http://live.shaoxing.com.cn/video/s10001-sxtv2/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/绍兴公共.png"
-    },
-    {
       "id": "ch-96t6ts",
       "name": "敦化一套",
       "group": "地方台",
       "streams": [
-        "http://stream8.jlntv.cn/dhtv/playlist.m3u8",
-        "http://stream8.jlntv.cn/dhtv/playlist.m3u8?zjild"
+        "http://stream8.jlntv.cn/dhtv/playlist.m3u8?zjild",
+        "http://stream8.jlntv.cn/dhtv/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/敦化一套.png"
     },
@@ -4124,34 +3025,33 @@
       "logo": "https://tb.zbds.top/logo/庆元新闻综合.png"
     },
     {
-      "id": "ch-av7koz",
-      "name": "福州广播电视台都市生活频道 (FZTV-3)",
+      "id": "ch-ca13sh",
+      "name": "汶川新闻综合",
       "group": "地方台",
       "streams": [
-        "http://live.zohi.tv/video/s10001-fztv-3/index.m3u8"
+        "http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd",
+        "http://live.iwcmt.cn:90/live/zhxw.m3u8?zsicd"
       ],
-      "aliases": [
-        "福州广播电视台都市生活频道 (FZTV-3) (1080p)"
-      ]
+      "logo": "https://tb.zbds.top/logo/汶川新闻综合.png"
     },
     {
       "id": "ch-cm9umc",
       "name": "嵊州新闻综合",
       "group": "地方台",
       "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
-        "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8?zzhed"
+        "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8?zzhed",
+        "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/嵊州新闻综合.png"
     },
     {
-      "id": "ch-co2wbv",
-      "name": "浙江教科",
+      "id": "ch-cosnkc",
+      "name": "青川综合",
       "group": "地方台",
       "streams": [
-        "https://ali-m-l.cztv.com/channels/lantian/channel004/1080p.m3u8"
+        "http://qcfile.qcrmt.com/nmip-media/channellive/channel100933/playlist.m3u8"
       ],
-      "logo": "https://tb.zbds.top/logo/浙江教科.png"
+      "logo": "https://tb.zbds.top/logo/青川综合.png"
     },
     {
       "id": "ch-ctgqju",
@@ -4164,6 +3064,15 @@
       "logo": "https://tb.zbds.top/logo/嵊泗综合.png"
     },
     {
+      "id": "ch-dbkmpt",
+      "name": "荥经综合",
+      "group": "地方台",
+      "streams": [
+        "https://m3u8channel-yj.yunxya.com/nmip-media/channellive/channel101140/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/荥经综合.png"
+    },
+    {
       "id": "ch-dl71u0",
       "name": "玛纳斯综合",
       "group": "地方台",
@@ -4171,6 +3080,25 @@
         "http://218.84.127.245:1026/hls/main1/playlist.m3u8?zxinjd,"
       ],
       "logo": "https://tb.zbds.top/logo/玛纳斯综合.png"
+    },
+    {
+      "id": "ch-e5cn2a",
+      "name": "荆门新闻综合",
+      "group": "地方台",
+      "streams": [
+        "http://stream.jmtv.com.cn/xwzh/sd/live.m3u8",
+        "https://stream.jmtv.com.cn/xwzh/playlist.m3u8?_upt=3e28e7271664278691"
+      ],
+      "logo": "https://tb.zbds.top/logo/荆门新闻综合.png"
+    },
+    {
+      "id": "ch-e84inq",
+      "name": "德惠综合",
+      "group": "地方台",
+      "streams": [
+        "http://stream11.jlntv.cn/dehuitv/sd/live.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/德惠综合.png"
     },
     {
       "id": "ch-ecxcp1",
@@ -4182,22 +3110,101 @@
       "logo": "https://tb.zbds.top/logo/灌阳新闻综合.png"
     },
     {
+      "id": "ch-eexujq",
+      "name": "海南新闻",
+      "group": "地方台",
+      "streams": [
+        "http://ls.qingting.fm/live/1861.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/海南新闻.png"
+    },
+    {
+      "id": "ch-elcqnb",
+      "name": "名山综合",
+      "group": "地方台",
+      "streams": [
+        "https://m3u8channel-bx.yunxya.com/nmip-media/channellive/channel104666/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/名山综合.png"
+    },
+    {
       "id": "ch-ewoeay",
       "name": "Dongguan Comprehensive News Channel",
       "group": "地方台",
       "streams": [
-        "https://stream.sun0769.com/dgrtv1/mp4tv1_800/index.m3u8",
-        "http://stream.sun0769.com/dgrtv1/mp4tv1_1500.flv"
+        "http://stream.sun0769.com/dgrtv1/mp4tv1_1500.flv",
+        "https://stream.sun0769.com/dgrtv1/mp4tv1_800/index.m3u8"
       ]
+    },
+    {
+      "id": "ch-f1mlit",
+      "name": "嵊州综合",
+      "group": "地方台",
+      "streams": [
+        "https://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8"
+      ],
+      "aliases": [
+        "嵊州综合 (720p) [Not 24/7]"
+      ]
+    },
+    {
+      "id": "ch-fpaq1r",
+      "name": "湘潭新闻综合",
+      "group": "地方台",
+      "streams": [
+        "http://live.hnxttv.com:9601/live/xwzh/800K/tzwj_video.m3u8"
+      ],
+      "aliases": [
+        "湘潭新闻综合 (720p)"
+      ]
+    },
+    {
+      "id": "ch-fq4a68",
+      "name": "古县综合",
+      "group": "地方台",
+      "streams": [
+        "https://l2fpdktp.live.sxmty.com/live/hls/e4c3b363cc4549788e2d983f403e07db/d99ce1eb686e41b9afc888110bd95aa7.m3u8?zshanxd"
+      ],
+      "logo": "https://tb.zbds.top/logo/古县综合.png"
     },
     {
       "id": "ch-fu36ml",
       "name": "旺苍新闻综合",
       "group": "地方台",
       "streams": [
-        "http://live.spccmc.com:90/live/spxwzh.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]"
+        "http://live.spccmc.com:90/live/spxwzh.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]",
+        "http://channel.wcrmt.cn:80/nmip-media/channellive/channel105268/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/旺苍新闻综合.png"
+    },
+    {
+      "id": "ch-gcicrs",
+      "name": "井研综合",
+      "group": "地方台",
+      "streams": [
+        "http://tvfile.jyrmt.cn/nmip-media/channellive/channel104452/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/井研综合.png"
+    },
+    {
+      "id": "ch-gojz7y",
+      "name": "广安公共",
+      "group": "地方台",
+      "streams": [
+        "http://live1.gatv.com.cn:85/live/GGPD.m3u8",
+        "http://live1.gatv.com.cn:85/live/GGPD_ggpdzm.m3u8?zsicd",
+        "http://live1.gatv.com.cn:85/live/GGPD_ggpdzm.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/广安公共.png"
+    },
+    {
+      "id": "ch-guyha",
+      "name": "白银综合",
+      "group": "地方台",
+      "streams": [
+        "http://play.kankanlive.com/live/1720408089419110.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/白银综合.png"
     },
     {
       "id": "ch-h1d4yq",
@@ -4209,6 +3216,18 @@
       "logo": "https://www.xn--rgv465a.top/tvlogo/普陀新闻综合.png"
     },
     {
+      "id": "ch-hr17wg",
+      "name": "武进生活",
+      "group": "地方台",
+      "streams": [
+        "https://live.wjyanghu.com/live/CH2.m3u8"
+      ],
+      "aliases": [
+        "武进生活 (576p) [Not 24/7]"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/武进生活.png"
+    },
+    {
       "id": "ch-i0yr9d",
       "name": "珲春新闻",
       "group": "地方台",
@@ -4216,6 +3235,33 @@
         "http://stream8.jlntv.cn/hctv/sd/live.m3u8?zjild"
       ],
       "logo": "https://tb.zbds.top/logo/珲春新闻.png"
+    },
+    {
+      "id": "ch-i9fm0v",
+      "name": "浙江遂昌",
+      "group": "地方台",
+      "streams": [
+        "http://l.cztvcloud.com/channels/lantian/SXsuichang1/720p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江遂昌.png"
+    },
+    {
+      "id": "ch-ia7irx",
+      "name": "平泉综合",
+      "group": "地方台",
+      "streams": [
+        "https://jwcdnqx.hebyun.com.cn/live/pqzh/1500k/tzwj_video.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/平泉综合.png"
+    },
+    {
+      "id": "ch-ifre2g",
+      "name": "晋江电视台",
+      "group": "地方台",
+      "streams": [
+        "http://stream.jinjiang.tv/1/sd/live.m3u8?zfud"
+      ],
+      "logo": "https://tb.zbds.top/logo/晋江电视台.png"
     },
     {
       "id": "ch-iggz5",
@@ -4229,13 +3275,32 @@
       ]
     },
     {
-      "id": "ch-jpr9u8",
-      "name": "FZTV-3 Lifestyle Channel 生活频道",
+      "id": "ch-ihu15z",
+      "name": "衡水公共",
       "group": "地方台",
       "streams": [
-        "http://live.zohi.tv/video/s10001-fztv-3/index.m3u8"
+        "http://ls.qingting.fm/live/2810.m3u8"
       ],
-      "logo": "https://i.imgur.com/jt7CWDT.png"
+      "logo": "https://tb.zbds.top/logo/衡水公共.png"
+    },
+    {
+      "id": "ch-ivzpav",
+      "name": "天祝综合",
+      "group": "地方台",
+      "streams": [
+        "https://play.kankanlive.com/live/1656487214793905.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/天祝综合.png"
+    },
+    {
+      "id": "ch-jlemqg",
+      "name": "浙江新闻",
+      "group": "地方台",
+      "streams": [
+        "https://ali-m-l.cztv.com/channels/lantian/channel007/1080p.m3u8",
+        "http://ali-m-l.cztv.com/channels/lantian/channel007/720p.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/浙江新闻.png"
     },
     {
       "id": "ch-jsoyn7",
@@ -4269,7 +3334,8 @@
       "name": "金川新闻综合",
       "group": "地方台",
       "streams": [
-        "http://139.203.180.9:90/live/zhxw.m3u8"
+        "http://139.203.180.9:90/live/zhxw.m3u8",
+        "http://live.jinchuanrmt.com:90/live/zhxw.m3u8?zsicd"
       ],
       "logo": "https://tb.zbds.top/logo/金川新闻综合.png"
     },
@@ -4287,11 +3353,22 @@
       "name": "Tonghua TV",
       "group": "地方台",
       "streams": [
+        "https://lsfb.avap.jilintv.cn/zqvk7vpj/channel/43ea5771aa44421591f9dfd2b71f1b9b/index.m3u8",
+        "http://lsfb.avap.jilintv.cn/zqvk7vpj/channel/43ea5771aa44421591f9dfd2b71f1b9b/index.m3u8",
         "http://139.211.217.79:9004/hls/75/index.m3u8"
       ],
       "aliases": [
         "Tonghua TV (1080p)"
       ]
+    },
+    {
+      "id": "ch-lg24ax",
+      "name": "番禺综合",
+      "group": "地方台",
+      "streams": [
+        "http://video.epaper.pybtv.cn:8080/live/rtmp_live_demo.flv"
+      ],
+      "logo": "https://tb.zbds.top/logo/番禺综合.png"
     },
     {
       "id": "ch-lp62j0",
@@ -4301,6 +3378,15 @@
         "https://gcalic.v.myalicdn.com/gc/nss01_1/index.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/江苏南京牛首山.png"
+    },
+    {
+      "id": "ch-m03y70",
+      "name": "河北都市",
+      "group": "地方台",
+      "streams": [
+        "https://radio.pull.hebtv.com/live/hebnczx.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/河北都市.png"
     },
     {
       "id": "ch-mj1aoq",
@@ -4321,6 +3407,24 @@
       "logo": "https://tb.zbds.top/logo/烟台公共.png"
     },
     {
+      "id": "ch-mllj36",
+      "name": "六安新闻综合",
+      "group": "地方台",
+      "streams": [
+        "http://ls.qingting.fm/live/267.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/六安新闻综合.png"
+    },
+    {
+      "id": "ch-mrqnn3",
+      "name": "龙井综合",
+      "group": "地方台",
+      "streams": [
+        "http://stream9.jlntv.cn:80/aac_longjinggb/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/龙井综合.png"
+    },
+    {
       "id": "ch-mym1kl",
       "name": "亳州新闻",
       "group": "地方台",
@@ -4339,6 +3443,15 @@
       "logo": "https://tb.zbds.top/logo/奎屯哈萨克语.png"
     },
     {
+      "id": "ch-neu0dq",
+      "name": "通化县综合",
+      "group": "地方台",
+      "streams": [
+        "http://stream3.jlntv.cn:80/aac_thxgb/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/通化县综合.png"
+    },
+    {
       "id": "ch-nko69m",
       "name": "铜梁综合",
       "group": "地方台",
@@ -4352,7 +3465,9 @@
       "name": "浙江民生",
       "group": "地方台",
       "streams": [
-        "http://ali-m-l.cztv.com/channels/lantian/channel06/1080p.m3u8"
+        "https://ali-m-l.cztv.com/channels/lantian/channel006/1080p.m3u8",
+        "http://ali-m-l.cztv.com/channels/lantian/channel06/1080p.m3u8",
+        "http://ali-m-l.cztv.com/channels/lantian/channel06/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/浙江民生.png"
     },
@@ -4374,11 +3489,21 @@
       "logo": "https://tb.zbds.top/logo/中国蓝新闻.png"
     },
     {
+      "id": "ch-nxcqpu",
+      "name": "黑龙江文体",
+      "group": "地方台",
+      "streams": [
+        "https://idclive.hljtv.com:4430/live/hljwy_hd.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/黑龙江文体.png"
+    },
+    {
       "id": "ch-o6pgpp",
       "name": "云和新闻综合",
       "group": "地方台",
       "streams": [
-        "http://l.cztvcloud.com/channels/lantian/SXyunhe1/720p.m3u8"
+        "http://l.cztvcloud.com/channels/lantian/SXyunhe1/720p.m3u8",
+        "http://l.cztvcloud.com/channels/lantian/SXyunhe1/720p.m3u8?zzhed"
       ],
       "logo": "https://tb.zbds.top/logo/云和新闻综合.png"
     },
@@ -4410,6 +3535,15 @@
       "logo": "https://tb.zbds.top/logo/永嘉新闻综合.png"
     },
     {
+      "id": "ch-oujmrq",
+      "name": "兵团五师双河影",
+      "group": "地方台",
+      "streams": [
+        "https://liveout.btzx.com.cn/62ds9e/6o77s4.m3u8?zxinjd"
+      ],
+      "logo": "https://tb.zbds.top/logo/兵团五师双河影.png"
+    },
+    {
       "id": "ch-owqhjx",
       "name": "哈尔滨生活",
       "group": "地方台",
@@ -4417,6 +3551,15 @@
         "http://stream.hrbtv.net/shpd/sd/live.m3u8?zheild"
       ],
       "logo": "https://tb.zbds.top/logo/哈尔滨生活.png"
+    },
+    {
+      "id": "ch-pae8hz",
+      "name": "苏州生活资讯",
+      "group": "地方台",
+      "streams": [
+        "https://live-auth.51kandianshi.com/szgd/csztv5.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/苏州生活资讯.png"
     },
     {
       "id": "ch-pooq19",
@@ -4432,6 +3575,7 @@
       "name": "余姚综合",
       "group": "地方台",
       "streams": [
+        "http://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8?zzhed",
         "https://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
         "http://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8?"
       ],
@@ -4465,6 +3609,17 @@
         "http://live.shaoxing.com.cn/video/s10001-sxtv2/index.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]"
       ],
       "logo": "https://tb.zbds.top/logo/绍兴电视台公共.png"
+    },
+    {
+      "id": "ch-rpa7w3",
+      "name": "前郭综合",
+      "group": "地方台",
+      "streams": [
+        "https://stream2.jlntv.cn/qg/sd/live.m3u8"
+      ],
+      "aliases": [
+        "前郭综合 [Geo-blocked]"
+      ]
     },
     {
       "id": "ch-rz3sp",
@@ -4521,14 +3676,32 @@
       "logo": "https://tb.zbds.top/logo/兵团八师石河子新闻综合.png"
     },
     {
+      "id": "ch-tp5h9f",
+      "name": "柳河",
+      "group": "地方台",
+      "streams": [
+        "http://stream5.jlntv.cn/lh/sd/live.m3u8?zjild"
+      ],
+      "logo": "https://tb.zbds.top/logo/柳河.png"
+    },
+    {
       "id": "ch-txzoqb",
       "name": "涟水电视台综合",
       "group": "地方台",
       "streams": [
-        "http://live1.habctv.com/ggpdsl/sd/live.m3u8",
-        "http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd"
+        "http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd",
+        "http://live1.habctv.com/ggpdsl/sd/live.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/涟水电视台综合.png"
+    },
+    {
+      "id": "ch-u9o5n2",
+      "name": "怀仁综合",
+      "group": "地方台",
+      "streams": [
+        "https://1yp7hc5p.live.sxmty.com/live/hls/bff8529922344209985b6e49baa9555a/efa2543628fc4a7ea93d3d6c975f77dc-1.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/怀仁综合.png"
     },
     {
       "id": "ch-uidkn4",
@@ -4564,6 +3737,7 @@
       "name": "甘孜综合",
       "group": "地方台",
       "streams": [
+        "http://tv.drs.ganzitv.com:8100/channellive/gztv.flv",
         "https://m3u8channel.ganzitv.com/nmip-media/channellive/channel1/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/甘孜综合.png"
@@ -4577,6 +3751,14 @@
       ],
       "aliases": [
         "Hunan TV (2160p)"
+      ]
+    },
+    {
+      "id": "ch-w3ajec",
+      "name": "Hunan Economy Channel",
+      "group": "地方台",
+      "streams": [
+        "https://p8.vzan.com/slowlive/415983998730568937/live.m3u8"
       ]
     },
     {
@@ -4617,6 +3799,44 @@
       ]
     },
     {
+      "id": "ch-wriivg",
+      "name": "常熟民生",
+      "group": "地方台",
+      "streams": [
+        "http://3gvod.zjgonline.com.cn:1935/live/_definst_/shehuishenghuo_app/chunklist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/常熟民生.png"
+    },
+    {
+      "id": "ch-xfkjyd",
+      "name": "辽宁生活",
+      "group": "地方台",
+      "streams": [
+        "http://120.76.248.139/live/bfgd/4200000073.m3u8"
+      ],
+      "logo": "https://live.fanmingming.cn/tv/辽宁生活.png"
+    },
+    {
+      "id": "ch-y514ud",
+      "name": "荥阳综合",
+      "group": "地方台",
+      "streams": [
+        "http://tvpull.dxhmt.cn:9081/tv/10182-1.m3u8?zhend",
+        "http://tvpull.dxhmt.cn:9081/tv/10182-1.m3u8?wsSecret=df15530a0abec41b14bca00fc96270d1&wsTime=1654956569",
+        "http://tvpull.dxhmt.cn:9081/tv/10182-1.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/荥阳综合.png"
+    },
+    {
+      "id": "ch-yiuevp",
+      "name": "福建经济",
+      "group": "地方台",
+      "streams": [
+        "http://satellitepull.cnr.cn/live/wx32fjdnjjgb/playlist.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/福建经济.png"
+    },
+    {
       "id": "ch-z891pm",
       "name": "伊犁经济法制",
       "group": "地方台",
@@ -4634,23 +3854,6 @@
         "http://l.cztvcloud.com/channels/lantian/SXpinghu2/720p.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/平湖民生休闲.png"
-    },
-    {
-      "id": "ch-zounvm",
-      "name": "福州生活",
-      "group": "地方台",
-      "streams": [
-        "http://live.zohi.tv:80/video/s10001-fztv-3/index.m3u8"
-      ],
-      "logo": "https://tb.zbds.top/logo/福州生活.png"
-    },
-    {
-      "id": "ch-10wj2fp",
-      "name": "Kangba TV",
-      "group": "其他",
-      "streams": [
-        "http://110.185.237.164:8888/hls/30/index.m3u8"
-      ]
     },
     {
       "id": "ch-123yu0e",
@@ -4718,11 +3921,28 @@
       "logo": "https://tb.zbds.top/logo/雪乡大石碑.png"
     },
     {
+      "id": "ch-1846wc1",
+      "name": "东丰",
+      "group": "其他",
+      "streams": [
+        "http://stream5.jlntv.cn/df/sd/live.m3u8?zjild"
+      ],
+      "logo": "https://tb.zbds.top/logo/东丰.png"
+    },
+    {
       "id": "ch-19jslkv",
       "name": "Graham Norton",
       "group": "其他",
       "streams": [
         "https://amg00654-itv-amg00654c35-rakuten-gb-7598.playouts.now.amagi.tv/playlist1080_p.m3u8"
+      ]
+    },
+    {
+      "id": "ch-1dbo6hl",
+      "name": "2026-10-25 06:26:04",
+      "group": "其他",
+      "streams": [
+        "https://vd2.bdstatic.com/mda-sctj0f6r4u1bpebc/1080p/cae_h264/1774706523506678171/mda-sctj0f6r4u1bpebc.mp4"
       ]
     },
     {
@@ -4837,6 +4057,17 @@
       ]
     },
     {
+      "id": "ch-8mbtj0",
+      "name": "CGNTV Chinese",
+      "group": "其他",
+      "streams": [
+        "https://d3e05csss9c272.cloudfront.net/out/v1/f0bf71c57581470fb9379f603e8f5d83/CGNWebLiveCN.m3u8"
+      ],
+      "aliases": [
+        "CGNTV Chinese (1080p)"
+      ]
+    },
+    {
       "id": "ch-9jb99a",
       "name": "Asian Drama",
       "group": "其他",
@@ -4848,6 +4079,81 @@
       ]
     },
     {
+      "id": "ch-bzfmg3",
+      "name": "海绵宝宝",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/douyu/3949681"
+      ],
+      "logo": "https://tb.zbds.top/logo/海绵宝宝.png"
+    },
+    {
+      "id": "ch-d3a3ol",
+      "name": "射雕英雄传",
+      "group": "其他",
+      "streams": [
+        "https://live.ottiptv.cc/huya/23824164",
+        "https://live.metshop.top/huya/23824164"
+      ],
+      "logo": "https://tb.zbds.top/logo/射雕英雄传.png"
+    },
+    {
+      "id": "ch-de66gb",
+      "name": "猫和老鼠",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/11352879",
+        "https://live.ottiptv.cc/huya/11352879"
+      ],
+      "logo": "https://tb.zbds.top/logo/猫和老鼠.png"
+    },
+    {
+      "id": "ch-dzabcm",
+      "name": "西游记",
+      "group": "其他",
+      "streams": [
+        "https://live.ottiptv.cc/huya/26355861",
+        "http://live.ottiptv.cc/huya/20985836"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/西游记.png"
+    },
+    {
+      "id": "ch-eapm23",
+      "name": "宇宙科幻合集",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/11342428"
+      ],
+      "logo": "https://tb.zbds.top/logo/宇宙科幻合集.png"
+    },
+    {
+      "id": "ch-ed5ds9",
+      "name": "大时代",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/23865161"
+      ],
+      "logo": "https://tb.zbds.top/logo/大时代.png"
+    },
+    {
+      "id": "ch-fz3zyn",
+      "name": "飞碟之谜02",
+      "group": "其他",
+      "streams": [
+        "https://newcntv.qcloudcdn.com/asp/hls/2000/0303000a/3/default/d2454bbb542d4613a9db478dab2addfd/2000.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/飞碟之谜02.png"
+    },
+    {
+      "id": "ch-g93lnm",
+      "name": "飞碟之谜01",
+      "group": "其他",
+      "streams": [
+        "https://hls.cntv.lxdns.com/asp/hls/2000/0303000a/3/default/f0a47e155d32450daa1d36a04fd7d262/2000.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/飞碟之谜01.png"
+    },
+    {
       "id": "ch-htwn9",
       "name": "倩女幽魂妖魔道",
       "group": "其他",
@@ -4857,12 +4163,86 @@
       "logo": "https://tb.zbds.top/logo/倩女幽魂妖魔道.png"
     },
     {
-      "id": "ch-jkse1r",
-      "name": "2026-10-22 18:27:34",
+      "id": "ch-hya8i0",
+      "name": "QTV-2",
       "group": "其他",
       "streams": [
-        "https://vd2.bdstatic.com/mda-sctj0f6r4u1bpebc/1080p/cae_h264/1774706523506678171/mda-sctj0f6r4u1bpebc.mp4"
+        "http://video10.qtv.com.cn/drm/qtv2at/manifest.m3u8"
       ]
+    },
+    {
+      "id": "ch-i89u6z",
+      "name": "QTV-3",
+      "group": "其他",
+      "streams": [
+        "http://video10.qtv.com.cn/drm/qtv3at/manifest.m3u8"
+      ]
+    },
+    {
+      "id": "ch-ib25rs",
+      "name": "Beautiful Life TV",
+      "group": "其他",
+      "streams": [
+        "https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/playlist.m3u8"
+      ]
+    },
+    {
+      "id": "ch-if43wb",
+      "name": "Reuters",
+      "group": "其他",
+      "streams": [
+        "https://dbrb49pjoymg4.cloudfront.net/manifest/3fec3e5cac39a52b2132f9c66c83dae043dc17d4/prod_default_xumo-ams-aws/e7493ea5-5c1c-4d7a-a3f7-e95516048ad8/3.m3u8"
+      ],
+      "logo": "https://provider-static.plex.tv/epg/cms/production/8cf9c131-2d92-4d91-86b1-22ef458d703f/reuters_reutersnow_1RDX.png"
+    },
+    {
+      "id": "ch-ipk2p",
+      "name": "Xizang TV Chinese",
+      "group": "其他",
+      "streams": [
+        "https://pili-live-hls-zdzz-tv.zzxwcm.cn/zdzz-tv/nqzh.m3u8"
+      ]
+    },
+    {
+      "id": "ch-is91kx",
+      "name": "QTV-1",
+      "group": "其他",
+      "streams": [
+        "http://video10.qtv.com.cn/drm/qtv1at/manifest.m3u8"
+      ]
+    },
+    {
+      "id": "ch-j28n9w",
+      "name": "QTV-6",
+      "group": "其他",
+      "streams": [
+        "http://video10.qtv.com.cn/drm/qtv6at/manifest.m3u8"
+      ]
+    },
+    {
+      "id": "ch-jjj4rv",
+      "name": "Chifeng Comprehensive News Chanel",
+      "group": "其他",
+      "streams": [
+        "http://play1-qk.nmtv.cn/live/1735546697341033.m3u8"
+      ]
+    },
+    {
+      "id": "ch-jm7unu",
+      "name": "QTV-4",
+      "group": "其他",
+      "streams": [
+        "http://video10.qtv.com.cn/drm/qtv4at/manifest.m3u8"
+      ]
+    },
+    {
+      "id": "ch-kfj5nr",
+      "name": "鉴证实录",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/23903183"
+      ],
+      "logo": "https://tb.zbds.top/logo/鉴证实录.png"
     },
     {
       "id": "ch-kjjd3q",
@@ -4882,6 +4262,41 @@
       "logo": "https://tb.zbds.top/logo/倩女幽魂人间道.png"
     },
     {
+      "id": "ch-m9d0cn",
+      "name": "WildEarth",
+      "group": "其他",
+      "streams": [
+        "https://wildearth-plex.amagi.tv/masterR1080p.m3u8"
+      ]
+    },
+    {
+      "id": "ch-md4t8s",
+      "name": "法政先锋",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/23863804"
+      ],
+      "logo": "https://tb.zbds.top/logo/法政先锋.png"
+    },
+    {
+      "id": "ch-mhjmf0",
+      "name": "ACCDN",
+      "group": "其他",
+      "streams": [
+        "https://raycom-accdn-firetv.amagi.tv/1080p-cc/index.m3u8"
+      ]
+    },
+    {
+      "id": "ch-mmw2pa",
+      "name": "中华小当家",
+      "group": "其他",
+      "streams": [
+        "https://live.ottiptv.cc/huya/11342413",
+        "https://live.metshop.top/huya/11342413"
+      ],
+      "logo": "https://tb.zbds.top/logo/中华小当家.png"
+    },
+    {
       "id": "ch-mnz4rq",
       "name": "天涯石",
       "group": "其他",
@@ -4891,13 +4306,40 @@
       "logo": "https://tb.zbds.top/logo/天涯石.png"
     },
     {
+      "id": "ch-mtjuyr",
+      "name": "七龙珠",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/11601966",
+        "https://live.ottiptv.cc/huya/11601966"
+      ],
+      "logo": "https://tb.zbds.top/logo/七龙珠.png"
+    },
+    {
+      "id": "ch-nosv1g",
+      "name": "天龙八部",
+      "group": "其他",
+      "streams": [
+        "https://live.ottiptv.cc/yy/1351814644",
+        "https://live.ottiptv.cc/huya/20985816",
+        "https://live.metshop.top/huya/20985816"
+      ],
+      "logo": "https://www.xn--rgv465a.top/tvlogo/天龙八部.png"
+    },
+    {
+      "id": "ch-otysnb",
+      "name": "Red Bull TV",
+      "group": "其他",
+      "streams": [
+        "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_6660.m3u8"
+      ]
+    },
+    {
       "id": "ch-po4bjf",
       "name": "ABC",
       "group": "其他",
       "streams": [
-        "https://aegis-cloudfront-1.tubi.video/1a352414-3a30-4f42-b14b-c091d02a5e45/playlist.m3u8",
-        "https://content.uplynk.com/channel/64ca339f04964a5e961c3207a7771bf1.m3u8",
-        "https://content.uplynk.com/channel/ff809e6d9ec34109abfb333f0d4444b5.m3u8"
+        "https://aegis-cloudfront-1.tubi.video/1a352414-3a30-4f42-b14b-c091d02a5e45/playlist.m3u8"
       ]
     },
     {
@@ -4910,6 +4352,15 @@
       "logo": "https://tb.zbds.top/logo/五彩池.png"
     },
     {
+      "id": "ch-rm9rbn",
+      "name": "让子弹飞",
+      "group": "其他",
+      "streams": [
+        "https://vip.ffzy-play7.com/20230116/11563_b9f44814/index.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/让子弹飞.png"
+    },
+    {
       "id": "ch-s7lalf",
       "name": "望乡台",
       "group": "其他",
@@ -4917,6 +4368,15 @@
         "https://gcalic.v.myalicdn.com/gc/hlwxt_1/index.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/望乡台.png"
+    },
+    {
+      "id": "ch-sxwro3",
+      "name": "人在囧途之港囧",
+      "group": "其他",
+      "streams": [
+        "https://vip.ffzy-play7.com/20230112/11082_fde1a94d/index.m3u8"
+      ],
+      "logo": "https://tb.zbds.top/logo/人在囧途之港囧.png"
     },
     {
       "id": "ch-tv6pc0",
@@ -4928,6 +4388,42 @@
       "logo": "https://tb.zbds.top/logo/人在囧途之泰囧.png"
     },
     {
+      "id": "ch-vv2fb7",
+      "name": "刑事侦缉档案",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/29465856"
+      ],
+      "logo": "https://tb.zbds.top/logo/刑事侦缉档案.png"
+    },
+    {
+      "id": "ch-vvf14f",
+      "name": "陀枪师姐",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/29465857"
+      ],
+      "logo": "https://tb.zbds.top/logo/陀枪师姐.png"
+    },
+    {
+      "id": "ch-x5z2tw",
+      "name": "楚汉骄雄",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/29465854"
+      ],
+      "logo": "https://tb.zbds.top/logo/楚汉骄雄.png"
+    },
+    {
+      "id": "ch-xd7vmf",
+      "name": "Love Nature 4K",
+      "group": "其他",
+      "streams": [
+        "https://pb-ehs1glsha1juy.akamaized.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/pb-ehs1glsha1juy/f2141f37-1f48-475b-ba54-b9efb62346db/0.m3u8"
+      ],
+      "logo": "https://images.sr.roku.com/idType/roku-trc/context/trc/id/479fe0d11f3f5132a3f36b617547da3b/https%3A%2F%2Fimage.roku.com%2Fbh-uploads%2Fproduction%2FinfoHUDLogo%2F1738776545554_LoveNature_logos_HUB_Centered.png"
+    },
+    {
       "id": "ch-xrk96a",
       "name": "第一财经",
       "group": "其他",
@@ -4935,6 +4431,25 @@
         "http://satellitepull.cnr.cn/live/wx32dycjgb/playlist.m3u8"
       ],
       "logo": "https://tb.zbds.top/logo/第一财经.png"
+    },
+    {
+      "id": "ch-ymwj3y",
+      "name": "封神榜",
+      "group": "其他",
+      "streams": [
+        "https://live.ottiptv.cc/huya/29465849",
+        "https://live.metshop.top/huya/29465849"
+      ],
+      "logo": "https://tb.zbds.top/logo/封神榜.png"
+    },
+    {
+      "id": "ch-zd9td1",
+      "name": "妙手仁心",
+      "group": "其他",
+      "streams": [
+        "https://live.metshop.top/huya/29465853"
+      ],
+      "logo": "https://tb.zbds.top/logo/妙手仁心.png"
     }
   ]
 }
