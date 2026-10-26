@@ -436,3 +436,22 @@ describe('emitLive（不拿回环地址覆盖线上可用清单）', () => {
     rmSync(`${tmpdir()}/live-lan.m3u`, { force: true });
   });
 });
+describe('回环基址的显式放行（手机自己用影视仓播放）', () => {
+  it('加 IPTV_ALLOW_LOOPBACK_BASE=1 后可以用 127.0.0.1 写出', async () => {
+    const ok: typeof fetch = () => Promise.resolve(new Response(SAMPLE, { status: 200 }));
+    const txtPath = `${tmpdir()}/live-loopback-ok.txt`;
+    const outcome = await emitLive({
+      fetchImpl: ok,
+      env: {
+        WUDALIANSAI_PUBLIC_BASE: 'http://127.0.0.1:18765',
+        IPTV_ALLOW_LOOPBACK_BASE: '1',
+      },
+      txtPath,
+      m3uPath: `${tmpdir()}/live-loopback-ok.m3u`,
+    });
+    expect(outcome.ok).toBe(true);
+    expect(readFileSync(txtPath, 'utf8')).toContain('http://127.0.0.1:18765/play/bbb');
+    rmSync(txtPath, { force: true });
+    rmSync(`${tmpdir()}/live-loopback-ok.m3u`, { force: true });
+  });
+});

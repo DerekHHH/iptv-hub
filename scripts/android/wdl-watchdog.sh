@@ -1,5 +1,9 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# @file 看门狗：保活 wudaliansai，并每轮敲一次列表让缓存保持热。
+# @file 看门狗：保活「赛事服务（18765）」和「网页服务（18080）」，并让缓存保持热。
+#
+# 两个服务都要管：
+#   18765 = wudaliansai 抓来的上游直播清单
+#   18080 = 我们自己构建的产物（带联赛分组/状态/开赛时间），影视仓订阅的是这份
 #
 # 判据统一用**端口**，不用 pgrep：
 # Android 有 /proc 隔离，Termux（uid 10xxx）看不到 shell（uid 2000）起的进程，
@@ -27,6 +31,8 @@ SVC_LOG="$LOGDIR/wdl.log"
 WD_LOG="$LOGDIR/wdl-watchdog.log"
 WD_BEAT="$LOGDIR/wdl-watchdog.beat"
 PORT=18765
+WEB_PORT=18080
+WEB_DIR="$HOME/iptv-hub"
 INTERVAL=20
 NC=/system/bin/nc
 
@@ -63,6 +69,16 @@ while true; do
   # 日志防涨：超过 256KB 就截断重来
   if [ -f "$WD_LOG" ] && [ "$(wc -c <"$WD_LOG")" -gt 262144 ]; then
     tail -200 "$WD_LOG" >"$WD_LOG.tmp" && mv "$WD_LOG.tmp" "$WD_LOG"
+  fi
+
+  # 网页服务（18080）也要保活：影视仓订阅的带分类/时间的那份列表由它提供。
+  # 它跑的是 node scripts/serve.mjs，和赛事服务是两条独立进程，要分别看。
+  if ! "$NC" -z -w 3 127.0.0.1 "$WEB_PORT" >/dev/null 2>&1; then
+    if [ -f "$WEB_DIR/scripts/serve.mjs" ]; then
+      log "网页服务不通，拉起 serve.mjs"
+      ( cd "$WEB_DIR" && setsid node scripts/serve.mjs >>"$LOGDIR/serve.log" 2>&1 & )
+      sleep 3
+    fi
   fi
 
   if ! port_open; then

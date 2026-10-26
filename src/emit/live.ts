@@ -214,11 +214,16 @@ export async function emitLive(
 
   // 没探到局域网地址时产物里只会是 127.0.0.1，推到线上等于把已经能用的清单弄坏。
   // 这种情况下宁可不动，等手机连回 Wi-Fi / 开热点后重新构建。
-  if (isLoopbackBase(outcome.publicBase)) {
+  //
+  // 例外：**手机自己用影视仓播放**时，127.0.0.1 恰恰是最稳的地址（不依赖 Wi-Fi）。
+  // 这种情况用 IPTV_ALLOW_LOOPBACK_BASE=1 显式放行，默认行为保持不变。
+  const allowLoopback = (options.env?.IPTV_ALLOW_LOOPBACK_BASE ?? '').trim() === '1';
+  if (!allowLoopback && isLoopbackBase(outcome.publicBase)) {
     return {
       ok: false,
       matches: [],
-      error: '没有可用的局域网地址（手机只连了蜂窝网？），为避免覆盖线上可用清单，本次不写产物',
+      error: '没有可用的局域网地址（手机只连了蜂窝网？），为避免覆盖线上可用清单，本次不写产物'
+        + '；若是手机自己播放，加 IPTV_ALLOW_LOOPBACK_BASE=1 放行',
     };
   }
 
