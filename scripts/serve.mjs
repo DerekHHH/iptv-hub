@@ -269,6 +269,14 @@ export function createServeServer(options = {}) {
   const server = createServer(async (req, res) => {
     const url = req.url ?? '/';
 
+    // 逐条请求日志：客户端（影视仓等）加载失败时，靠它判断请求到底有没有打进来。
+    // UA 很关键 —— okhttp/Dalvik 之类一看就知道是播放器发的。
+    if (!url.startsWith('/api/')) {
+      const ua = req.headers['user-agent'] ?? '-';
+      const host = req.headers.host ?? '-';
+      console.log(`[serve] ${new Date().toISOString()} ${req.method} ${url} host=${host} ua=${ua}`);
+    }
+
     try {
       if (url.startsWith('/api/')) {
         if (url.startsWith('/api/health')) {
