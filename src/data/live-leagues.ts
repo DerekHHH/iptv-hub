@@ -16,11 +16,25 @@
  * 其余小联赛（KBL、B.League、澳洲 NBL、中美洲小联赛…）一律落 `其他联赛`。
  */
 
+import { detectGame, GAME_ORDER, gameRank, OTHER_GAME } from './esports-teams';
+
 /** 兜底联赛名（具体联赛都判不出来时用）。 */
 export const OTHER_LEAGUE = '其他联赛';
 
-/** 电竞不细分，统一叫「电竞」。 */
-export const ESPORTS_LEAGUE = '电竞';
+/** 电竞的兜底项目名（识别不出游戏时用）。 */
+export const ESPORTS_LEAGUE = OTHER_GAME;
+
+/**
+ * 平铺模式下的**全局**联赛顺序（分组已经改成一级，不再有「篮球|」前缀）。
+ *
+ * 篮球在前、足球次之、电竞随后，兜底分组永远垫底。
+ */
+export const FLAT_LEAGUE_ORDER: readonly string[] = [
+  'NBA', 'CBA',
+  '英超', '西甲', '意甲', '德甲', '法甲', '中超', '欧冠',
+  '英雄联盟', 'CS2', 'DOTA2', '王者荣耀',
+  OTHER_LEAGUE, OTHER_GAME,
+];
 
 /**
  * 各分类下的联赛展示顺序。
@@ -181,7 +195,7 @@ const FOREIGN_TEAMS: Readonly<Record<string, readonly string[]>> = {
     '巴伊亚', '福塔雷萨', '科林蒂安', '圣保罗', '国际', '尤文图德',
     '蓝鹰', '老虎', '春华', '南美解放者',
     // ↑ 真实数据里出现、且队名含中超/五大联赛简称的队
-    '大连足校', '天津圣德', '山东体彩', '浙江杭州女足',
+    '大连足校', '天津圣德', '山东体彩', '浙江杭州女足', '尤文图斯马纳瓜', '里奥布兰科',
     '太原T&T', '越南煤矿', '河内女足', '胡志明市', '兄弟联盟', '阿巴哈尼',
     '春武里', '博乐大学', '雪兰莪', '阿德莱德城', '南墨尔本', '悉尼联',
     '斯图拉德', '南美联合', '莱卡特老虎', '法基拉普尔年轻人', 'MFS拉汉马特',
@@ -195,7 +209,11 @@ const FOREIGN_TEAMS: Readonly<Record<string, readonly string[]>> = {
  * 五大联赛的球队默认都是欧冠参赛队，再补上常客俱乐部。
  */
 const CHAMPIONS_LEAGUE_TEAMS: readonly string[] = [
-  ...(Object.values(LEAGUE_TEAMS.足球 ?? {}).flat() as string[]),
+  // 只取**欧洲**联赛的队。中超绝不能算进来 —— 否则「大连足校女足 vs 天津圣德女足」
+  // 会因为两边都命中中国球队名而双双"是欧冠队"，整场被判成欧冠。
+  ...(['英超', '西甲', '意甲', '德甲', '法甲'] as const).flatMap(
+    (league) => (LEAGUE_TEAMS.足球?.[league] ?? []) as readonly string[],
+  ),
   '阿贾克斯', '埃因霍温', '本菲卡', '波尔图', '萨尔茨堡', '哥本哈根',
   '顿涅茨克矿工', '顿涅茨克', '加拉塔萨雷', '费内巴切', '贝西克塔斯', '布鲁日',
   '奥林匹亚科斯', '帕纳辛奈科斯', '萨格勒布迪纳摩', '里加', '卢多戈茨',
@@ -303,16 +321,14 @@ function matchTeam(category: string, team: string): TeamMatch {
     }
   }
 
-  // 队名带「足校 / 财经 / U20」这类标记 → 肯定不是职业队，一律归「其他联赛」
-  for (const marker of RESERVE_MARKERS) {
-    if (team.includes(marker) && marker.length > otherLength) {
-      otherLength = marker.length;
-    }
-  }
+  // 队名带「足校 / 财经 / U20」这类标记 → 肯定不是职业队，一律归「其他联赛」。
+  // 这里**不看长度**：`大连足校女足` 里「足校」和「大连」都是 2 个字，
+  // 按长度比会打平，结果保留「中超」——所以标记命中就直接作废具体联赛。
+  const isReserveTeam = RESERVE_MARKERS.some((marker) => team.includes(marker));
 
   // 「其他联赛」的关键词更长 → 这个队确实不属于我们追踪的联赛，
   // 之前那个短关键词命中是子串误命中，作废。
-  if (otherLength > specificLength) {
+  if (isReserveTeam || otherLength > specificLength) {
     specific = undefined;
   }
 
@@ -368,7 +384,8 @@ function isUclTeam(team: string): boolean {
  */
 export function detectLeague(category: string, title: string): string {
   if (category === '电竞') {
-    return ESPORTS_LEAGUE;
+    // 电竞按战队名推项目（上游只给队名，不给赛事）
+    return detectGame(title);
   }
   const teams = splitTeams(title);
   if (teams.length === 0) {
@@ -416,4 +433,22 @@ export function leagueRank(category: string, league: string): number {
   const order = LEAGUE_ORDER[category] ?? [];
   const index = order.indexOf(league);
   return index < 0 ? order.length : index;
+}
+
+/**
+ * 平铺模式下联赛的展示顺序（越小越靠前）。
+ *
+ * @param league 联赛名
+ * @return 序号；未知的排在已知之后、兜底之前
+ */
+export function flatLeagueRank(league: string): number {
+  const index = FLAT_LEAGUE_ORDER.indexOf(league);
+  if (index >= 0) {
+    return index;
+  }
+  // 电竞项目走 gameRank 兜底
+  if (GAME_ORDER.includes(league)) {
+    return FLAT_LEAGUE_ORDER.indexOf('英雄联盟') + gameRank(league);
+  }
+  return FLAT_LEAGUE_ORDER.length;
 }

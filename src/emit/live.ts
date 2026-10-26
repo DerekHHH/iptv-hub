@@ -5,17 +5,18 @@
  * 原因：这些链接只有手机服务在跑的时候才有效，且内容每天完全换一批，
  * 混进主列表会让频道目录持续抖动、还会把"找不到台"的锅甩给主源。
  *
- * 格式沿用主产物约定（UTF-8 无 BOM、LF、`分组名,#genre#` 组头），
- * 只是分组名细到「分类|联赛」（`篮球|NBA`、`足球|英超`），电视端分组栏一眼能看出
- * 是哪项运动、哪个联赛；名条统一带状态前缀（`[直播中]` / `[未开赛]` / `[已结束]`），
- * 同一场比赛的多个资源用线路名区分（`… (高清)`）。
+ * 分组名**一级平铺**（`NBA` / `CBA` / `英超` / `欧冠` / `英雄联盟` …），不再有
+ * 「篮球|NBA」这类两级前缀 —— 电视端分组栏直接就是联赛列表。
+ * 名条统一带状态前缀（`[比赛中]` / `[未开始]` / `[完场]`），
+ * 大联赛能匹配到赛程的再加开赛时间（`09:00`），多资源用线路名区分（`(高清)`）。
  *
  * 失败策略：服务不在（GitHub Actions / 手机没起服务）时**不写产物**，
  * 保留上一版，只打 info 日志，绝不影响主列表。
  */
 
 import { PATHS } from '../config';
-import { fetchLiveMatches, type LiveMatch, type LiveStatus } from '../sources/wudaliansai';
+import { attachSchedule, fetchSchedule, LEAGUE_IDS } from '../sources/schedule';
+import { compareMatches, fetchLiveMatches, type LiveMatch, type LiveStatus } from '../sources/wudaliansai';
 import { writeTextFile } from '../util/fsx';
 import { log } from '../util/logger';
 
@@ -24,39 +25,72 @@ const GENRE_MARKER = '#genre#';
 
 /** 状态 → 名条前缀（四种状态统一标注，一眼能分清）。 */
 const STATUS_TAG: Readonly<Record<LiveStatus, string>> = {
-  live: '[直播中]',
-  upcoming: '[未开赛]',
+  live: '[比赛中]',
+  upcoming: '[未开始]',
   unavailable: '[暂无直播]',
-  ended: '[已结束]',
+  ended: '[完场]',
 };
 
 /**
- * 分组名：`篮球|NBA`。
+ * 分组名：直接就是联赛/游戏名（`NBA` / `英超` / `英雄联盟`）。
  *
- * 父子两级（`分类|联赛`），播放器里会显示成两层：「篮球」下面分「NBA」「CBA」
- * 「其他联赛」。**线路名不再占分组位**——它写进条目名里（见 `entryLabel`）。
+ * 一级平铺——播放器分组栏看到的就是联赛列表，不再有「篮球/足球」这层。
+ * 线路名不占分组位，写进条目名（见 `entryLabel`）。
  *
  * @param match 赛事
  * @return 分组名
  */
 function groupLabel(match: LiveMatch): string {
-  return `${match.category}|${match.league}`;
+  return match.league;
+}
+
+/** 北京时间的毫秒偏移（UTC+8）。 */
+const BEIJING_OFFSET_MS = 8 * 60 * 60 * 1000;
+
+/**
+ * 把开赛时间格式化成北京时间短标签。
+ *
+ * 当天的只给 `HH:mm`（电视上够看），跨日的补上 `MM-DD`，避免看不出是哪天。
+ *
+ * @param startAt 开赛时间（epoch 毫秒）
+ * @param now 当前时间（epoch 毫秒），用于判断是不是同一天
+ * @return 形如 `09:00` 或 `10-27 09:00`
+ */
+export function formatKickoff(startAt: number, now: number): string {
+  const toBeijing = (value: number): Date => new Date(value + BEIJING_OFFSET_MS);
+  const target = toBeijing(startAt);
+  const today = toBeijing(now);
+  const pad = (value: number): string => String(value).padStart(2, '0');
+  const clock = `${pad(target.getUTCHours())}:${pad(target.getUTCMinutes())}`;
+  const sameDay =
+    target.getUTCFullYear() === today.getUTCFullYear() &&
+    target.getUTCMonth() === today.getUTCMonth() &&
+    target.getUTCDate() === today.getUTCDate();
+  return sameDay ? clock : `${pad(target.getUTCMonth() + 1)}-${pad(target.getUTCDate())} ${clock}`;
 }
 
 /**
- * 名条文案：`[直播中] 雷霆 vs 掘金 (高清)`。
+ * 名条文案：`[未开始] 雷霆 vs 掘金 09:00 (高清)`。
  *
- * 状态前缀对四种状态统一输出；线路名非空时追加在括号里（同一场比赛的多个
- * 资源就是靠它区分的）。
+ * 状态前缀对四种状态统一输出；能匹配到赛程的补开赛时间；
+ * 完场的如果有比分就一并带上；线路名非空时追加在括号里
+ * （同一场比赛的多个资源就是靠它区分的）。
  *
  * @param match 赛事
  * @param line 线路名（可为空）
+ * @param now 当前时间（epoch 毫秒）
  * @return 名条
  */
-function entryLabel(match: LiveMatch, line: string): string {
-  const tag = STATUS_TAG[match.status];
+function entryLabel(match: LiveMatch, line: string, now: number): string {
+  const parts = [STATUS_TAG[match.status], match.title];
+  if (match.startAt !== undefined) {
+    parts.push(formatKickoff(match.startAt, now));
+  }
+  if (match.status === 'ended' && match.score !== undefined && match.score.length > 0) {
+    parts.push(match.score);
+  }
   const suffix = line.length > 0 ? ` (${line})` : '';
-  return `${tag} ${match.title}${suffix}`;
+  return `${parts.join(' ')}${suffix}`;
 }
 
 /**
@@ -65,13 +99,16 @@ function entryLabel(match: LiveMatch, line: string): string {
  * @param matches 赛事列表
  * @return 有序分组
  */
-function collectGroups(matches: readonly LiveMatch[]): Array<{ group: string; items: Array<[string, string]> }> {
+function collectGroups(
+  matches: readonly LiveMatch[],
+  now: number,
+): Array<{ group: string; items: Array<[string, string]> }> {
   const order: string[] = [];
   const buckets = new Map<string, Array<[string, string]>>();
 
   for (const match of matches) {
     for (const variant of match.variants) {
-      const label = entryLabel(match, variant.line);
+      const label = entryLabel(match, variant.line, now);
       const group = groupLabel(match);
       let bucket = buckets.get(group);
       if (bucket === undefined) {
@@ -92,8 +129,8 @@ function collectGroups(matches: readonly LiveMatch[]): Array<{ group: string; it
  * @param matches 赛事列表
  * @return TXT 文本（以单个 `\n` 结尾）
  */
-export function renderLiveTxt(matches: readonly LiveMatch[]): string {
-  const groups = collectGroups(matches);
+export function renderLiveTxt(matches: readonly LiveMatch[], now: number = Date.now()): string {
+  const groups = collectGroups(matches, now);
   const lines: string[] = [];
   let isFirst = true;
 
@@ -120,7 +157,7 @@ export function renderLiveTxt(matches: readonly LiveMatch[]): string {
  * @param matches 赛事列表
  * @return M3U 文本
  */
-export function renderLiveM3u(matches: readonly LiveMatch[]): string {
+export function renderLiveM3u(matches: readonly LiveMatch[], now: number = Date.now()): string {
   const lines: string[] = ['#EXTM3U'];
   for (const match of matches) {
     for (const variant of match.variants) {
@@ -128,7 +165,7 @@ export function renderLiveM3u(matches: readonly LiveMatch[]): string {
       if (match.logo !== undefined && match.logo.length > 0) {
         attributes.unshift(`tvg-logo="${match.logo}"`);
       }
-      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${entryLabel(match, variant.line)}`);
+      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${entryLabel(match, variant.line, now)}`);
       lines.push(variant.url);
     }
   }
@@ -185,6 +222,21 @@ export async function emitLive(
     };
   }
 
+  // 赛程回填：只查当前清单里真出现过的大联赛（免费接口有频率限制，别乱打）
+  const leagues = [...new Set(outcome.matches.map((match) => match.league))]
+    .filter((league) => LEAGUE_IDS[league] !== undefined);
+  let scheduleHit = 0;
+  if (leagues.length > 0) {
+    const events = await fetchSchedule(leagues, {
+      ...(options.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl }),
+    });
+    scheduleHit = attachSchedule(outcome.matches, events);
+    if (scheduleHit > 0) {
+      // 补上时间后顺序会变（同状态内按开赛时间排），重排一次
+      outcome.matches.sort(compareMatches);
+    }
+  }
+
   const txt = renderLiveTxt(outcome.matches);
   const m3u = renderLiveM3u(outcome.matches);
   if (txt.length === 0) {
@@ -198,7 +250,8 @@ export async function emitLive(
   const liveCount = outcome.matches.filter((match) => match.status === 'live').length;
   log.info(
     'live',
-    `写出 ${txtPath}，${outcome.matches.length} 场赛事 / ${variantCount} 条线路（直播中 ${liveCount} 场），对外地址 ${outcome.publicBase}`,
+    `写出 ${txtPath}，${outcome.matches.length} 场赛事 / ${variantCount} 条线路（直播中 ${liveCount} 场，`
+      + `赛程命中 ${scheduleHit} 场），对外地址 ${outcome.publicBase}`,
   );
   return { ok: true, matches: outcome.matches };
 }

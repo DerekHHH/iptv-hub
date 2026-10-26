@@ -17,7 +17,7 @@
 import { networkInterfaces } from 'node:os';
 
 import { WUDALIANSAI } from '../config';
-import { detectLeague, leagueRank } from '../data/live-leagues';
+import { detectLeague, flatLeagueRank } from '../data/live-leagues';
 import { parseM3U } from '../parse/parseM3U';
 import type { Stream } from '../types';
 import { describeError, fetchText } from '../util/http';
@@ -46,6 +46,15 @@ export interface LiveMatch {
   status: LiveStatus;
   /** 台标 */
   logo?: string;
+  /**
+   * 开赛时间（epoch 毫秒，UTC 基准）。
+   *
+   * 上游 m3u 不含时间，这个字段由**第三方赛程**回填（见 `src/sources/schedule.ts`），
+   * 只有能对上大联赛赛程的比赛才有值。
+   */
+  startAt?: number;
+  /** 比分（`112-123`），同样来自赛程回填，完场才有 */
+  score?: string;
   /** 线路（已按画质优先排序） */
   variants: LiveVariant[];
 }
@@ -444,8 +453,8 @@ export function compareMatches(left: LiveMatch, right: LiveMatch): number {
   if (left.category !== right.category) {
     return left.category < right.category ? -1 : 1;
   }
-  // 同一分类内按联赛顺序排（NBA 在 CBA 前，五大联赛在前，「其他联赛」最后）
-  const leagueDiff = leagueRank(left.category, left.league) - leagueRank(right.category, right.league);
+  // 分组已改成一级平铺，排序直接按全局联赛顺序（NBA 在 CBA 前，兜底最后）
+  const leagueDiff = flatLeagueRank(left.league) - flatLeagueRank(right.league);
   if (leagueDiff !== 0) {
     return leagueDiff;
   }
@@ -455,6 +464,10 @@ export function compareMatches(left: LiveMatch, right: LiveMatch): number {
   const statusDiff = STATUS_WEIGHT[left.status] - STATUS_WEIGHT[right.status];
   if (statusDiff !== 0) {
     return statusDiff;
+  }
+  // 同状态内能拿到开赛时间的按时间排（早的在前），拿不到的按标题排
+  if (left.startAt !== undefined && right.startAt !== undefined && left.startAt !== right.startAt) {
+    return left.startAt - right.startAt;
   }
   return left.title < right.title ? -1 : left.title > right.title ? 1 : 0;
 }
