@@ -60,7 +60,7 @@ for f in wdl-on.sh wdl-off.sh wdl-watchdog.sh; do
 done
 
 # 单入口：wdl on|off|status
-cat >"$BIN/wdl.sh" <<'EOF'
+cat >"$BIN/wdl" <<'EOF'
 #!/data/data/com.termux/files/usr/bin/bash
 # 赛事服务开关：wdl on | off | status
 # 判据用端口和心跳文件，不用 pgrep —— Termux 看不到别的 uid 的进程
@@ -99,8 +99,9 @@ case "${1:-status}" in
   *) echo "用法: wdl on|off|status" ;;
 esac
 EOF
-chmod 755 "$BIN/wdl.sh"
-echo "  ~/bin/wdl.sh（wdl on / off / status）"
+chmod 755 "$BIN/wdl"
+ln -sf "$BIN/wdl" "$BIN/wdl.sh"
+echo "  ~/bin/wdl（wdl on / off / status）"
 
 echo "=== 3. 写开机脚本（供 Termux:Boot 调用）==="
 mkdir -p "$BOOT"
@@ -118,13 +119,20 @@ echo "  ~/.termux/boot/start-iptv.sh"
 
 echo "=== 4. 挂钩 .bashrc（打开 Termux 就自动跑）==="
 touch "$HOME_DIR/.bashrc"
-# 先删掉旧块（带标记），再写新的，保证重复执行能更新
-if grep -q 'iptv-autostart-begin' "$HOME_DIR/.bashrc" 2>/dev/null; then
-  awk '/iptv-autostart-begin/{skip=1; next} /iptv-autostart-end/{skip=0; next} !skip{print}' \
+# 清理历史上所有 iptv 相关行（早期的版本没有 begin/end 标记，直接用
+# /data/local/tmp 的二进制启动 —— 那条路径在 Termux 里必然失败，会刷屏报错）
+if grep -qE 'iptv-autostart|/data/local/tmp/wudaliansai|/data/local/tmp/wdl-watchdog' "$HOME_DIR/.bashrc" 2>/dev/null; then
+  grep -vE 'iptv-autostart|/data/local/tmp/wudaliansai|/data/local/tmp/wdl-watchdog' \
     "$HOME_DIR/.bashrc" >"$HOME_DIR/.bashrc.tmp" && mv "$HOME_DIR/.bashrc.tmp" "$HOME_DIR/.bashrc"
+  echo "  已清理旧钩子"
 fi
 cat >>"$HOME_DIR/.bashrc" <<'EOF'
 # iptv-autostart-begin
+# 把 ~/bin 加进 PATH，这样直接敲 wdl 就行（不用写 bash ~/bin/wdl.sh）
+case ":$PATH:" in
+  *"$HOME/bin"*) ;;
+  *) export PATH="$HOME/bin:$PATH" ;;
+esac
 # 打开 Termux 就确保赛事服务和看门狗在跑（后台静默）
 pgrep -f '[w]dl-watchdog' >/dev/null 2>&1 \
   || setsid bash "$HOME/bin/wdl-watchdog.sh" >/dev/null 2>&1 &
