@@ -217,7 +217,10 @@ export async function emitLive(
   //
   // 例外：**手机自己用影视仓播放**时，127.0.0.1 恰恰是最稳的地址（不依赖 Wi-Fi）。
   // 这种情况用 IPTV_ALLOW_LOOPBACK_BASE=1 显式放行，默认行为保持不变。
-  const allowLoopback = (options.env?.IPTV_ALLOW_LOOPBACK_BASE ?? '').trim() === '1';
+  // 注意：这里必须默认读 **process.env**。流水线（liveOnly.ts）调用 emitLive 时不传
+  // env，只写在命令行前缀上的 IPTV_ALLOW_LOOPBACK_BASE 会被漏掉，开关等于失效。
+  const env = options.env ?? process.env;
+  const allowLoopback = (env.IPTV_ALLOW_LOOPBACK_BASE ?? '').trim() === '1';
   if (!allowLoopback && isLoopbackBase(outcome.publicBase)) {
     return {
       ok: false,
