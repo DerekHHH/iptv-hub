@@ -254,12 +254,32 @@ export async function emitLive(
   await writeTextFile(txtPath, txt);
   await writeTextFile(m3uPath, m3u);
 
+  // 影视仓 / TVBox 的「配置地址」要的是 **JSON**，直接填 m3u 会解析失败（表现为超时/加载失败）。
+  // 这里顺手产出一份最小可用配置：lives 指向本机网页服务上的 m3u。
+  const servePort = (env.SERVE_PORT ?? '18080').trim() || '18080';
+  const webBase = `${outcome.publicBase.replace(/:\d+$/, '')}:${servePort}`;
+  const tvboxConfig = {
+    sites: [],
+    lives: [
+      {
+        name: '赛事',
+        type: 0,
+        url: `${webBase}/live/live.m3u`,
+        playerType: 1,
+        ua: '',
+        epg: '',
+      },
+    ],
+  };
+  const configPath = m3uPath.replace(/live\.m3u$/, 'config.json');
+  await writeTextFile(configPath, `${JSON.stringify(tvboxConfig, null, 2)}\n`);
+
   const variantCount = outcome.matches.reduce((total, match) => total + match.variants.length, 0);
   const liveCount = outcome.matches.filter((match) => match.status === 'live').length;
   log.info(
     'live',
     `写出 ${txtPath}，${outcome.matches.length} 场赛事 / ${variantCount} 条线路（直播中 ${liveCount} 场，`
-      + `赛程命中 ${scheduleHit} 场），对外地址 ${outcome.publicBase}`,
+      + `赛程命中 ${scheduleHit} 场），对外地址 ${outcome.publicBase}，影视仓配置 ${configPath}`,
   );
   return { ok: true, matches: outcome.matches };
 }

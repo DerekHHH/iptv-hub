@@ -455,3 +455,26 @@ describe('回环基址的显式放行（手机自己用影视仓播放）', () =
     rmSync(`${tmpdir()}/live-loopback-ok.m3u`, { force: true });
   });
 });
+
+describe('影视仓配置（TVBox 的「配置地址」要 JSON）', () => {
+  it('生成 config.json，lives 指向网页服务上的 m3u', async () => {
+    const ok: typeof fetch = () => Promise.resolve(new Response(SAMPLE, { status: 200 }));
+    const dir = `${tmpdir()}/live-cfg`;
+    const outcome = await emitLive({
+      fetchImpl: ok,
+      env: { WUDALIANSAI_PUBLIC_BASE: 'http://127.0.0.1:18765', IPTV_ALLOW_LOOPBACK_BASE: '1' },
+      txtPath: `${dir}/live.txt`,
+      m3uPath: `${dir}/live.m3u`,
+    });
+    expect(outcome.ok).toBe(true);
+    const config = JSON.parse(readFileSync(`${dir}/config.json`, 'utf8')) as {
+      sites: unknown[];
+      lives: Array<{ url: string; type: number }>;
+    };
+    expect(config.sites).toEqual([]);
+    expect(config.lives).toHaveLength(1);
+    // 端口要换成网页服务的 18080（不是赛事服务的 18765）
+    expect(config.lives[0].url).toBe('http://127.0.0.1:18080/live/live.m3u');
+    expect(config.lives[0].type).toBe(0);
+  });
+});
