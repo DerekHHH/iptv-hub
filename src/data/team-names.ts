@@ -50,6 +50,8 @@ export const TEAM_ALIASES: Readonly<Record<string, Readonly<Record<string, strin
     奇才: 'wizards',
     巫师: 'wizards',
     // CBA 20 队
+    // 上游常只写城市（`上海 vs 广东`），所以城市简称也得收一份。
+    // 对不上就只是没时间，不会错标，安全。
     广东宏远: 'guangdong',
     宏远: 'guangdong',
     东莞大益: 'guangdong',
@@ -83,6 +85,24 @@ export const TEAM_ALIASES: Readonly<Record<string, Readonly<Record<string, strin
     吉林九台农商: 'jilin northeast tigers',
     九台农商: 'jilin northeast tigers',
     八一南昌: 'bayi rockets',
+    // 城市简称（上游只写城市时用）
+    上海: 'shanghai sharks',
+    广东: 'guangdong',
+    辽宁: 'liaoning',
+    浙江: 'zhejiang',
+    深圳: 'shenzhen',
+    山东: 'shandong',
+    江苏: 'jiangsu',
+    天津: 'tianjin',
+    广州: 'guangzhou',
+    山西: 'shanxi',
+    新疆: 'xinjiang',
+    青岛: 'qingdao',
+    福建: 'fujian',
+    四川: 'sichuan',
+    宁波: 'ningbo',
+    吉林: 'jilin',
+    同曦: 'tongxi',
   },
   足球: {
     // 英超

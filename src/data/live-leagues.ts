@@ -257,6 +257,40 @@ const KEYWORD_INDEX: Readonly<Record<string, readonly LeagueKeyword[]>> = (() =>
  *   - 「CB米拉U20」含 U20 → 青年队
  * 这些队一律归到「其他联赛」。
  */
+/**
+ * 篮球的「非 NBA/CBA 联赛」队名标记。
+ *
+ * ## 为什么必须有这张表
+ * NBA/CBA 的队名表里存的是**短词**（`勇士`、`雷霆`、`开拓者`、`国王`、`老鹰`），
+ * 因为上游只写「国王 vs 灰熊」这种短名。但亚洲/大洋洲联赛的球队名恰好含这些词：
+ *   `信州勇士`（日本 B.League）、`川崎雷霆勇者`（日本）、`CSB开拓者`（菲律宾 PBA）
+ * 于是这些比赛会被 `includes` 判成 NBA —— 实测就出过这个事故：
+ * NBA 目录下全是日本、菲律宾、印尼的球。
+ *
+ * ## 规则
+ * 命中这里任何一个标记 → **直接判「其他联赛」，不再往下判**。
+ * 用「球队全名」而不是「城市」做标记，减少误伤（`东京`太泛，`东京电击`才准）。
+ */
+const BASKETBALL_FOREIGN_MARKERS: readonly string[] = [
+  // 日本 B.League
+  '宇都宫', '千叶喷射', '琉球黄金', '名古屋钻石', '大阪七福', '京都汉尼斯',
+  '岛根须佐', '横滨海盗', '川崎雷霆', '信州勇士', '神户鹳鸟', '东京电击',
+  '北海道雷神', '秋田北部', '富山松鸡', '新潟天鹅', '滋贺湖星', '三远新',
+  '佐贺气球', '长崎维尔', '福冈新锐', '群马雷鹤', '茨城机器人', '青森',
+  '山形飞龙', '福岛火绊', '西宫', '越谷', '仙台', '东京阳光', '涩谷',
+  // 菲律宾 PBA / MPBL
+  '玛布亚', 'CSB', '生力', '巴朗加', '马尼拉', '菲律宾',
+  // 印尼 IBL
+  '雅加达', '印尼', '孟加拉', '太平洋凯撒',
+  // 韩国 KBL
+  '首尔SK', '安养', '蔚山现代', '昌原', '原州', '釜山KCC', '大邱', '高阳', '水原',
+  // 中国台北 PLG / T1
+  '台北富邦', '新北国王', '桃园领航', '新竹攻城', '高雄海神', '台新梦想',
+  // 澳洲 NBL
+  '悉尼国王', '墨尔本联', '珀斯野猫', '布里斯班', '凯恩斯', '伊拉瓦拉',
+  '塔斯马尼亚', '阿德莱德', '东南墨尔本',
+];
+
 const RESERVE_MARKERS: readonly string[] = [
   '足校', '财经', '大学', '学院', '学校', '体彩', '青年队', '青年', '预备',
   'U19', 'U20', 'U21', 'U22', 'U23', 'U25',
@@ -326,9 +360,15 @@ function matchTeam(category: string, team: string): TeamMatch {
   // 按长度比会打平，结果保留「中超」——所以标记命中就直接作废具体联赛。
   const isReserveTeam = RESERVE_MARKERS.some((marker) => team.includes(marker));
 
+  // 篮球：命中亚洲/大洋洲联赛的队名标记 → 直接归「其他联赛」。
+  // 这条必须在长度比较之前 —— `信州勇士` 里「勇士」(2 字，NBA) 和「信州勇士」(4 字)
+  // 都能命中，但真正的问题是它压根不是 NBA 球队，跟关键词长短无关。
+  const isForeignBasketball =
+    category === '篮球' && BASKETBALL_FOREIGN_MARKERS.some((marker) => team.includes(marker));
+
   // 「其他联赛」的关键词更长 → 这个队确实不属于我们追踪的联赛，
   // 之前那个短关键词命中是子串误命中，作废。
-  if (isReserveTeam || otherLength > specificLength) {
+  if (isForeignBasketball || isReserveTeam || otherLength > specificLength) {
     specific = undefined;
   }
 

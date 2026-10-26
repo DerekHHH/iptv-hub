@@ -29,6 +29,8 @@ const STATUS_TAG: Readonly<Record<LiveStatus, string>> = {
   upcoming: '[未开始]',
   unavailable: '[暂无直播]',
   ended: '[完场]',
+  // 上游没给状态（只有线路名）且我们又推不出来 —— 宁可什么都不标，也不瞎标
+  unknown: '',
 };
 
 /**
@@ -82,7 +84,9 @@ export function formatKickoff(startAt: number, now: number): string {
  * @return 名条
  */
 function entryLabel(match: LiveMatch, line: string, now: number): string {
-  const parts = [STATUS_TAG[match.status], match.title];
+  const tag = STATUS_TAG[match.status];
+  // tag 可能是空串（状态未知），这时不要留个多余空格
+  const parts = tag.length > 0 ? [tag, match.title] : [match.title];
   if (match.startAt !== undefined) {
     parts.push(formatKickoff(match.startAt, now));
   }
@@ -245,7 +249,7 @@ export async function emitLive(
     const events = await fetchSchedule(leagues, {
       ...(options.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl }),
     });
-    scheduleHit = attachSchedule(outcome.matches, events);
+    scheduleHit = attachSchedule(outcome.matches, events, Date.now());
     if (scheduleHit > 0) {
       // 补上时间后顺序会变（同状态内按开赛时间排），重排一次
       outcome.matches.sort(compareMatches);

@@ -51,13 +51,13 @@ describe('splitTitle / toStatus', () => {
     expect(splitTitle('湖人 vs 勇士')).toEqual({ title: '湖人 vs 勇士', suffix: '' });
   });
 
-  it('只有状态后缀算非直播，线路后缀算直播中', () => {
+  it('只有状态后缀算状态，线路后缀算未知', () => {
     expect(toStatus('完场')).toBe('ended');
     expect(toStatus('未开赛')).toBe('upcoming');
     expect(toStatus('暂无直播')).toBe('unavailable');
-    expect(toStatus('高清')).toBe('live');
-    expect(toStatus('赛场原声')).toBe('live');
-    expect(toStatus('')).toBe('live');
+    expect(toStatus('高清')).toBe('unknown');
+    expect(toStatus('赛场原声')).toBe('unknown');
+    expect(toStatus('')).toBe('unknown');
   });
 });
 
@@ -207,7 +207,7 @@ describe('parseLiveM3u', () => {
     const lakers = matches.find((match) => match.title === '湖人 vs 勇士');
     expect(lakers).toBeDefined();
     expect(lakers?.variants.map((variant) => variant.line)).toEqual(['高清', '赛场原声']);
-    expect(lakers?.status).toBe('live');
+    expect(lakers?.status).toBe('unknown');
   });
 
   it('把播放地址改写成对外基址', () => {
@@ -230,7 +230,7 @@ describe('parseLiveM3u', () => {
   it('直播中的场次排在完场之前', () => {
     const matches = parseLiveM3u(SAMPLE, BASE);
     const basketball = matches.filter((match) => match.category === '篮球');
-    expect(basketball[0].status).toBe('live');
+    expect(basketball[0].status).toBe('unknown');
     expect(basketball[basketball.length - 1].status).toBe('ended');
   });
 
@@ -332,10 +332,13 @@ describe('renderLiveTxt / renderLiveM3u', () => {
     expect(groups).not.toContain('高清');
   });
 
-  it('条目名统一带状态前缀，线路名进括号', () => {
+  it('有状态才标前缀，只有线路名时不标（不瞎猜状态）', () => {
     const text = renderLiveTxt(matches);
-    expect(text).toContain('[比赛中] 湖人 vs 勇士 (赛场原声)');
-    expect(text).toContain('[比赛中] 湖人 vs 勇士 (高清)');
+    // `|赛场原声` / `|高清` 是线路名，不是状态 → 不标前缀
+    expect(text).toContain('湖人 vs 勇士 (赛场原声)');
+    expect(text).toContain('湖人 vs 勇士 (高清)');
+    expect(text).not.toContain('[比赛中] 湖人 vs 勇士');
+    // `|完场` 是明确状态 → 照常标
     expect(text).toContain('[完场] 灰熊 vs 爵士');
   });
 
@@ -366,7 +369,7 @@ describe('renderLiveTxt / renderLiveM3u', () => {
 
   it('TXT 频道行是「名条,地址」，名条带状态前缀与线路名', () => {
     const lines = renderLiveTxt(matches).split('\n');
-    expect(lines).toContain(`[比赛中] 湖人 vs 勇士 (高清),${BASE}/play/bbb`);
+    expect(lines).toContain(`湖人 vs 勇士 (高清),${BASE}/play/bbb`);
     expect(lines).toContain(`[完场] 灰熊 vs 爵士,${BASE}/play/ccc`);
   });
 
@@ -503,5 +506,28 @@ describe('m3u 必须带 tvg-name（影视仓靠它建频道名）', () => {
       const tail = entry.slice(entry.lastIndexOf(',') + 1);
       expect(attr).toBe(tail);
     }
+  });
+});
+
+describe('篮球分类：外国联赛不能被判成 NBA（真实事故回归）', () => {
+  it('日本 B.League 的「信州勇士」不是 NBA 勇士', () => {
+    expect(detectLeague('篮球', '信州勇士 vs 神户鹳鸟')).toBe(OTHER_LEAGUE);
+    expect(detectLeague('篮球', '宇都宫皇者 vs 川崎雷霆勇者')).toBe(OTHER_LEAGUE);
+  });
+
+  it('菲律宾 / 印尼联赛也归其他', () => {
+    expect(detectLeague('篮球', 'CSB开拓者 vs 玛布亚红雀')).toBe(OTHER_LEAGUE);
+    expect(detectLeague('篮球', '雅加达明灯 vs 孟加拉骑士')).toBe(OTHER_LEAGUE);
+  });
+
+  it('真 NBA 仍然判 NBA', () => {
+    expect(detectLeague('篮球', '国王 vs 灰熊')).toBe('NBA');
+    expect(detectLeague('篮球', '76人 vs 活塞')).toBe('NBA');
+    expect(detectLeague('篮球', '尼克斯 vs 魔术')).toBe('NBA');
+  });
+
+  it('真 CBA 仍然判 CBA', () => {
+    expect(detectLeague('篮球', '上海 vs 广东')).toBe('CBA');
+    expect(detectLeague('篮球', '宁波 vs 吉林')).toBe('CBA');
   });
 });

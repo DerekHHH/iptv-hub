@@ -14,6 +14,7 @@ import {
   attachSchedule,
   beijingDate,
   findSchedule,
+  inferStatus,
   parseTimestamp,
   type ScheduleEvent,
 } from '../src/sources/schedule';
@@ -127,5 +128,33 @@ describe('attachSchedule', () => {
     const matches = [base('雷霆 vs 掘金')];
     expect(attachSchedule(matches, [])).toBe(0);
     expect(matches[0].startAt).toBeUndefined();
+  });
+});
+
+describe('按开赛时间推断状态', () => {
+  const now = Date.parse('2026-10-26T10:00:00Z');
+
+  it('还没开始 → upcoming', () => {
+    expect(inferStatus(Date.parse('2026-10-26T12:00:00Z'), now)).toBe('upcoming');
+  });
+
+  it('开赛 3 小时内 → live', () => {
+    expect(inferStatus(Date.parse('2026-10-26T09:00:00Z'), now)).toBe('live');
+  });
+
+  it('超过 3 小时 → ended', () => {
+    expect(inferStatus(Date.parse('2026-10-26T05:00:00Z'), now)).toBe('ended');
+  });
+
+  it('只补 unknown 状态，不覆盖上游明确给的状态', () => {
+    const match: LiveMatch = {
+      category: '篮球',
+      league: 'NBA',
+      title: '雷霆 vs 掘金',
+      status: 'ended',
+      variants: [{ line: '高清', url: 'http://a' }],
+    };
+    attachSchedule([match], [makeEvent({ startAt: Date.parse('2026-10-26T12:00:00Z') })], now);
+    expect(match.status).toBe('ended');
   });
 });

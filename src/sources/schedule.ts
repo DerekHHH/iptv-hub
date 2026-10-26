@@ -254,16 +254,40 @@ export function findSchedule(
   return undefined;
 }
 
+/** 一场球从开赛到「差不多该完」的时长（篮球/足球都用 3 小时兜底）。 */
+const MATCH_DURATION_MS = 3 * 60 * 60 * 1000;
+
 /**
- * 就地给比赛列表补开赛时间与比分。
+ * 按开赛时间推断状态。
+ *
+ * 只在**上游没给状态**（`unknown`）时用 —— 上游明确说了 `完场`/`未开赛` 就以它为准。
+ *
+ * @param startAt 开赛时间（epoch 毫秒）
+ * @param now 当前时间（epoch 毫秒）
+ * @return 推断出的状态
+ */
+export function inferStatus(startAt: number, now: number): LiveMatch['status'] {
+  if (now < startAt) {
+    return 'upcoming';
+  }
+  if (now < startAt + MATCH_DURATION_MS) {
+    return 'live';
+  }
+  return 'ended';
+}
+
+/**
+ * 就地给比赛列表补开赛时间与比分，并顺便推断状态。
  *
  * @param matches 赛事列表（会被就地修改）
  * @param events 赛程事件
+ * @param now 当前时间（epoch 毫秒）
  * @return 命中数量
  */
 export function attachSchedule(
   matches: readonly LiveMatch[],
   events: readonly ScheduleEvent[],
+  now: number = Date.now(),
 ): number {
   if (events.length === 0) {
     return 0;
@@ -280,6 +304,10 @@ export function attachSchedule(
     match.startAt = event.startAt;
     if (event.homeScore !== undefined && event.awayScore !== undefined) {
       match.score = `${event.homeScore}-${event.awayScore}`;
+    }
+    // 上游没给状态时，用赛程时间把状态补上（大联赛才有这个待遇）
+    if (match.status === 'unknown') {
+      match.status = inferStatus(event.startAt, now);
     }
     hit += 1;
   }

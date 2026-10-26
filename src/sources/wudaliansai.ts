@@ -24,7 +24,7 @@ import { describeError, fetchText } from '../util/http';
 import { log } from '../util/logger';
 
 /** 赛事状态：直播中 / 未开赛 / 暂无直播 / 已结束。 */
-export type LiveStatus = 'live' | 'upcoming' | 'unavailable' | 'ended';
+export type LiveStatus = 'live' | 'upcoming' | 'unavailable' | 'ended' | 'unknown';
 
 /** 同一场比赛的一条线路。 */
 export interface LiveVariant {
@@ -80,9 +80,10 @@ export interface PublicBaseOutcome {
 /** 状态优先级：数字越小越靠前。 */
 const STATUS_WEIGHT: Readonly<Record<LiveStatus, number>> = {
   live: 0,
-  upcoming: 1,
-  unavailable: 2,
-  ended: 3,
+  unknown: 1,
+  upcoming: 2,
+  unavailable: 3,
+  ended: 4,
 };
 
 /** 线路优先级（`高清` 排第一，播放器默认选它）。 */
@@ -364,7 +365,11 @@ export function toStatus(suffix: string): LiveStatus {
   if (suffix === '暂无直播') {
     return 'unavailable';
   }
-  return 'live';
+  // 关键：`|高清`、`|赛场原声` 这些后缀是**线路名**，不是状态。
+  // 上游只对部分条目给状态后缀，剩下的只有线路名 —— 这种情况我们**并不知道**它是否在打，
+  // 一律 unknown（名条上不标状态），绝不能默认成「比赛中」。
+  // 实测事故：CBA 还没开打就被标「[比赛中]」。
+  return 'unknown';
 }
 
 /**
