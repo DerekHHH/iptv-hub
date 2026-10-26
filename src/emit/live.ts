@@ -161,11 +161,18 @@ export function renderLiveM3u(matches: readonly LiveMatch[], now: number = Date.
   const lines: string[] = ['#EXTM3U'];
   for (const match of matches) {
     for (const variant of match.variants) {
-      const attributes = [`group-title="${groupLabel(match)}"`];
+      const label = entryLabel(match, variant.line, now);
+      // tvg-name **必须写**：影视仓/TVBox 系的 m3u 解析器靠它建频道名，
+      // 缺了会解析出 0 个频道（现象是"加载失败"并连续重试），而服务端看起来一切正常。
+      // 上游原始列表里也是带 tvg-name 的，这里对齐它。
+      const attributes = [
+        `tvg-name="${label.replace(/"/g, "'")}"`,
+        `group-title="${groupLabel(match)}"`,
+      ];
       if (match.logo !== undefined && match.logo.length > 0) {
         attributes.unshift(`tvg-logo="${match.logo}"`);
       }
-      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${entryLabel(match, variant.line, now)}`);
+      lines.push(`#EXTINF:-1 ${attributes.join(' ')},${label}`);
       lines.push(variant.url);
     }
   }

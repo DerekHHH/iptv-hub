@@ -478,3 +478,30 @@ describe('影视仓配置（TVBox 的「配置地址」要 JSON）', () => {
     expect(config.lives[0].type).toBe(0);
   });
 });
+
+describe('m3u 必须带 tvg-name（影视仓靠它建频道名）', () => {
+  it('每条 EXTINF 都有 tvg-name，且和逗号后的名字一致', () => {
+    const sample: LiveMatch[] = [
+      {
+        category: '篮球',
+        league: 'NBA',
+        title: '湖人 vs 勇士',
+        status: 'live',
+        logo: 'http://logo/a.png',
+        variants: [
+          { line: '高清', url: `${BASE}/play/aaa` },
+          { line: '赛场原声', url: `${BASE}/play/bbb` },
+        ],
+      },
+    ];
+    const m3u = renderLiveM3u(sample);
+    const entries = m3u.split('\n').filter((line) => line.startsWith('#EXTINF'));
+    expect(entries.length).toBeGreaterThan(0);
+    for (const entry of entries) {
+      expect(entry).toContain('tvg-name="');
+      const attr = /tvg-name="([^"]*)"/.exec(entry)?.[1];
+      const tail = entry.slice(entry.lastIndexOf(',') + 1);
+      expect(attr).toBe(tail);
+    }
+  });
+});
