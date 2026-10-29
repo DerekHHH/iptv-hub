@@ -531,3 +531,13 @@ describe('篮球分类：外国联赛不能被判成 NBA（真实事故回归）
     expect(detectLeague('篮球', '宁波 vs 吉林')).toBe('CBA');
   });
 });
+
+describe('足球：MLS 不能被判成意甲', () => {
+  it('亚特兰大联 ≠ 意甲亚特兰大', () => {
+    expect(detectLeague('足球', '纽约城 vs 亚特兰大联')).toBe(OTHER_LEAGUE);
+  });
+
+  it('真意甲仍然是意甲', () => {
+    expect(detectLeague('足球', '国际米兰 vs 亚特兰大')).toBe('意甲');
+  });
+});

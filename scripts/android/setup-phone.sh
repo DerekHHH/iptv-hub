@@ -133,9 +133,11 @@ case ":$PATH:" in
   *"$HOME/bin"*) ;;
   *) export PATH="$HOME/bin:$PATH" ;;
 esac
-# 打开 Termux 就确保赛事服务和看门狗在跑（后台静默）
-pgrep -f '[w]dl-watchdog' >/dev/null 2>&1 \
-  || setsid bash "$HOME/bin/wdl-watchdog.sh" >/dev/null 2>&1 &
+# 打开 Termux 就确保看门狗在跑。
+# **不要**写成 `pgrep ... || setsid ... &` —— `A || B &` 是把整个列表放后台，
+# 并发开多个会话时会全部判成"没有"，结果起出多个看门狗互相踢服务。
+# 看门狗自己有 PID 锁，重复执行会自己退出，所以直接起就行。
+setsid bash "$HOME/bin/wdl-watchdog.sh" >/dev/null 2>&1 &
 # iptv-autostart-end
 EOF
 echo "  已写入（带 begin/end 标记，可重复执行）"
