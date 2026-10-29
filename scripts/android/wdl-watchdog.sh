@@ -48,8 +48,28 @@ LOCKDIR="$LOGDIR/wdl-watchdog.lock.d"
 STALE_MIN="${WDL_STALE_MIN:-30}"
 # 两次重建的最小间隔（分钟），避免重建一直失败时每轮狂打
 REBUILD_COOLDOWN_MIN=5
-# 写进产物的对外基址；手机自播用 127.0.0.1，要让电视看就传 Wi-Fi IP
-PUB_BASE="${WDL_PUB_BASE:-http://127.0.0.1:18765}"
+# 写进产物的对外基址。
+# **默认自动探测 Wi-Fi IP**：影视仓这类播放器在取流时可能拒绝 127.0.0.1
+# （列表能加载、点开播不了，就是这个现象）。用局域网 IP 最保险，
+# 而且手机自己访问自己的 Wi-Fi IP 也是通的。探测不到才退回回环。
+if [ -n "${WDL_PUB_BASE:-}" ]; then
+  PUB_BASE="$WDL_PUB_BASE"
+else
+  # **不能用 `ip` 命令**：Termux 里根本没装（command not found），
+  # Android 自带的 /system/bin/ip 又报 "Cannot bind netlink socket: Permission denied"。
+  # Node 的 os.networkInterfaces() 反而能正常读到网卡，所以借它来探测。
+  WIFI_IP=$(cd "$WEB_DIR" 2>/dev/null && node -e "
+const os = require('os');
+const list = os.networkInterfaces().wlan0 || [];
+const v4 = list.find((a) => a.family === 'IPv4' && !a.internal);
+process.stdout.write(v4 ? v4.address : '');
+" 2>/dev/null)
+  if [ -n "$WIFI_IP" ]; then
+    PUB_BASE="http://$WIFI_IP:18765"
+  else
+    PUB_BASE="http://127.0.0.1:18765"
+  fi
+fi
 
 log() {
   echo "$(date '+%m-%d %H:%M:%S') $*" >>"$WD_LOG"
@@ -171,7 +191,10 @@ while true; do
   if ! port_open "$WEB_PORT"; then
     if [ -f "$WEB_DIR/scripts/serve.mjs" ]; then
       log "网页服务不通，拉起 serve.mjs"
-      ( cd "$WEB_DIR" && IPTV_ALLOW_LOOPBACK_BASE=1 WUDALIANSAI_PUBLIC_BASE="$PUB_BASE" \
+      # SERVE_HOST=0.0.0.0：让同一局域网里的电视也能取列表；
+      # 本机用 127.0.0.1 访问依然有效。
+      ( cd "$WEB_DIR" && SERVE_HOST=0.0.0.0 \
+          IPTV_ALLOW_LOOPBACK_BASE=1 WUDALIANSAI_PUBLIC_BASE="$PUB_BASE" \
           setsid node scripts/serve.mjs >>"$LOGDIR/serve.log" 2>&1 & )
       sleep 3
     fi
