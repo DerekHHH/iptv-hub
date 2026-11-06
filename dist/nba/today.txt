@@ -1,57 +1,36 @@
-NBA 直播中,#genre#
-10-23 07:00 骑士 @ 76人（美东 10-22）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
-
 NBA 待播,#genre#
-10-23 09:30 掘金 @ 雷霆（美东 10-22）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
-10-24 04:00 公牛 @ 雄鹿（美东 10-23｜NBA League Pass/MyMi/Bucks App，本仓库暂无对应源）
-10-24 07:00 尼克斯 @ 凯尔特人（美东 10-23｜Prime Video，本仓库暂无对应源）
-10-24 07:00 老鹰 @ 黄蜂（美东 10-23｜NBA League Pass，本仓库暂无对应源）
-10-24 07:00 独行侠 @ 步行者（美东 10-23｜NBA League Pass/KFAA-TV/MavsTV，本仓库暂无对应源）
-10-24 07:00 森林狼 @ 魔术（美东 10-23｜NBA League Pass/DAZN MIN，本仓库暂无对应源）
-10-24 07:00 猛龙 @ 奇才（美东 10-23｜MNMT/NBA League Pass，本仓库暂无对应源）
-10-24 08:00 活塞 @ 热火（美东 10-23｜NBA League Pass，本仓库暂无对应源）
-10-24 09:30 火箭 @ 马刺（美东 10-23｜Prime Video，本仓库暂无对应源）
-10-24 09:30 鹈鹕 @ 爵士（美东 10-23｜NBA League Pass/GCSEN/Pelicans.com/KJZZ-TV/Jazz+，本仓库暂无对应源）
-10-24 10:00 灰熊 @ 勇士（美东 10-23｜NBA League Pass，本仓库暂无对应源）
-10-24 10:00 快船 @ 湖人（美东 10-23｜NBA League Pass/ClipperVision/Spectrum Sports Net/Spectrum Sports Net +，本仓库暂无对应源）
-10-24 10:00 开拓者 @ 国王（美东 10-23｜NBA League Pass/KUNP 16/BlazerVision，本仓库暂无对应源）
-10-25 06:00 热火 @ 黄蜂（美东 10-24｜NBA League Pass，本仓库暂无对应源）
-10-25 07:30 篮网 @ 骑士（美东 10-24）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-10-25 07:30 雄鹿 @ 76人（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
-10-25 08:00 奇才 @ 公牛（美东 10-24｜MNMT/NBA League Pass，本仓库暂无对应源）
-10-25 08:00 马刺 @ 独行侠（美东 10-24｜NBA League Pass/DAZN SAS/KFAA-TV/MavsTV，本仓库暂无对应源）
-10-25 08:30 火箭 @ 老鹰（美东 10-24｜NBA League Pass，本仓库暂无对应源）
-10-25 09:00 鹈鹕 @ 掘金（美东 10-24｜NBA League Pass/GCSEN/Pelicans.com，本仓库暂无对应源）
-10-25 10:00 勇士 @ 太阳（美东 10-24）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
-10-26 05:00 湖人 @ 爵士（美东 10-25｜NBA League Pass/Spectrum Sports Net/Spectrum Sports Net +/KJZZ-TV/Jazz+，本仓库暂无对应源）
-10-26 06:00 步行者 @ 篮网（美东 10-25）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-10-26 07:00 魔术 @ 尼克斯（美东 10-25｜NBA League Pass，本仓库暂无对应源）
-10-26 07:00 猛龙 @ 森林狼（美东 10-25）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
-10-26 07:00 快船 @ 雷霆（美东 10-25｜NBA League Pass/ClipperVision/KSBI/Thunder App，本仓库暂无对应源）
-10-26 07:30 活塞 @ 76人（美东 10-25｜NBA League Pass，本仓库暂无对应源）
-10-26 09:00 灰熊 @ 国王（美东 10-25｜NBA League Pass/DAZN MEM，本仓库暂无对应源）
-10-27 07:00 奇才 @ 黄蜂（美东 10-26｜MNMT/NBA League Pass，本仓库暂无对应源）
-10-27 07:00 森林狼 @ 骑士（美东 10-26｜NBA League Pass/DAZN MIN，本仓库暂无对应源）
-10-27 07:30 公牛 @ 凯尔特人（美东 10-26｜NBA League Pass，本仓库暂无对应源）
-10-27 07:30 独行侠 @ 热火（美东 10-26）,http://23.237.104.106:8080/USA_NBA/index.m3u8#http://rezofoot.tv/NBATV/index.m3u8#http://198.58.104.90:8989/nba/index.m3u8
-10-27 08:00 步行者 @ 雄鹿（美东 10-26｜NBA League Pass/DAZN IND/MyMi/Bucks App，本仓库暂无对应源）
-10-27 08:00 太阳 @ 雷霆（美东 10-26｜NBA League Pass/Suns Live/Arizona's Family 3TV/KSBI/Thunder App，本仓库暂无对应源）
-10-27 08:30 老鹰 @ 火箭（美东 10-26｜NBA League Pass，本仓库暂无对应源）
-10-27 09:00 灰熊 @ 爵士（美东 10-26｜NBA League Pass/DAZN MEM/KJZZ-TV/Jazz+，本仓库暂无对应源）
-10-27 10:00 勇士 @ 掘金（美东 10-26｜NBCSN，本仓库暂无对应源）
-10-28 07:30 篮网 @ 凯尔特人（美东 10-27）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
-10-28 08:00 活塞 @ 尼克斯（美东 10-27｜NBC，本仓库暂无对应源）
-10-28 08:00 国王 @ 马刺（美东 10-27｜NBA League Pass，本仓库暂无对应源）
-10-28 11:00 开拓者 @ 湖人（美东 10-27｜Peacock/NBC/Spectrum Sports Net/Spectrum Sports Net +，本仓库暂无对应源）
-10-29 07:00 热火 @ 老鹰（美东 10-28｜NBA League Pass，本仓库暂无对应源）
-10-29 07:00 奇才 @ 骑士（美东 10-28｜MNMT/NBA League Pass/DAZN CLE，本仓库暂无对应源）
-10-29 07:00 黄蜂 @ 活塞（美东 10-28｜NBA League Pass，本仓库暂无对应源）
-10-29 07:00 76人 @ 步行者（美东 10-28）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
-10-29 07:30 魔术 @ 猛龙（美东 10-28｜NBA League Pass，本仓库暂无对应源）
-10-29 08:00 尼克斯 @ 公牛（美东 10-28｜NBA League Pass，本仓库暂无对应源）
-10-29 08:00 火箭 @ 雄鹿（美东 10-28｜NBA League Pass/MyMi/Bucks App，本仓库暂无对应源）
-10-29 08:00 勇士 @ 森林狼（美东 10-28｜NBA League Pass，本仓库暂无对应源）
-10-29 08:00 掘金 @ 鹈鹕（美东 10-28｜NBA League Pass/GCSEN/Pelicans.com，本仓库暂无对应源）
-10-29 09:00 马刺 @ 爵士（美东 10-28｜NBA League Pass/DAZN SAS/KJZZ-TV/Jazz+，本仓库暂无对应源）
-10-29 09:30 雷霆 @ 独行侠（美东 10-28）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
-10-29 10:30 湖人 @ 快船（美东 10-28｜NBA League Pass/Spectrum Sports Net/Spectrum Sports Net +/KTLA/ClipperVision，本仓库暂无对应源）
+11-09 04:30 76人 @ 公牛（美东 11-08｜暂无转播信息，本仓库暂无对应源）
+11-09 07:00 湖人 @ 活塞（美东 11-08）,http://23.237.104.106:8080/USA_NBA/index.m3u8
+11-09 08:00 爵士 @ 森林狼（美东 11-08｜DAZN MIN/KJZZ-TV/Jazz+，本仓库暂无对应源）
+11-09 08:30 篮网 @ 独行侠（美东 11-08）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
+11-09 09:00 凯尔特人 @ 雄鹿（美东 11-08｜MyMi/Bucks App，本仓库暂无对应源）
+11-09 10:00 鹈鹕 @ 快船（美东 11-08｜ClipperVision/GCSEN/Pelicans.com，本仓库暂无对应源）
+11-09 10:00 热火 @ 国王（美东 11-08｜暂无转播信息，本仓库暂无对应源）
+11-10 08:00 湖人 @ 老鹰（美东 11-09｜Spectrum Sports Net/Spectrum Sports Net +，本仓库暂无对应源）
+11-10 08:00 骑士 @ 黄蜂（美东 11-09｜DAZN CLE，本仓库暂无对应源）
+11-10 08:00 奇才 @ 活塞（美东 11-09｜NBCSN，本仓库暂无对应源）
+11-10 08:30 灰熊 @ 猛龙（美东 11-09｜DAZN MEM，本仓库暂无对应源）
+11-10 09:00 步行者 @ 独行侠（美东 11-09｜KFAA-TV/MavsTV/DAZN IND，本仓库暂无对应源）
+11-10 09:30 掘金 @ 火箭（美东 11-09｜ALT2/KTVD/KUSA-TV (9NEWS)，本仓库暂无对应源）
+11-10 10:00 马刺 @ 太阳（美东 11-09｜Arizona's Family 3TV/Suns Live/DAZN SAS，本仓库暂无对应源）
+11-10 11:00 鹈鹕 @ 勇士（美东 11-09）,http://23.237.104.106:8080/USA_NBA/index.m3u8
+11-11 08:30 雄鹿 @ 尼克斯（美东 11-10｜MyMi/Bucks App，本仓库暂无对应源）
+11-11 09:00 凯尔特人 @ 76人（美东 11-10｜NBC，本仓库暂无对应源）
+11-11 10:00 快船 @ 太阳（美东 11-10｜Suns Live/Arizona's Family 3TV/ClipperVision，本仓库暂无对应源）
+11-11 10:00 热火 @ 爵士（美东 11-10｜KJZZ-TV/Jazz+，本仓库暂无对应源）
+11-11 11:00 魔术 @ 国王（美东 11-10｜暂无转播信息，本仓库暂无对应源）
+11-11 12:00 雷霆 @ 开拓者（美东 11-10｜NBC/KSBI/Thunder App，本仓库暂无对应源）
+11-12 08:00 奇才 @ 步行者（美东 11-11｜MNMT/DAZN IND，本仓库暂无对应源）
+11-12 08:00 骑士 @ 尼克斯（美东 11-11）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+11-12 08:00 凯尔特人 @ 猛龙（美东 11-11｜暂无转播信息，本仓库暂无对应源）
+11-12 09:00 马刺 @ 公牛（美东 11-11｜DAZN SAS，本仓库暂无对应源）
+11-12 09:00 掘金 @ 灰熊（美东 11-11｜暂无转播信息，本仓库暂无对应源）
+11-12 09:00 湖人 @ 雄鹿（美东 11-11｜Spectrum Sports Net/Spectrum Sports Net +/MyMi/Bucks App，本仓库暂无对应源）
+11-12 09:00 篮网 @ 鹈鹕（美东 11-11）,http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
+11-12 10:00 魔术 @ 爵士（美东 11-11｜KJZZ-TV/Jazz+，本仓库暂无对应源）
+11-12 10:30 勇士 @ 火箭（美东 11-11）,http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+11-12 11:00 雷霆 @ 开拓者（美东 11-11｜KUNP 16/BlazerVision/KSBI/Thunder App，本仓库暂无对应源）
+11-13 08:00 猛龙 @ 76人（美东 11-12｜暂无转播信息，本仓库暂无对应源）
+11-13 08:00 活塞 @ 奇才（美东 11-12｜MNMT，本仓库暂无对应源）
+11-13 09:00 独行侠 @ 森林狼（美东 11-12）,http://23.237.104.106:8080/USA_NBA/index.m3u8
+11-13 10:00 黄蜂 @ 太阳（美东 11-12｜Suns Live/Arizona's Family 3TV，本仓库暂无对应源）
