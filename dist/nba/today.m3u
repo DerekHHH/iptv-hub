@@ -1,4 +1,10 @@
 #EXTM3U
+#EXTINF:-1 group-title="NBA",11-08 06:00 掘金 @ 步行者（美东 11-07）(NBA TV)
+http://23.237.104.106:8080/USA_NBA/index.m3u8
+#EXTINF:-1 group-title="NBA",11-08 08:30 篮网 @ 老鹰（美东 11-07）(DAZN (YES))
+http://23.237.104.106:8080/USA_YES_NETWORK/index.m3u8
+#EXTINF:-1 group-title="NBA",11-08 09:00 尼克斯 @ 骑士（美东 11-07）(NBA TV)
+http://23.237.104.106:8080/USA_NBA/index.m3u8
 #EXTINF:-1 group-title="NBA",11-09 07:00 湖人 @ 活塞（美东 11-08）(NBA TV)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
 #EXTINF:-1 group-title="NBA",11-09 08:30 篮网 @ 独行侠（美东 11-08）(DAZN (YES))
